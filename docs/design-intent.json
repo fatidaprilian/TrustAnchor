@@ -1,0 +1,352 @@
+{
+  "mode": "project-specific",
+  "status": "refined-for-zero-based-redesign",
+  "project": {
+    "name": "TrustAnchor",
+    "domain": "Anti-counterfeit certificate issuance and verification web application",
+    "routesInScope": [
+      "/",
+      "/login",
+      "/verify/[verificationCode]"
+    ],
+    "confirmedContext": [
+      "Used by education institutions and government agencies",
+      "Combines digital signatures, double encryption, audit logging, and instant verification",
+      "Runs on Next.js App Router with TypeScript"
+    ],
+    "assumptionsToValidate": [
+      "Public verification may safely show the currently documented public fields",
+      "A login gateway is enough for the first admin-facing redesign slice"
+    ]
+  },
+  "repoEvidence": {
+    "designEvidenceSummary": {
+      "currentFrontendShape": "Small App Router UI with home, login, and verification pages",
+      "resetRequested": true,
+      "existingUiUsedAsVisualReference": false,
+      "existingUiUsedAsBehaviorReference": true
+    }
+  },
+  "visualResetStrategy": {
+    "mode": "zero-based",
+    "discardedVisualDna": [
+      "frosted glass panels",
+      "teal and brass palette",
+      "balanced three-column hero layout",
+      "generic rounded card repetition"
+    ],
+    "newDirection": [
+      "forensic light table anchor",
+      "bone, ink, cobalt, signal-lime palette",
+      "layered dossier surfaces",
+      "report-style verification result"
+    ]
+  },
+  "designPhilosophy": "TrustAnchor should read like a civic verification instrument. The UI must make evidence legible, turn verification into the clearest action, and avoid default dashboard or startup-marketing habits.",
+  "brandAdjectives": [
+    "civic",
+    "forensic",
+    "authoritative",
+    "precise",
+    "assuring"
+  ],
+  "antiAdjectives": [
+    "generic",
+    "playful",
+    "luxury-coded",
+    "template-first",
+    "glassmorphism-default"
+  ],
+  "conceptualAnchor": {
+    "name": "Forensic Light Table",
+    "sourceDomain": "scientific-instrumentation-and-archival-examination",
+    "rationale": "The product exists to examine authenticity and expose trust evidence. A forensic light table aligns the interface with inspection, record clarity, and proof sequencing rather than generic software administration.",
+    "derivedTokenLogic": {
+      "typography": "Decisive display typography plus civic body text and separated monospaced proof strings",
+      "spacing": "Long reading lanes, ruled spacing intervals, and compressed but breathable operational density",
+      "density": "Medium-high density for authority without collapsing into admin clutter",
+      "color-behavior": "Neutral paper and ink base with cobalt for action, signal-lime for validity, amber for audit emphasis, and coral for failure",
+      "morphology": "Layered panels, report bands, divider rails, and contained code blocks instead of repeated soft cards",
+      "motion": "Restrained reveal and border-intensity transitions that support proof reading",
+      "responsive-composition": "Verification-first mobile order, stacked tablet bands, and asymmetric desktop reading lanes"
+    },
+    "cohesionChecks": [
+      "Does the surface look like an authenticity instrument rather than a generic dashboard?",
+      "Can a user find the verification action within the first scan?",
+      "Are proof strings visually distinct from narrative content?"
+    ]
+  },
+  "visualDirection": {
+    "name": "Civic forensic registry",
+    "distinctiveMoves": [
+      "Editorial headline fields paired with narrow data strips",
+      "Verification surfaces framed like report modules",
+      "Operational timeline rendered as trust-chain bands instead of cards",
+      "Thin ruled borders and metadata labels for registry tone"
+    ],
+    "signatureMoveRationale": "The combination of editorial hierarchy and evidence framing makes the product feel institution-grade while still modern, and avoids the interchangeable SaaS-shell habit."
+  },
+  "mathSystems": {
+    "typographyScaleRatio": 1.2,
+    "baseGridUnitPx": 8,
+    "spacingPattern": "8px grid with 12, 16, 24, 32, 48, 64, and 88 emphasis intervals",
+    "densityMode": "structured-medium-high"
+  },
+  "tokenSystem": {
+    "sourceOfTruth": "docs/design-intent.json",
+    "taxonomyOrder": [
+      "primitive",
+      "semantic",
+      "component"
+    ],
+    "primitiveColorSpace": "OKLCH",
+    "requireSemanticAliases": true,
+    "componentTokensConsumeSemantic": true,
+    "forbidDirectComponentPrimitiveBypass": true,
+    "platformOutputs": [
+      "json-contract",
+      "css-variables"
+    ],
+    "primitives": {
+      "color": {
+        "ink-980": "oklch(0.18 0.018 255)",
+        "ink-900": "oklch(0.24 0.02 255)",
+        "paper-040": "oklch(0.985 0.006 95)",
+        "paper-080": "oklch(0.96 0.008 95)",
+        "cobalt-600": "oklch(0.56 0.16 253)",
+        "cobalt-500": "oklch(0.66 0.14 248)",
+        "lime-500": "oklch(0.79 0.16 138)",
+        "amber-500": "oklch(0.8 0.14 82)",
+        "coral-500": "oklch(0.67 0.2 28)"
+      },
+      "radius": {
+        "frame": "32px",
+        "panel": "24px",
+        "field": "18px",
+        "pill": "999px"
+      },
+      "shadow": {
+        "frame": "0 28px 80px rgba(14, 22, 39, 0.12)",
+        "panel": "0 14px 36px rgba(14, 22, 39, 0.08)"
+      }
+    },
+    "semantic": {
+      "page-background": "{primitive.color.paper-040}",
+      "page-background-strong": "{primitive.color.paper-080}",
+      "text-primary": "{primitive.color.ink-980}",
+      "text-secondary": "rgba(39, 49, 68, 0.76)",
+      "border-soft": "rgba(21, 31, 52, 0.1)",
+      "border-strong": "rgba(21, 31, 52, 0.2)",
+      "action-primary": "{primitive.color.cobalt-600}",
+      "action-primary-hover": "{primitive.color.cobalt-500}",
+      "status-valid": "{primitive.color.lime-500}",
+      "status-audit": "{primitive.color.amber-500}",
+      "status-danger": "{primitive.color.coral-500}"
+    },
+    "component": {
+      "hero-frame": {
+        "background": "rgba(255, 255, 255, 0.76)",
+        "border": "{semantic.border-soft}"
+      },
+      "signal-chip": {
+        "radius": "{primitive.radius.pill}",
+        "border": "{semantic.border-strong}"
+      },
+      "lookup-panel": {
+        "background": "rgba(12, 20, 39, 0.94)",
+        "text": "rgba(250, 252, 255, 0.96)"
+      },
+      "report-frame": {
+        "background": "rgba(255, 255, 255, 0.88)",
+        "border": "{semantic.border-soft}"
+      }
+    }
+  },
+  "colorTruth": {
+    "format": "OKLCH",
+    "allowHexDerivatives": false,
+    "requirePerceptualLightnessCurve": true,
+    "paletteRoles": [
+      "page-background",
+      "page-background-strong",
+      "text-primary",
+      "text-secondary",
+      "action-primary",
+      "status-valid",
+      "status-audit",
+      "status-danger"
+    ]
+  },
+  "typographySystem": {
+    "bodyFamilyIntent": "civic readable sans",
+    "displayFamilyIntent": "assertive modern display sans",
+    "codeFamilyIntent": "clear monospaced proof strings",
+    "roleRules": {
+      "headline": "Used for trust, verification, and report status statements",
+      "body": "Used for operational explanations and guidance copy",
+      "metadata": "Uppercase tracked labels for registry cues only",
+      "code": "Used for verification codes, hashes, and record identifiers"
+    }
+  },
+  "crossViewportAdaptation": {
+    "adaptByRecomposition": true,
+    "touchTargetMinPx": 44,
+    "mutationRules": {
+      "mobile": "Promote verification first, collapse supporting narrative into stacked sections, and remove decorative side rails.",
+      "tablet": "Keep verification prominent while regrouping supporting sections into paired bands.",
+      "desktop": "Use asymmetric reading lanes and side rails without equalizing all modules."
+    },
+    "forbiddenPatterns": [
+      "scale-only shrink",
+      "desktop order preserved on mobile without justification",
+      "equal-weight card rows as the default layout"
+    ]
+  },
+  "motionSystem": {
+    "allowMeaningfulMotion": true,
+    "approach": "CSS-only transforms and opacity transitions",
+    "desktopDurationMs": 220,
+    "mobileDurationMs": 180,
+    "respectReducedMotion": true,
+    "preferTransformAndOpacity": true,
+    "avoidDecorativeMotionForItsOwnSake": true
+  },
+  "componentMorphology": {
+    "stateKeys": [
+      "default",
+      "hover",
+      "focus",
+      "active",
+      "disabled",
+      "loading",
+      "error"
+    ],
+    "identityRules": [
+      "Primary actions are solid and authoritative, never ghosted by default",
+      "Panels use layered borders instead of heavy shadows as the main differentiator",
+      "Proof blocks use monospaced alignment and stronger containment than narrative blocks"
+    ],
+    "viewportBehavior": {
+      "mobile": "Single-column proof-first experience with stacked report sections",
+      "tablet": "Two-band layout with strong section separators",
+      "desktop": "Asymmetric multi-lane composition with promoted verification and report framing"
+    }
+  },
+  "interactionStateMatrix": {
+    "button": {
+      "default": "solid cobalt background with light text",
+      "hover": "slight upward drift and brighter cobalt tint",
+      "focus": "visible outer ring and border offset",
+      "active": "minor compression and deeper ink shadow",
+      "disabled": "muted background and lower saturation",
+      "loading": "label swap before spinner-like treatment",
+      "error": "destructive state only when action failed"
+    },
+    "field": {
+      "default": "light paper field with strong text and border",
+      "hover": "slightly stronger border contrast",
+      "focus": "clear outline and darker border",
+      "active": "no additional glow beyond focus",
+      "disabled": "muted background and text",
+      "loading": "unchanged shape, action carries feedback",
+      "error": "coral border plus explicit text message"
+    },
+    "status-chip": {
+      "default": "framed capsule with text label",
+      "hover": "not interactive unless used as a control",
+      "focus": "n/a when static",
+      "active": "n/a when static",
+      "disabled": "n/a when static",
+      "loading": "status wording changes",
+      "error": "danger palette plus text meaning"
+    }
+  },
+  "surfacePlan": {
+    "home": [
+      "masthead",
+      "hero narrative lane",
+      "verification chamber",
+      "registry side rail",
+      "trust-chain band",
+      "audience and system surfaces"
+    ],
+    "login": [
+      "security briefing lane",
+      "admin access frame"
+    ],
+    "verificationResult": [
+      "result status header",
+      "record summary grid",
+      "trust checks band",
+      "proof hash frame"
+    ],
+    "notFound": [
+      "missing record explanation",
+      "recovery actions"
+    ]
+  },
+  "contentPriorityMap": {
+    "mobile": [
+      "verification action",
+      "status clarity",
+      "proof explanation",
+      "system narrative"
+    ],
+    "desktop": [
+      "verification action",
+      "narrative confidence statement",
+      "trust-chain overview",
+      "supporting institutional context"
+    ]
+  },
+  "accessibilityPolicy": {
+    "hardComplianceFloor": "WCAG-2.2-AA",
+    "advisoryContrastModel": "APCA",
+    "failOnHardViolations": true,
+    "hardRequirements": {
+      "textContrastMinimum": true,
+      "nonTextContrast": true,
+      "useOfColorOnlyProhibited": true,
+      "focusVisible": true,
+      "focusAppearance": true,
+      "targetSizeMinimum": true,
+      "keyboardAccess": true,
+      "reflowRequired": true,
+      "accessibleAuthenticationMinimum": true,
+      "statusMessagesAndDynamicStateAccess": true
+    }
+  },
+  "reviewRubric": {
+    "distinctiveness": "Must read as project-specific at a glance",
+    "contractFidelity": "Must follow the forensic light table anchor and reset strategy",
+    "hierarchy": "Verification and status must dominate scan order",
+    "responsiveRecomposition": "Mobile and tablet must materially reorder content",
+    "motionDiscipline": "Motion must support hierarchy and stay reduced-motion-safe",
+    "accessibility": "WCAG 2.2 AA blockers fail review"
+  },
+  "forbiddenPatterns": [
+    "generic dashboard shell",
+    "centered startup hero",
+    "same card repeated for every section",
+    "dark mode by default without product reason",
+    "glassmorphism as the primary visual language",
+    "proof data styled like regular body copy"
+  ],
+  "sourceBoundaries": {
+    "valid": [
+      "current repo behavior",
+      "project docs",
+      "user request",
+      "official documentation when technology choices matter"
+    ],
+    "invalid": [
+      "previous UI as visual continuity",
+      "external screenshots as style source",
+      "remembered SaaS patterns"
+    ]
+  },
+  "implementationNotes": {
+    "newDependencyPolicy": "No new UI or animation dependency unless current official docs show a clear project-fit benefit.",
+    "currentDecision": "Use the existing Next.js stack and CSS variables for the redesign."
+  }
+}

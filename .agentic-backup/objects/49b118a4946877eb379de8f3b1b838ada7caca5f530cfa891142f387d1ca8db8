@@ -1,0 +1,124 @@
+# Bootstrap Prompt: Dynamic Project Context Synthesis
+
+Protocol version: 2.0.0
+
+You are a Lead Solution Architect and Principal Engineer.
+Write project context docs from scratch (no template rendering, no placeholder boilerplate).
+
+## Mission
+Create or update these files in EN language:
+1. docs/project-brief.md
+2. docs/architecture-decision-record.md
+3. docs/flow-overview.md
+4. docs/database-schema.md
+5. docs/api-contract.md
+
+## Hard Rules
+1. No copy-paste from external prose.
+2. Every major section must explain rationale and tradeoffs.
+3. Keep stack, database, and auth aligned with the project constraints below unless user explicitly requests migration.
+4. Output must be implementation-ready for engineers, not generic textbook explanation.
+5. For any research-backed claim, include citation metadata (source + fetchedAt timestamp) from the Architect Engine Snapshot.
+6. Write for native English speakers at an 8th-grade reading level. Use clear, direct, plain language.
+7. Avoid emoji, AI cliches, buzzwords, academic phrasing, padding, and generic filler.
+8. Separate confirmed facts from assumptions explicitly. When context is incomplete, add an `Assumptions to Validate` section and a `Next Validation Action` line.
+9. If user inputs conflict with repo evidence, call out the conflict and choose the safer interpretation instead of silently forcing a generic answer.
+10. Do not invent modules or architecture layers only to make the docs look complete.
+
+## Project Inputs
+- Project name: TrustAnchor
+- Project description: Penerbitan Dokumen/Sertifikat Digital Anti-Pemalsuan:Aplikasi web yang ditujukan untuk institusi pendidikan atau instansi pemerintah untuk menerbitkan sertifikat. Sistem ini menerapkan fungsi tanda tangan digital dan enkripsi ganda (double encryption) untuk mencegah pemalsuan dokumen serta menyediakan sarana verifikasi instan bagi pengguna yang berwenang.[7]
+- Primary domain: Web application
+- Database strategy: SQL (PostgreSQL, MySQL, SQLite)
+- Auth strategy: JWT (stateless token auth)
+- Docker strategy: Docker for both development and production
+- Runtime environment: Windows
+- Selected stack: Typescript
+- Selected blueprint: Api Nextjs
+- Additional stacks: none
+- Additional blueprints: none
+
+## Key Features
+1. Penerbitan Dokumen/Sertifikat Digital Anti-Pemalsuan:Aplikasi web yang ditujukan untuk institusi pendidikan atau instansi pemerintah untuk menerbitkan sertifikat. Sistem ini menerapkan fungsi tanda tangan digital dan enkripsi ganda (double encryption) untuk mencegah pemalsuan dokumen serta menyediakan sarana verifikasi instan bagi pengguna yang berwenang.[7]
+
+## Additional Context
+No additional context provided.
+
+## Architect Engine Snapshot (for grounding)
+```json
+{
+  "stack": "typescript.md",
+  "blueprint": "api-nextjs.md",
+  "confidenceLabel": "low",
+  "confidenceScore": 0.35,
+  "research": {
+    "requestedMode": "realtime",
+    "effectiveMode": "snapshot",
+    "deterministic": true,
+    "snapshotId": "ecosystem-signals-2026-04-18",
+    "snapshotGeneratedAt": "2026-04-18T00:00:00.000Z",
+    "snapshotSourcePath": "C:\\Users\\Ryuen\\AppData\\Local\\npm-cache\\_npx\\27f567ec1750e5bf\\node_modules\\@ryuenn3123\\agentic-senior-core\\.agent-context\\state\\stack-research-snapshot.json",
+    "realtimeGateEnabled": true,
+    "realtimeSignalsLoaded": false,
+    "realtimeSignalSourcePath": null,
+    "trustedRealtimeSources": [
+      {
+        "sourceId": "awwwards-trend-feed",
+        "sourceName": "Awwwards Trend Feed",
+        "sourceUrl": "https://www.awwwards.com"
+      },
+      {
+        "sourceId": "github-ecosystem-signals",
+        "sourceName": "GitHub Ecosystem Signals",
+        "sourceUrl": "https://github.com"
+      }
+    ]
+  },
+  "evidenceCitations": [
+    {
+      "citationId": "snapshot:ecosystem-signals-2026-04-18:typescript.md",
+      "sourceType": "snapshot",
+      "sourceName": "Agentic-Senior-Core deterministic stack research snapshot",
+      "sourceUrl": "state://stack-research-snapshot/2026-04-18",
+      "measuredAt": "2026-04-18T00:00:00.000Z",
+      "stackFileName": "typescript.md",
+      "metrics": {
+        "ecosystemMaturity": 0.91,
+        "talentAvailability": 0.9,
+        "deliveryVelocity": 0.89
+      },
+      "note": "Deterministic stack research snapshot signal."
+    }
+  ],
+  "designGuidance": {
+    "generatedAt": "2026-04-18T00:00:00.000Z",
+    "normalizedSignals": {
+      "paletteRoles": [
+        "base",
+        "surface",
+        "accent"
+      ],
+      "typographyScale": "balanced",
+      "spacingPattern": "balanced-grid",
+      "motionCharacteristics": [
+        "subtle-enter",
+        "state-feedback"
+      ]
+    },
+    "sourcePolicy": {
+      "normalizedSignalsOnly": true,
+      "copiedExternalProse": false,
+      "blockedInputPacks": [
+        "DESIGN.md"
+      ]
+    }
+  }
+}
+```
+
+## Required Execution
+1. Create all required docs files listed above with complete Markdown content.
+2. Make the docs adaptive to the real repo and prompt context. These are living references, not frozen templates.
+3. In docs/project-brief.md and docs/architecture-decision-record.md, include explicit sections for confirmed facts, assumptions to validate, and next validation actions whenever context is incomplete.
+4. Keep content original, specific to this project, and actionable for implementation.
+5. After writing docs, continue coding tasks using these docs as living project context.

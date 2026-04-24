@@ -1,0 +1,74 @@
+# Database Schema Plan
+
+## Database
+PostgreSQL 16 is the source of truth for operational data.
+
+## Tables
+
+### `institutions`
+- `id` `TEXT` primary key
+- `code` `TEXT` unique not null
+- `name` `TEXT` not null
+- `created_at` `TIMESTAMPTZ` not null
+
+### `certificate_templates`
+- `id` `TEXT` primary key
+- `institution_id` `TEXT` not null references `institutions(id)`
+- `template_name` `TEXT` not null
+- `certificate_type` `TEXT` not null
+- `schema_version` `TEXT` not null
+- `layout_definition` `JSONB` not null
+- `is_active` `BOOLEAN` not null default `TRUE`
+- `created_at` `TIMESTAMPTZ` not null
+
+Indexes:
+- `certificate_templates_institution_created_at_idx` on `(institution_id, created_at desc)`
+
+### `certificate_issuances`
+- `id` `TEXT` primary key
+- `institution_id` `TEXT` not null references `institutions(id)`
+- `template_id` `TEXT` not null references `certificate_templates(id)`
+- `verification_code` `TEXT` unique not null
+- `certificate_number` `TEXT` unique not null
+- `recipient_name` `TEXT` not null
+- `recipient_identifier` `TEXT` not null
+- `issued_at` `TIMESTAMPTZ` not null
+- `document_hash` `TEXT` not null
+- `digital_signature` `TEXT` not null
+- `encrypted_payload` `TEXT` not null
+- `payload_iv` `TEXT` not null
+- `payload_tag` `TEXT` not null
+- `wrapped_document_key` `TEXT` not null
+- `wrapped_key_iv` `TEXT` not null
+- `wrapped_key_tag` `TEXT` not null
+- `public_claims` `JSONB` not null
+- `status` `TEXT` not null
+- `created_at` `TIMESTAMPTZ` not null
+
+Indexes:
+- `certificate_issuances_verification_lookup_idx` on `(verification_code)`
+- `certificate_issuances_institution_created_at_idx` on `(institution_id, created_at desc)`
+
+### `audit_logs`
+- `id` `TEXT` primary key
+- `actor_id` `TEXT`
+- `action` `TEXT` not null
+- `resource_type` `TEXT` not null
+- `resource_id` `TEXT` not null
+- `detail` `JSONB` not null
+- `created_at` `TIMESTAMPTZ` not null
+
+Indexes:
+- `audit_logs_resource_lookup_idx` on `(resource_type, resource_id, created_at desc)`
+
+## Data Integrity Notes
+- Foreign keys are enforced at the database level.
+- Verification codes and certificate numbers are globally unique in the first release.
+- Soft delete is deferred for the first slice because issuance records are append-only and must stay immutable.
+
+## Assumptions To Validate
+- Recipient identifier can be stored in raw form in the first release.
+- Template layout definition as `JSONB` is flexible enough before a richer template editor exists.
+
+## Next Validation Action
+Review whether recipient identifiers need hashing, masking, or field-level encryption before production hardening.
