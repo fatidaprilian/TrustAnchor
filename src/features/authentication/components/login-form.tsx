@@ -49,8 +49,9 @@ export function LoginForm(): JSX.Element {
         return;
       }
 
-      router.push("/");
-      router.refresh();
+      const params = new URLSearchParams(window.location.search);
+      const redirectPath = params.get("redirect") ?? "/admin";
+      window.location.href = redirectPath;
     } catch {
       setErrorMessage("The sign-in service is unavailable right now. Please try again.");
     } finally {

@@ -1,4 +1,4 @@
-import { timingSafeEqual } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 
 import { z } from "zod";
 
@@ -23,8 +23,13 @@ export class AuthenticationService {
     const environment = getEnvironment();
     const expectedUsernameBuffer = Buffer.from(environment.BOOTSTRAP_ADMIN_USERNAME, "utf8");
     const providedUsernameBuffer = Buffer.from(loginRequest.username, "utf8");
+    
+    // The environment password is now a hex string of the SHA-256 hash
     const expectedPasswordBuffer = Buffer.from(environment.BOOTSTRAP_ADMIN_PASSWORD, "utf8");
-    const providedPasswordBuffer = Buffer.from(loginRequest.password, "utf8");
+    
+    // Hash the provided password to compare
+    const providedPasswordHash = createHash("sha256").update(loginRequest.password).digest("hex");
+    const providedPasswordBuffer = Buffer.from(providedPasswordHash, "utf8");
     const isUsernameValid =
       expectedUsernameBuffer.length === providedUsernameBuffer.length &&
       timingSafeEqual(expectedUsernameBuffer, providedUsernameBuffer);

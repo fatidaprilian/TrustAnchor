@@ -138,7 +138,7 @@ export function HomeShowcase(): JSX.Element {
           </div>
 
           <div className="hero-actions" aria-label="Secondary actions">
-            <Link className="button button-primary" href="/login">
+            <Link className="button button-primary" href="/admin">
               Enter issuing desk
             </Link>
             <a className="button button-tertiary" href="/api/openapi.json">

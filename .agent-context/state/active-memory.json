@@ -8,38 +8,37 @@
   },
   "project": {
     "name": "trustanchor",
-    "currentFocus": "Forensic light-table UI redesign and API smoke validation",
+    "currentFocus": "Admin Dashboard implementation and Template/Issuance creation forms (Phase 5 & 6).",
     "durableFacts": [
       "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
       "The web service host port is configurable through WEB_PORT with default 3000.",
       "Bootstrap admin authentication is environment-backed through BOOTSTRAP_ADMIN_USERNAME and BOOTSTRAP_ADMIN_PASSWORD.",
-      "The active UI concept is a forensic document light table with layered evidence sheets, registration rails, and CSS-only inspection-light motion."
+      "BOOTSTRAP_ADMIN_PASSWORD is now securely hashed in the .env using SHA-256.",
+      "The active UI concept is a forensic document light table with layered evidence sheets, registration rails, and CSS-only inspection-light motion.",
+      "Admin routes are protected by Next.js middleware using JWT session tokens stored in cookies."
     ]
   },
   "progress": {
     "lastAchievements": [
-      "Removed runtime npm install from docker-compose web startup.",
-      "Added Docker build cache usage for npm ci and a named .next cache volume for development.",
-      "Created a local bootstrap admin test account in .env without committing secret values.",
-      "Fixed development proof verification by sharing fallback signing keys through globalThis across Next.js dev route bundles.",
-      "Redesigned landing, login, not-found, and verification result UI around the forensic light-table concept."
+      "Redesigned landing, login, not-found, and verification result UI around the forensic light-table concept.",
+      "Implemented Admin Dashboard overview, template list, issuance list, and audit trail views.",
+      "Added forms for template and certificate issuance with strict zod validation and JSON parsing.",
+      "Fixed client-side Next.js App Router redirect caching issues on login using hard window.location.href navigation.",
+      "Updated .env and authentication.service to use SHA-256 password hashing instead of plain text.",
+      "Updated Roadmap to show Phase 5 and Phase 6 as COMPLETED (60% total progress)."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
       "Playwright is not installed locally, so no browser screenshot regression was run."
     ],
     "nextBestActions": [
-      "Upgrade Next.js to a patched compatible version in a separate dependency update.",
-      "Add a focused integration test for certificate issuance followed by public verification.",
-      "Run a visual browser pass on desktop and mobile after installing an approved screenshot tool."
+      "Begin Phase 7: Explore QR code generation for verification codes and PDF certificate rendering.",
+      "Upgrade Next.js to a patched compatible version in a separate dependency update."
     ],
     "validationState": [
-      "docker compose config --quiet passed.",
-      "docker compose build web passed.",
-      "WEB_PORT=3001 docker compose up -d web passed and /api/health returned ok.",
-      "API smoke test passed for health, OpenAPI, login, certificate template creation, certificate issuance, and public verification on port 3000.",
-      "Route smoke test passed for /, /login, /api/health, /api/openapi.json, and /verify/TA-E6DA8273A2.",
-      "npm run typecheck and npm run test passed; npm run lint passed inside the web container."
+      "npm run typecheck and npm run lint passed locally.",
+      "API smoke test passed for health, OpenAPI, login, certificate template creation, certificate issuance, and public verification.",
+      "Admin routes effectively protected and session redirect intercepting /login correctly."
     ]
   },
   "designContinuity": {
@@ -57,5 +56,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-04-25T20:37:58+07:00"
+  "lastUpdatedAt": "2026-04-25T22:28:00+07:00"
 }

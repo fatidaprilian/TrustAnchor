@@ -105,4 +105,35 @@ export class CertificateTemplateRepository {
     const templateRow = rows[0];
     return templateRow ? mapCertificateTemplateRow(templateRow) : null;
   }
+
+  public async findTemplatesByInstitution(
+    institutionId: string,
+    limit: number,
+    offset: number
+  ): Promise<CertificateTemplateRecord[]> {
+    const { rows } = await getDatabasePool().query<CertificateTemplateRow>(
+      `
+        select
+          id, institution_id, template_name, certificate_type,
+          schema_version, layout_definition, is_active, created_at
+        from certificate_templates
+        where institution_id = $1
+        order by created_at desc
+        limit $2
+        offset $3
+      `,
+      [institutionId, limit, offset]
+    );
+
+    return rows.map(mapCertificateTemplateRow);
+  }
+
+  public async countTemplatesByInstitution(institutionId: string): Promise<number> {
+    const { rows } = await getDatabasePool().query<{ total: string }>(
+      `select count(*)::text as total from certificate_templates where institution_id = $1`,
+      [institutionId]
+    );
+
+    return parseInt(rows[0].total, 10);
+  }
 }
