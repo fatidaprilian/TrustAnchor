@@ -17,12 +17,12 @@ export function VerificationResultCard({
   const isValidRecord = verificationResult.status.toLowerCase() === "issued";
 
   return (
-    <section className="report-frame frame-panel">
+    <section className="report-frame instrument-panel reveal-surface">
       <div className="report-header">
         <div className="section-stack">
-          <span className="section-kicker">Verification report</span>
+          <span className="section-kicker">Verification signal report</span>
           <h1 className="section-title section-title-large">
-            {isValidRecord ? "The document record is valid and active." : "The record was found but is not active."}
+            {isValidRecord ? "The certificate signal is valid and active." : "The record was found but is not active."}
           </h1>
           <p className="body-copy">
             The public record matches the stored proof chain for this issuance. Metadata is shown without exposing
@@ -30,8 +30,13 @@ export function VerificationResultCard({
           </p>
         </div>
 
-        <div className={`signal-chip ${isValidRecord ? "signal-chip-valid" : "signal-chip-danger"}`}>
-          {isValidRecord ? "Record matched" : verificationResult.status}
+        <div className="report-status-cluster" aria-label="Verification status">
+          <div className={`status-orbit ${isValidRecord ? "status-orbit-valid" : "status-orbit-danger"}`} aria-hidden="true">
+            <span />
+          </div>
+          <div className={`signal-chip ${isValidRecord ? "signal-chip-valid" : "signal-chip-danger"}`}>
+            {isValidRecord ? "Record matched" : verificationResult.status}
+          </div>
         </div>
       </div>
 
@@ -62,7 +67,7 @@ export function VerificationResultCard({
         </div>
       </div>
 
-      <div className="verification-band">
+      <div className="verification-band" aria-label="Verification checks">
         <article className="mini-panel">
           <span className="ledger-label">Trust check 01</span>
           <strong>Stored signature validated</strong>
@@ -80,7 +85,7 @@ export function VerificationResultCard({
         </article>
       </div>
 
-      <div className="proof-frame">
+      <div className="proof-frame instrument-panel-subtle">
         <div className="proof-frame-header">
           <div>
             <span className="section-kicker">Proof reference</span>

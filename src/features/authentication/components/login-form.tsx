@@ -59,13 +59,13 @@ export function LoginForm(): JSX.Element {
   }
 
   return (
-    <form className="access-frame frame-panel" onSubmit={handleSubmit(onSubmit)}>
+    <form className="access-frame instrument-panel reveal-surface" onSubmit={handleSubmit(onSubmit)}>
       <div className="section-stack">
         <span className="section-kicker">Credential check</span>
-        <h2 className="section-title">Sign in to the issuing desk.</h2>
+        <h2 className="section-title">Sign in to the issuing console.</h2>
         <p className="body-copy">
-          Use the local bootstrap administrator account to manage templates, issue records, and keep the verification
-          chain controlled.
+          Use the local bootstrap administrator account to keep issuance actions traceable before records enter public
+          verification.
         </p>
       </div>
 

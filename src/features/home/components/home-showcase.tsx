@@ -5,57 +5,61 @@ import { VerificationLookupForm } from "@/features/verification/components/verif
 
 const trustChainSteps = [
   {
-    body: "Schema version, institution ownership, and layout intent stay traceable from the moment a template is created.",
+    body: "Template ownership and schema intent are locked before issuance begins.",
     code: "01",
-    title: "Template discipline"
+    metric: "Template",
+    title: "Source registered"
   },
   {
-    body: "Recipient data is turned into a canonical payload before any proof material is produced.",
+    body: "Recipient claims become a canonical payload before proof material is created.",
     code: "02",
-    title: "Canonical issuance payload"
+    metric: "Payload",
+    title: "Claims normalized"
   },
   {
-    body: "Digital signatures and envelope-style double encryption make tampering visible and storage safer.",
+    body: "Hash, signature, and envelope encryption make tampering visible.",
     code: "03",
-    title: "Protected proof chain"
+    metric: "Proof",
+    title: "Evidence sealed"
   },
   {
-    body: "A public verification code gives officers and recipients a fast way to validate authenticity.",
+    body: "A public code exposes safe verification without revealing encrypted internals.",
     code: "04",
-    title: "Instant public lookup"
+    metric: "Lookup",
+    title: "Signal readable"
   }
 ] as const;
 
-const registrySignals = [
+const telemetrySignals = [
   {
-    label: "Readiness",
-    value: "Verification endpoint online"
+    label: "Verification endpoint",
+    value: "Online"
   },
   {
-    label: "Audience",
-    value: "Education and public-sector issuers"
+    label: "Primary users",
+    value: "Institutions, officers, recipients"
   },
   {
-    label: "Assurance",
-    value: "Audit trail attached to sensitive actions"
+    label: "Proof posture",
+    value: "Signed, encrypted, audit aware"
   }
 ] as const;
 
 const audienceSurfaces = [
   {
-    body: "Issue trusted certificates from a controlled workspace with traceable templates and explicit ownership.",
-    eyebrow: "For institution administrators",
-    title: "Keep issuance disciplined, not improvised."
+    body: "Issue certificate records from a controlled workspace where templates, ownership, and proof material stay traceable.",
+    eyebrow: "Issuing institutions",
+    title: "Controlled records before public claims."
   },
   {
-    body: "Validate a record in service queues, admissions reviews, or field operations without exposing encrypted internals.",
-    eyebrow: "For officers and reviewers",
-    title: "Read the trust status in one scan."
+    body: "Validate a certificate in service queues, admissions review, or field operations with a public-safe status report.",
+    eyebrow: "Review officers",
+    title: "One scan to separate evidence from rumor."
   },
   {
-    body: "Expose the current public contract used for verification and issuance flows when integration or review needs it.",
-    eyebrow: "For technical and audit review",
-    title: "Contracts stay visible alongside the experience."
+    body: "Inspect the OpenAPI contract when integration, audit, or technical review needs the public surface in exact terms.",
+    eyebrow: "Technical auditors",
+    title: "Contracts stay close to the interface."
   }
 ] as const;
 
@@ -63,9 +67,9 @@ export function HomeShowcase(): JSX.Element {
   return (
     <main className="page-shell page-shell-home">
       <section className="masthead">
-        <TrustAnchorWordmark detail="Anti-counterfeit document verification" />
+        <TrustAnchorWordmark detail="Civic certificate signal registry" />
 
-        <div className="masthead-actions">
+        <div className="masthead-actions" aria-label="Primary navigation">
           <span className="signal-chip signal-chip-valid">Verification live</span>
           <Link className="text-link" href="/api/openapi.json">
             OpenAPI contract
@@ -76,18 +80,18 @@ export function HomeShowcase(): JSX.Element {
         </div>
       </section>
 
-      <section className="hero-grid">
-        <div className="hero-copy frame-panel">
-          <div className="section-stack">
-            <span className="section-kicker">Public trust registry</span>
-            <h1 className="hero-title">Make document trust readable before doubt has time to spread.</h1>
-            <p className="lead-copy">
-              TrustAnchor helps education institutions and government agencies issue anti-counterfeit certificates with
-              digital signatures, double encryption, audit logging, and instant verification.
-            </p>
-          </div>
+      <section className="observatory-grid" aria-labelledby="home-heading">
+        <div className="observatory-copy instrument-panel reveal-surface">
+          <span className="section-kicker">Civic signal observatory</span>
+          <h1 className="hero-title" id="home-heading">
+            Verify the signal behind every certificate.
+          </h1>
+          <p className="lead-copy">
+            TrustAnchor helps institutions issue anti-counterfeit digital certificates with signatures, double
+            encryption, audit logging, and instant public verification.
+          </p>
 
-          <div className="hero-actions">
+          <div className="hero-actions" aria-label="Primary actions">
             <Link className="button button-primary" href="/login">
               Enter issuing desk
             </Link>
@@ -96,26 +100,39 @@ export function HomeShowcase(): JSX.Element {
             </a>
           </div>
 
-          <div className="hero-ledger">
-            <div className="ledger-row">
-              <span className="ledger-label">Primary public action</span>
-              <strong>Verify a certificate by code</strong>
-            </div>
-            <div className="ledger-row">
+          <div className="evidence-lanes" aria-label="TrustAnchor proof capabilities">
+            <div className="evidence-lane">
               <span className="ledger-label">Protected evidence</span>
-              <strong>Hash, signature, and wrapped payload proof</strong>
+              <strong>Hash, signature, encrypted payload, and wrapped key material</strong>
             </div>
-            <div className="ledger-row">
+            <div className="evidence-lane">
               <span className="ledger-label">Operational fit</span>
               <strong>Admissions, civil services, academic records, and audit review</strong>
             </div>
           </div>
         </div>
 
-        <div className="lookup-panel frame-panel frame-panel-dark">
+        <aside className="signal-visual instrument-panel reveal-surface" aria-label="Live verification signal model">
+          <div className="signal-orbit" aria-hidden="true">
+            <span className="orbit-ring orbit-ring-outer" />
+            <span className="orbit-ring orbit-ring-middle" />
+            <span className="orbit-ring orbit-ring-inner" />
+            <span className="orbit-core">TA</span>
+          </div>
+          <div className="telemetry-stack">
+            {telemetrySignals.map((signal) => (
+              <div className="telemetry-row" key={signal.label}>
+                <span>{signal.label}</span>
+                <strong>{signal.value}</strong>
+              </div>
+            ))}
+          </div>
+        </aside>
+
+        <div className="lookup-panel signal-console reveal-surface">
           <div className="section-stack section-stack-compact">
-            <span className="section-kicker section-kicker-light">Verification chamber</span>
-            <h2 className="panel-title">Enter a code. Read the trust state immediately.</h2>
+            <span className="section-kicker section-kicker-light">Public verification console</span>
+            <h2 className="panel-title">Enter a code and read the trust state.</h2>
             <p className="panel-copy">
               The public flow confirms the stored proof chain without exposing encrypted payload internals.
             </p>
@@ -123,45 +140,32 @@ export function HomeShowcase(): JSX.Element {
 
           <VerificationLookupForm />
 
-          <div className="lookup-footnote-grid">
-            <div className="mini-panel mini-panel-dark">
+          <div className="console-footer">
+            <div>
               <span className="ledger-label ledger-label-light">Checks performed</span>
               <strong>Document hash, signature, record status</strong>
             </div>
-            <div className="mini-panel mini-panel-dark">
+            <div>
               <span className="ledger-label ledger-label-light">Best used by</span>
-              <strong>Recipients, officers, and institutional reviewers</strong>
+              <strong>Recipients, officers, institutional reviewers</strong>
             </div>
           </div>
         </div>
-
-        <aside className="registry-rail frame-panel">
-          <div className="section-stack section-stack-compact">
-            <span className="section-kicker">Registry stance</span>
-            <h2 className="rail-title">Proof is treated as a readable record, not a hidden implementation detail.</h2>
-          </div>
-
-          <div className="signal-list">
-            {registrySignals.map((signal) => (
-              <div className="signal-row" key={signal.label}>
-                <span className="ledger-label">{signal.label}</span>
-                <strong>{signal.value}</strong>
-              </div>
-            ))}
-          </div>
-        </aside>
       </section>
 
-      <section className="trust-band frame-panel">
+      <section className="trust-band instrument-panel reveal-surface">
         <div className="section-stack section-stack-inline">
-          <span className="section-kicker">Trust chain</span>
-          <h2 className="section-title">The interface follows the four proof decisions behind every valid record.</h2>
+          <span className="section-kicker">Proof telemetry</span>
+          <h2 className="section-title">Every valid record moves through four observable trust decisions.</h2>
         </div>
 
         <div className="trust-band-grid">
           {trustChainSteps.map((step) => (
             <article className="trust-step" key={step.code}>
-              <span className="trust-step-code">{step.code}</span>
+              <div className="trust-step-head">
+                <span className="trust-step-code">{step.code}</span>
+                <span>{step.metric}</span>
+              </div>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
             </article>
@@ -169,10 +173,10 @@ export function HomeShowcase(): JSX.Element {
         </div>
       </section>
 
-      <section className="audience-grid">
+      <section className="audience-grid" aria-label="TrustAnchor audiences">
         {audienceSurfaces.map((surface, index) => (
           <article
-            className={`frame-panel audience-panel${index === 2 ? " audience-panel-accent" : ""}`}
+            className={`instrument-panel audience-panel reveal-surface${index === 2 ? " audience-panel-accent" : ""}`}
             key={surface.eyebrow}
           >
             <span className="section-kicker">{surface.eyebrow}</span>

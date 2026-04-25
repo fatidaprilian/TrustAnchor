@@ -10,6 +10,7 @@ node_modules/
 
 # Framework build output
 .next/
+.next-*/
 out/
 dist/
 build/

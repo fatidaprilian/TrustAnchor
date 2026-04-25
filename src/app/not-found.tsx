@@ -12,9 +12,9 @@ export default function NotFoundPage(): JSX.Element {
         </Link>
       </section>
 
-      <section className="not-found-frame frame-panel">
+      <section className="not-found-frame instrument-panel reveal-surface">
         <span className="section-kicker">Record not found</span>
-        <h1 className="hero-title hero-title-compact">The verification code does not match an issued record.</h1>
+        <h1 className="hero-title hero-title-compact">No certificate signal matches that code.</h1>
         <p className="lead-copy">
           Check the code, confirm the issuing institution, or return to the public verification screen to try again.
         </p>
