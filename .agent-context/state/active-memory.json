@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "active-memory-v1",
+  "snapshotPurpose": "compact-cross-session-continuity",
+  "updatePolicy": {
+    "writeWhen": "natural-task-boundary",
+    "overwriteOnlyWithCurrentRepoEvidence": true,
+    "preserveUserOwnedContent": true
+  },
+  "project": {
+    "name": "trustanchor",
+    "currentFocus": "Forensic light-table UI redesign and API smoke validation",
+    "durableFacts": [
+      "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
+      "The web service host port is configurable through WEB_PORT with default 3000.",
+      "Bootstrap admin authentication is environment-backed through BOOTSTRAP_ADMIN_USERNAME and BOOTSTRAP_ADMIN_PASSWORD.",
+      "The active UI concept is a forensic document light table with layered evidence sheets, registration rails, and CSS-only inspection-light motion."
+    ]
+  },
+  "progress": {
+    "lastAchievements": [
+      "Removed runtime npm install from docker-compose web startup.",
+      "Added Docker build cache usage for npm ci and a named .next cache volume for development.",
+      "Created a local bootstrap admin test account in .env without committing secret values.",
+      "Fixed development proof verification by sharing fallback signing keys through globalThis across Next.js dev route bundles.",
+      "Redesigned landing, login, not-found, and verification result UI around the forensic light-table concept."
+    ],
+    "pendingIssues": [
+      "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
+      "Playwright is not installed locally, so no browser screenshot regression was run."
+    ],
+    "nextBestActions": [
+      "Upgrade Next.js to a patched compatible version in a separate dependency update.",
+      "Add a focused integration test for certificate issuance followed by public verification.",
+      "Run a visual browser pass on desktop and mobile after installing an approved screenshot tool."
+    ],
+    "validationState": [
+      "docker compose config --quiet passed.",
+      "docker compose build web passed.",
+      "WEB_PORT=3001 docker compose up -d web passed and /api/health returned ok.",
+      "API smoke test passed for health, OpenAPI, login, certificate template creation, certificate issuance, and public verification on port 3000.",
+      "Route smoke test passed for /, /login, /api/health, /api/openapi.json, and /verify/TA-E6DA8273A2.",
+      "npm run typecheck and npm run test passed; npm run lint passed inside the web container."
+    ]
+  },
+  "designContinuity": {
+    "visualLanguageContinuity": "opt-in-only",
+    "currentConceptualAnchor": "Forensic Light Table",
+    "forbiddenCarryover": [
+      "prior-project-style-memory",
+      "old-ui-visual-dna-without-user-approval",
+      "generic-dashboard-defaults"
+    ]
+  },
+  "privacy": {
+    "storeSecrets": false,
+    "storeRawChatLogs": false,
+    "redactSensitiveTextBeforeWriting": true
+  },
+  "generatedAt": "2026-04-25T12:46:41.069Z",
+  "lastUpdatedAt": "2026-04-25T20:37:58+07:00"
+}

@@ -17,86 +17,56 @@ export function VerificationResultCard({
   const isValidRecord = verificationResult.status.toLowerCase() === "issued";
 
   return (
-    <section className="report-frame instrument-panel reveal-surface">
-      <div className="report-header">
-        <div className="section-stack">
-          <span className="section-kicker">Verification signal report</span>
-          <h1 className="section-title section-title-large">
-            {isValidRecord ? "The certificate signal is valid and active." : "The record was found but is not active."}
-          </h1>
-          <p className="body-copy">
-            The public record matches the stored proof chain for this issuance. Metadata is shown without exposing
-            encrypted internals.
-          </p>
+    <section className="result-bench" aria-labelledby="verification-result-heading">
+      <div className="result-sheet evidence-sheet evidence-sheet-strong reveal-surface">
+        <span className="sheet-clamp">{isValidRecord ? "Public evidence sheet" : "Record inspection sheet"}</span>
+        <div className="result-header">
+          <div className="section-stack">
+            <span className="section-kicker">Verification result</span>
+            <h1 className="section-title section-title-large" id="verification-result-heading">
+              {isValidRecord ? "Certificate proof matched the stored record." : "The record was found, but is not active."}
+            </h1>
+            <p className="body-copy">
+              This public sheet shows safe claims from the certificate record while private encrypted proof material
+              remains server-side.
+            </p>
+          </div>
+
+          <div className={`stamp ${isValidRecord ? "stamp-verified" : "stamp-danger"}`} aria-label="Verification status">
+            {isValidRecord ? "Verified" : verificationResult.status}
+          </div>
         </div>
 
-        <div className="report-status-cluster" aria-label="Verification status">
-          <div className={`status-orbit ${isValidRecord ? "status-orbit-valid" : "status-orbit-danger"}`} aria-hidden="true">
-            <span />
+        <div className="result-grid">
+          <div className="evidence-field">
+            <span className="ledger-label">Recipient</span>
+            <strong>{verificationResult.recipientName}</strong>
           </div>
-          <div className={`signal-chip ${isValidRecord ? "signal-chip-valid" : "signal-chip-danger"}`}>
-            {isValidRecord ? "Record matched" : verificationResult.status}
+          <div className="evidence-field">
+            <span className="ledger-label">Certificate number</span>
+            <strong>{verificationResult.certificateNumber}</strong>
+          </div>
+          <div className="evidence-field">
+            <span className="ledger-label">Institution</span>
+            <strong>{verificationResult.institutionName}</strong>
+          </div>
+          <div className="evidence-field">
+            <span className="ledger-label">Template</span>
+            <strong>{verificationResult.templateName}</strong>
+          </div>
+          <div className="evidence-field">
+            <span className="ledger-label">Issued at</span>
+            <strong>{formatDate(verificationResult.issuedAt)}</strong>
+          </div>
+          <div className="evidence-field">
+            <span className="ledger-label">Verified at</span>
+            <strong>{formatDate(verificationResult.verifiedAt)}</strong>
           </div>
         </div>
       </div>
 
-      <div className="report-grid">
-        <div className="report-cell">
-          <span className="ledger-label">Recipient</span>
-          <strong>{verificationResult.recipientName}</strong>
-        </div>
-        <div className="report-cell">
-          <span className="ledger-label">Certificate number</span>
-          <strong>{verificationResult.certificateNumber}</strong>
-        </div>
-        <div className="report-cell">
-          <span className="ledger-label">Institution</span>
-          <strong>{verificationResult.institutionName}</strong>
-        </div>
-        <div className="report-cell">
-          <span className="ledger-label">Template</span>
-          <strong>{verificationResult.templateName}</strong>
-        </div>
-        <div className="report-cell">
-          <span className="ledger-label">Issued at</span>
-          <strong>{formatDate(verificationResult.issuedAt)}</strong>
-        </div>
-        <div className="report-cell">
-          <span className="ledger-label">Verified at</span>
-          <strong>{formatDate(verificationResult.verifiedAt)}</strong>
-        </div>
-      </div>
-
-      <div className="verification-band" aria-label="Verification checks">
-        <article className="mini-panel">
-          <span className="ledger-label">Trust check 01</span>
-          <strong>Stored signature validated</strong>
-          <p>The verification flow confirmed the signed proof material attached to this issuance record.</p>
-        </article>
-        <article className="mini-panel">
-          <span className="ledger-label">Trust check 02</span>
-          <strong>Document hash matched</strong>
-          <p>The public result reflects the canonical document hash produced during issuance.</p>
-        </article>
-        <article className="mini-panel">
-          <span className="ledger-label">Trust check 03</span>
-          <strong>Verification event recorded</strong>
-          <p>Verification attempts can be attached to the audit trail when policy requires it.</p>
-        </article>
-      </div>
-
-      <div className="proof-frame instrument-panel-subtle">
-        <div className="proof-frame-header">
-          <div>
-            <span className="section-kicker">Proof reference</span>
-            <h2 className="section-title section-title-small">Verification code and document hash</h2>
-          </div>
-          <div className="proof-badges">
-            <span className="signal-chip signal-chip-audit">Audit aware</span>
-            <span className="signal-chip signal-chip-valid">Public-safe view</span>
-          </div>
-        </div>
-
+      <aside className="proof-drawer evidence-sheet reveal-surface" aria-label="Proof reference">
+        <span className="sheet-clamp">Proof reference</span>
         <div className="proof-grid">
           <div className="proof-block">
             <span className="ledger-label">Verification code</span>
@@ -107,7 +77,34 @@ export function VerificationResultCard({
             <code>{verificationResult.documentHash}</code>
           </div>
         </div>
-      </div>
+
+        <div className="inspection-grid inspection-grid-compact" aria-label="Verification checks">
+          <article className="inspection-pass">
+            <div className="pass-index">
+              <code>01</code>
+              <span>Signature</span>
+            </div>
+            <h3>Proof signature matched</h3>
+            <p>The stored digital signature validates the proof material attached to this record.</p>
+          </article>
+          <article className="inspection-pass">
+            <div className="pass-index">
+              <code>02</code>
+              <span>Hash</span>
+            </div>
+            <h3>Document hash matched</h3>
+            <p>The public result reflects the canonical hash produced during issuance.</p>
+          </article>
+          <article className="inspection-pass">
+            <div className="pass-index">
+              <code>03</code>
+              <span>Audit</span>
+            </div>
+            <h3>Verification was recorded</h3>
+            <p>Verification activity can be attached to the audit trail when policy requires it.</p>
+          </article>
+        </div>
+      </aside>
     </section>
   );
 }

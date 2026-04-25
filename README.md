@@ -18,7 +18,7 @@ It combines digital signatures, envelope-style double encryption, and audit logg
 - MinIO
 - Docker Compose
 
-## Quick Start (Local)
+## Quick Start (Docker Development)
 1. Copy environment template:
    ```bash
    cp .env.example .env
@@ -28,12 +28,33 @@ It combines digital signatures, envelope-style double encryption, and audit logg
    ```bash
    docker compose up -d
    ```
-4. Run app:
+4. Open `http://localhost:3000`.
+
+The development image installs dependencies during the Docker build with `npm ci`.
+The running `web` container starts Next.js directly, so `docker compose up -d` does not run `npm install` on every create.
+If port `3000` is already used on the host, set `WEB_PORT=3001` and update `APP_URL=http://localhost:3001` in `.env`, then run `docker compose up -d` again.
+
+After changing `package.json` or `package-lock.json`, rebuild the web image and refresh the dependency volume:
+   ```bash
+   docker compose down
+   docker volume rm trustanchor_trustanchor_node_modules
+   docker compose up -d --build
+   ```
+
+## Quick Start (Host Node.js)
+1. Install dependencies:
    ```bash
    npm install
+   ```
+2. Start infrastructure services:
+   ```bash
+   docker compose up -d postgres redis minio minio-init
+   ```
+3. Start the app on the host:
+   ```bash
    npm run dev
    ```
-5. Open `http://localhost:3000`.
+4. Open `http://localhost:3000`.
 
 ## NPM Scripts
 - `npm run dev` - start development server

@@ -10,7 +10,7 @@ export function TrustAnchorWordmark({
   return (
     <div className={`brand-signature brand-signature-${tone}`}>
       <div aria-hidden="true" className="brand-emblem">
-        <span className="brand-emblem-ring" />
+        <span className="brand-emblem-cut" />
         <span className="brand-emblem-core">TA</span>
       </div>
       <div className="brand-signature-copy">

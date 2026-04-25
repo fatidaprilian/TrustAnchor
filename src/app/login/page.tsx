@@ -5,39 +5,33 @@ export default function LoginPage(): JSX.Element {
   return (
     <main className="page-shell page-shell-login">
       <section className="login-grid">
-        <div className="login-brief instrument-panel instrument-panel-ink reveal-surface">
+        <div className="login-brief evidence-sheet evidence-sheet-dark reveal-surface">
+          <span className="sheet-clamp">Restricted bench</span>
           <TrustAnchorWordmark detail="Controlled issuing desk" tone="light" />
 
           <div className="section-stack">
             <span className="section-kicker section-kicker-light">Admin access</span>
-            <h1 className="hero-title hero-title-login">Authorize the console before a record becomes public.</h1>
+            <h1 className="hero-title hero-title-login">Open the evidence bench before issuing a record.</h1>
             <p className="lead-copy lead-copy-light">
-              Sign in to manage templates, issue certificates, and preserve the trust signal behind every public
-              verification report.
+              Sign in to manage templates, issue certificates, and keep every public verification report tied to a
+              traceable operator action.
             </p>
           </div>
 
-          <div className="signal-visual signal-visual-compact" aria-hidden="true">
-            <div className="signal-orbit signal-orbit-small">
-              <span className="orbit-ring orbit-ring-outer" />
-              <span className="orbit-ring orbit-ring-middle" />
-              <span className="orbit-ring orbit-ring-inner" />
-              <span className="orbit-core">ID</span>
-            </div>
+          <div className="drawer-specimen" aria-hidden="true">
+            <span />
+            <strong>ACCESS</strong>
+            <code>operator://bootstrap-admin</code>
           </div>
 
-          <div className="login-ledger evidence-lanes evidence-lanes-dark">
-            <div className="evidence-lane evidence-lane-dark">
+          <div className="login-ledger">
+            <div className="dark-rail">
               <span className="ledger-label ledger-label-light">Current scope</span>
               <strong>Template creation, issuance, and verification readiness</strong>
             </div>
-            <div className="evidence-lane evidence-lane-dark">
+            <div className="dark-rail">
               <span className="ledger-label ledger-label-light">Security posture</span>
               <strong>Bootstrap credentials for controlled local development</strong>
-            </div>
-            <div className="evidence-lane evidence-lane-dark">
-              <span className="ledger-label ledger-label-light">Trust chain</span>
-              <strong>Template discipline, signed payloads, encrypted proof, public lookup</strong>
             </div>
           </div>
         </div>

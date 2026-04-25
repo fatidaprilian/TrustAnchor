@@ -44,6 +44,14 @@ type JsonRecord = Record<string, unknown>;
 
 let cachedSigningKeys: { privateKey: KeyLike; publicKey: KeyLike } | null = null;
 
+function getGlobalSigningKeyCache(): {
+  __trustanchorSigningKeys?: { privateKey: KeyLike; publicKey: KeyLike };
+} {
+  return globalThis as typeof globalThis & {
+    __trustanchorSigningKeys?: { privateKey: KeyLike; publicKey: KeyLike };
+  };
+}
+
 function canonicalizeValue(inputValue: unknown): unknown {
   if (Array.isArray(inputValue)) {
     return inputValue.map((item) => canonicalizeValue(item));
@@ -113,6 +121,13 @@ async function resolveSigningKeys(): Promise<{ privateKey: KeyLike; publicKey: K
     return cachedSigningKeys;
   }
 
+  const globalSigningKeyCache = getGlobalSigningKeyCache();
+
+  if (globalSigningKeyCache.__trustanchorSigningKeys) {
+    cachedSigningKeys = globalSigningKeyCache.__trustanchorSigningKeys;
+    return cachedSigningKeys;
+  }
+
   const { SIGNATURE_PRIVATE_KEY_PEM, SIGNATURE_PUBLIC_KEY_PEM, NODE_ENV } = getEnvironment();
 
   if (SIGNATURE_PRIVATE_KEY_PEM && SIGNATURE_PUBLIC_KEY_PEM) {
@@ -120,6 +135,7 @@ async function resolveSigningKeys(): Promise<{ privateKey: KeyLike; publicKey: K
       privateKey: await importPKCS8(SIGNATURE_PRIVATE_KEY_PEM, "EdDSA"),
       publicKey: await importSPKI(SIGNATURE_PUBLIC_KEY_PEM, "EdDSA")
     };
+    globalSigningKeyCache.__trustanchorSigningKeys = cachedSigningKeys;
 
     return cachedSigningKeys;
   }
@@ -136,6 +152,7 @@ async function resolveSigningKeys(): Promise<{ privateKey: KeyLike; publicKey: K
     privateKey: await importPKCS8(exportedPrivateKey, "EdDSA"),
     publicKey: await importSPKI(exportedPublicKey, "EdDSA")
   };
+  globalSigningKeyCache.__trustanchorSigningKeys = cachedSigningKeys;
 
   return cachedSigningKeys;
 }

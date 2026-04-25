@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-04-25T01:59:16.426Z",
+  "timestamp": "2026-04-25T12:46:40.935Z",
   "files": {
     ".cursorrules": {
       "action": "restore",
-      "hash": "9f2d23a98f53c12970af7c5cbd28ffb5953b9bc9f5ce0f7c8c139c3690786bc2",
-      "mtimeMs": 1777044552807.0046
+      "hash": "1a011d653c53dcbca042443a0c551d48bee37b9b84849a5b71105f1dde3956ca",
+      "mtimeMs": 1777082356527.2344
     },
     ".windsurfrules": {
       "action": "restore",
-      "hash": "9f2d23a98f53c12970af7c5cbd28ffb5953b9bc9f5ce0f7c8c139c3690786bc2",
-      "mtimeMs": 1777044552807.0046
+      "hash": "1a011d653c53dcbca042443a0c551d48bee37b9b84849a5b71105f1dde3956ca",
+      "mtimeMs": 1777082356527.2344
     },
     ".agent-context/marketplace/trust-tiers.json": {
       "action": "restore",
@@ -19,12 +19,12 @@
     ".agent-context/policies/llm-judge-threshold.json": {
       "action": "restore",
       "hash": "73b025e154b1a021ea64e4aca88b27be42ea0ce2be074e778a554f69e1f499db",
-      "mtimeMs": 1777044552811.005
+      "mtimeMs": 1777082356527.2344
     },
     ".agent-context/prompts/bootstrap-design.md": {
       "action": "restore",
-      "hash": "2778421f6d7309ae9223689bae2494b381c564ede2c7eced1f5b99377e23c98a",
-      "mtimeMs": 1777044552714.9998
+      "hash": "edc8649b3f905323b097c7fd653cb73ffad1cea9dc620bd6c5356f7e404f060e",
+      "mtimeMs": 1777082356474.7048
     },
     ".agent-context/prompts/init-project.md": {
       "action": "restore",
@@ -88,8 +88,8 @@
     },
     ".agent-context/rules/frontend-architecture.md": {
       "action": "restore",
-      "hash": "059b45e93dd7787dd7e36935d3d1cd8a842886183b519e4bcb05dcae73c632b7",
-      "mtimeMs": 1777044552735.0007
+      "hash": "cc3cc98b5ad5583c82de5960cd9accd87c68b1b351baae783db91f386586db85",
+      "mtimeMs": 1777082356482.209
     },
     ".agent-context/rules/git-workflow.md": {
       "action": "restore",
@@ -198,8 +198,8 @@
     },
     ".agent-context/state/memory-continuity-benchmark.json": {
       "action": "restore",
-      "hash": "e1ab1ad2aa36f2181ab702ffa6e6a507d93b1a8430d8df6630404122f782091a",
-      "mtimeMs": 1777044552763.0022
+      "hash": "4cdc528d9c43308d7f9fd8c3fbba929e288651a2dec239cae59ef8f07b22f171",
+      "mtimeMs": 1777082356500.9697
     },
     ".agent-context/state/memory-continuity.json": {
       "action": "restore",
@@ -213,8 +213,8 @@
     },
     ".agent-context/state/onboarding-report.json": {
       "action": "restore",
-      "hash": "aee4278030725da1dd9a14613352a4768c2fb2de066ca2489bf4c701ab0af8db",
-      "mtimeMs": 1777044552815.0051
+      "hash": "b36ece333a5425446f89987a672cc98630a29a2faba33319e7a1384615266600",
+      "mtimeMs": 1777082356530.9866
     },
     ".agent-context/state/quality-trend-report.json": {
       "action": "restore",

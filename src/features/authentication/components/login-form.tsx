@@ -59,13 +59,14 @@ export function LoginForm(): JSX.Element {
   }
 
   return (
-    <form className="access-frame instrument-panel reveal-surface" onSubmit={handleSubmit(onSubmit)}>
+    <form className="access-frame evidence-sheet reveal-surface" onSubmit={handleSubmit(onSubmit)}>
+      <span className="sheet-clamp">Credential drawer</span>
       <div className="section-stack">
-        <span className="section-kicker">Credential check</span>
-        <h2 className="section-title">Sign in to the issuing console.</h2>
+        <span className="section-kicker">Operator check</span>
+        <h2 className="section-title">Unlock the issuing bench.</h2>
         <p className="body-copy">
-          Use the local bootstrap administrator account to keep issuance actions traceable before records enter public
-          verification.
+          Use the local bootstrap administrator account before templates and issuance records enter the public
+          verification flow.
         </p>
       </div>
 
@@ -78,7 +79,7 @@ export function LoginForm(): JSX.Element {
           autoComplete="username"
           className="field-input"
           id="username"
-          placeholder="bootstrap-admin"
+          placeholder="testadmin"
           type="text"
         />
         {errors.username ? <span className="field-error">{errors.username.message}</span> : null}
@@ -103,7 +104,7 @@ export function LoginForm(): JSX.Element {
       </div>
 
       <button className="button button-primary button-block" disabled={isSubmitting} type="submit">
-        {isSubmitting ? "Authorizing access..." : "Authorize issuing desk"}
+        {isSubmitting ? "Checking access..." : "Open issuing bench"}
       </button>
     </form>
   );

@@ -28,13 +28,13 @@ export function VerificationLookupForm(): JSX.Element {
   return (
     <form className="lookup-form" onSubmit={handleSubmit(onSubmit)}>
       <label className="field-block" htmlFor="verificationCode">
-        <span className="field-label field-label-light">Verification code</span>
+        <span className="field-label">Verification code</span>
         <input
           {...register("verificationCode")}
           aria-invalid={errors.verificationCode ? "true" : "false"}
           autoCapitalize="characters"
           autoComplete="off"
-          className="field-input field-input-dark"
+          className="field-input"
           id="verificationCode"
           inputMode="text"
           placeholder="TA-0F5N9A7K2Q"
@@ -44,7 +44,7 @@ export function VerificationLookupForm(): JSX.Element {
         {errors.verificationCode ? <span className="field-error">{errors.verificationCode.message}</span> : null}
       </label>
 
-      <p className="helper-copy helper-copy-light">
+      <p className="helper-copy">
         Use the public record code printed on the certificate or shared by the issuing institution.
       </p>
 

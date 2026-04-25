@@ -1,6 +1,6 @@
 {
   "mode": "project-specific",
-  "status": "refined-for-new-concept-redesign",
+  "status": "zero-based-redesign-for-new-concept",
   "project": {
     "name": "TrustAnchor",
     "domain": "Anti-counterfeit certificate issuance and verification web application",
@@ -15,8 +15,9 @@
       "Runs on Next.js App Router with TypeScript"
     ],
     "assumptionsToValidate": [
+      "The forensic inspection metaphor feels credible for education and public-sector users",
       "Public verification may safely show the documented public fields",
-      "A login gateway is enough for the current admin-facing redesign slice"
+      "Bootstrap admin login remains enough for the current local development slice"
     ]
   },
   "repoEvidence": {
@@ -24,77 +25,94 @@
       "currentFrontendShape": "Small App Router UI with home, login, verification result, and not-found pages",
       "existingUiUsedAsVisualReference": false,
       "existingUiUsedAsBehaviorReference": true,
-      "userResearchFileUsed": "/home/ryuen/Project/Library Desain Frontend Modern.txt",
-      "researchInfluence": [
-        "Use transform and opacity motion before adding heavy animation dependencies",
-        "Preserve accessibility and native browser behavior",
-        "Favor small composable UI surfaces and code ownership",
-        "Treat motion as useful feedback rather than ornament"
-      ]
+      "newDependencyRequired": false
     }
   },
   "visualResetStrategy": {
-    "mode": "new-concept",
+    "mode": "zero-based-redesign",
     "discardedVisualDna": [
-      "frosted SaaS panels",
-      "teal and brass palette",
-      "generic rounded card repetition",
-      "balanced hero/card grid composition",
-      "static proof presentation"
+      "civic signal observatory metaphor",
+      "orbit rings and scanner circles",
+      "porcelain and midnight observatory palette",
+      "equal-height instrument panels",
+      "telemetry lane language"
     ],
     "newDirection": [
-      "civic signal observatory anchor",
-      "porcelain, midnight ink, civic blue, oxide, and signal green palette",
-      "ruled observatory surfaces with low-radius frames",
-      "signal rings, scan sweeps, lane dividers, and registry ticks",
-      "CSS motion with reduced-motion fallback"
+      "forensic document light table anchor",
+      "warm lab paper, graphite, cyan inspection light, ultraviolet violet, ember seal, and verified green palette",
+      "layered evidence sheets with slight rotation and clipped corners",
+      "fine registration grids, ruler marks, microprint rails, and clamp-like headers",
+      "CSS-only light sweep and paper lift motion with reduced-motion fallback"
     ]
   },
-  "designPhilosophy": "TrustAnchor should make authenticity observable. The UI treats each certificate as a civic signal that can be checked, locked, and read without exposing private proof internals.",
+  "designPhilosophy": "TrustAnchor should feel like a controlled document inspection bench where public proof is placed under light, aligned, checked, and stamped without exposing private internals.",
   "brandAdjectives": [
-    "civic",
-    "observant",
-    "precise",
-    "assuring",
-    "operational"
+    "forensic",
+    "institutional",
+    "tactile",
+    "exacting",
+    "quietly high-tech"
   ],
   "antiAdjectives": [
     "generic",
-    "playful",
+    "dashboard-first",
+    "decorative-only",
     "luxury-coded",
-    "template-first",
-    "decorative-first"
+    "observatory-like"
   ],
   "conceptualAnchor": {
-    "name": "Civic Signal Observatory",
-    "agentResearchMode": "user-supplied-research-plus-repo-evidence",
-    "sourceDomain": "scientific-observatories-public-infrastructure-control-rooms-telemetry-monitoring",
-    "rationale": "The product turns document authenticity into a verifiable public signal. Observatory language supports signal rings, proof lanes, live telemetry, and controlled reading surfaces without falling into a generic dashboard.",
+    "name": "Forensic Light Table",
+    "agentResearchMode": "repo-evidence-plus-product-context",
+    "sourceDomain": "forensic-document-examination-oblique-light-inspection-uv-security-ink-review",
+    "specificReferencePoint": "A document examiner's illuminated light table with translucent vellum overlays, registration rulers, edge clamps, and UV-reactive security fibers.",
+    "rationale": "TrustAnchor is about proving that a certificate has not been counterfeited, so layered inspection language fits the product better than generic security dashboards.",
+    "signatureMotion": "A slow oblique inspection-light sweep crosses specimen surfaces while evidence sheets lift 3px on interaction and status stamps settle into place.",
+    "typographicDecision": "Condensed technical display headings contrast with readable civic body copy and monospaced microprint proof values.",
     "derivedTokenLogic": {
-      "typography": "Assertive display text, civic body copy, compact metadata, and monospaced proof strings",
-      "spacing": "8px rhythm with long proof lanes, ruled dividers, and asymmetric desktop composition",
-      "density": "Operational medium density with verification-first mobile priority",
-      "colorBehavior": "Porcelain and ink for authority, civic blue for action, signal green for validity, amber and oxide for audit and failure",
-      "morphology": "Low-radius instruments, framed signal panels, lane dividers, and proof blocks",
-      "motion": "Scanner rings, scan sweeps, signal bar pulses, and reveal cascades using CSS transforms and opacity",
-      "responsiveComposition": "Mobile verification-first, tablet two-band regrouping, desktop observatory lanes"
+      "typography": "Condensed inspection headings, civic sans body copy, compact uppercase evidence labels, and monospaced proof values",
+      "spacing": "10px inspection rhythm with layered sheets, rails, and controlled overlap",
+      "density": "Medium-high evidence density with verification-first mobile priority",
+      "colorBehavior": "Lab paper and graphite for evidence, cyan for inspection light, ultraviolet for hidden proof, ember for audit seals, and green for verified status",
+      "morphology": "Low-radius evidence sheets, clamped headers, ruler rails, clipped corners, and microprint blocks",
+      "motion": "Oblique light sweeps, paper lift, control compression, and status stamp settlement using CSS transforms and opacity",
+      "responsiveComposition": "Mobile focused evidence stack, tablet two-band layout, desktop layered inspection bench"
     },
-    "visualRiskBudget": "Expressive but controlled. Signal animations may be visible, but they must not obscure forms, status text, or proof strings.",
-    "motionRiskBudget": "CSS-only transform/opacity motion for this slice. Stop non-essential animation under reduced motion.",
+    "visualRiskBudget": "Expressive layering is allowed, but proof values, form fields, and status text must never be obscured.",
+    "motionRiskBudget": "CSS-only transform and opacity motion for this slice. Stop non-essential animation under reduced motion.",
     "cohesionChecks": [
-      "Does the first scan make verification feel live and official?",
-      "Are proof strings visually distinct from narrative copy?",
-      "Do motion effects support signal readiness instead of decoration?",
-      "Does mobile promote the verification action before supporting narrative?"
+      "Does the first scan feel like a certificate placed under inspection light?",
+      "Are proof values visually distinct from narrative copy?",
+      "Do layout overlaps disappear on narrow screens?",
+      "Does mobile promote verification before supporting narrative?"
     ]
   },
+  "derivedTokenLogic": {
+    "anchorReference": "Forensic document light table with vellum overlays, registration rulers, edge clamps, and UV-reactive fibers",
+    "colorDerivationSource": "Colors come from lab paper, graphite ink, cyan inspection light, ultraviolet hidden layers, ember seals, and verified green stamps.",
+    "spacingDerivationSource": "Spacing follows a 10px inspection-bench rhythm with rails, margins, overlays, and readable evidence labels.",
+    "typographyDerivationSource": "Typography separates technical inspection headings, plain institutional body copy, and monospaced microprint proof values.",
+    "motionDerivationSource": "Motion imitates oblique light sweeps, paper lift, button compression, and status stamp settlement.",
+    "validationRule": "Every visual token must explain how it supports document inspection rather than generic dashboard presentation."
+  },
+  "libraryResearchStatus": "not-required",
+  "libraryDecisions": [
+    {
+      "name": "No new UI or animation library",
+      "purpose": "Keep the redesign within the existing Next.js, React, CSS, and form stack",
+      "sourceUrl": "local package.json",
+      "fetchedDate": "2026-04-25",
+      "stableCompatibleVersion": "Existing project dependencies",
+      "risk": "CSS must stay organized because no component library is hiding complexity",
+      "fallbackIfUnavailable": "Native CSS and existing React components"
+    }
+  ],
   "visualDirection": {
-    "name": "Civic signal registry",
+    "name": "Forensic evidence bench",
     "distinctiveMoves": [
-      "Landing page uses an animated signal field as the primary visual asset",
-      "Verification console is visually dominant and dark for focus",
-      "Trust chain is rendered as telemetry lanes instead of repeated cards",
-      "Report result uses status orbit and proof references instead of a simple success card"
+      "Landing page uses layered document sheets as the primary visual asset",
+      "Verification console is positioned like a lit evidence slip",
+      "Trust chain appears as numbered inspection passes instead of equal cards",
+      "Verification result becomes a stamped public evidence sheet"
     ]
   },
   "tokenSystem": {
@@ -110,62 +128,27 @@
     "platformOutputs": [
       "json-contract",
       "css-variables"
-    ],
-    "primitives": {
-      "color": {
-        "ink-980": "oklch(0.17 0.025 255)",
-        "ink-900": "oklch(0.24 0.035 255)",
-        "paper-030": "oklch(0.985 0.006 92)",
-        "paper-090": "oklch(0.94 0.012 92)",
-        "blue-620": "oklch(0.52 0.17 250)",
-        "green-560": "oklch(0.72 0.16 150)",
-        "amber-560": "oklch(0.76 0.14 82)",
-        "oxide-560": "oklch(0.58 0.17 34)"
-      },
-      "radius": {
-        "instrument": "8px",
-        "control": "6px",
-        "pill": "999px"
-      },
-      "motion": {
-        "fast": "160ms",
-        "medium": "260ms",
-        "slow": "7200ms"
-      }
-    },
-    "semantic": {
-      "pageBackground": "{primitive.color.paper-030}",
-      "surface": "rgba(255, 255, 255, 0.82)",
-      "surfaceStrong": "rgba(255, 255, 255, 0.94)",
-      "surfaceInk": "rgba(13, 21, 38, 0.96)",
-      "textPrimary": "{primitive.color.ink-980}",
-      "textSecondary": "rgba(42, 52, 70, 0.76)",
-      "borderSoft": "rgba(21, 31, 52, 0.12)",
-      "borderStrong": "rgba(21, 31, 52, 0.26)",
-      "actionPrimary": "{primitive.color.blue-620}",
-      "statusValid": "{primitive.color.green-560}",
-      "statusAudit": "{primitive.color.amber-560}",
-      "statusDanger": "{primitive.color.oxide-560}"
-    }
+    ]
   },
   "crossViewportAdaptation": {
     "adaptByRecomposition": true,
     "touchTargetMinPx": 44,
     "mutationRules": {
-      "mobile": "Verification console appears before narrative; signal visualization compresses below the form; proof lanes stack vertically.",
-      "tablet": "Verification and signal summary form two bands; support sections pair into readable rows.",
-      "desktop": "Use asymmetric observatory lanes with narrative, verification console, and live signal telemetry visible together."
+      "mobile": "Verification slip appears first; document specimen and proof passes stack below it with no rotation or overlap.",
+      "tablet": "Verification and specimen form two stacked bands; secondary evidence sections may pair into two columns.",
+      "desktop": "Use a wide layered inspection bench with verification, specimen, and proof rail visible together."
     },
     "forbiddenPatterns": [
       "scale-only shrink",
-      "desktop order preserved on mobile without justification",
-      "equal-weight card rows as the default layout"
+      "desktop overlap preserved on mobile",
+      "observatory orbit visuals",
+      "generic dashboard sidebars"
     ]
   },
   "motionSystem": {
     "allowMeaningfulMotion": true,
     "dependencyDecision": "No new animation dependency for this slice",
-    "approach": "CSS-only transforms, opacity, pseudo-element scan sweeps, and keyframed signal rings",
+    "approach": "CSS-only transforms, opacity, pseudo-element light sweeps, paper lift, and status stamp settlement",
     "respectReducedMotion": true,
     "preferTransformAndOpacity": true,
     "avoidDecorativeMotionForItsOwnSake": true
@@ -181,8 +164,8 @@
       "error"
     ],
     "identityRules": [
-      "Primary actions are solid and authoritative",
-      "Instrument surfaces use low-radius frames and ruled dividers",
+      "Primary actions read as illuminated controls",
+      "Evidence surfaces use clipped sheet corners and registration rails",
       "Proof blocks use monospaced alignment and stronger containment than narrative blocks",
       "Status chips include readable text and may not rely on color alone"
     ]
@@ -195,20 +178,20 @@
     "requiresStatusTextBeyondColor": true
   },
   "reviewRubric": {
-    "distinctiveness": "The page should read as TrustAnchor's civic signal registry, not a generic SaaS shell.",
-    "contractFidelity": "Signal rings, proof lanes, typography, color, and responsive order must derive from the conceptual anchor.",
+    "distinctiveness": "The page should read as TrustAnchor's forensic evidence bench, not a generic SaaS shell.",
+    "contractFidelity": "Layered sheets, proof rails, typography, color, and responsive order must derive from the light-table anchor.",
     "hierarchy": "Verification must be the most obvious first action.",
     "responsiveRecomposition": "Mobile, tablet, and desktop must change grouping and priority.",
-    "motionDiscipline": "Motion must support signal readiness or state feedback and stop under reduced motion.",
+    "motionDiscipline": "Motion must support inspection or state feedback and stop under reduced motion.",
     "accessibility": "Focus, contrast, target size, form errors, and status text must remain intact."
   },
   "forbiddenPatterns": [
-    "frosted glass as the primary UI language",
+    "observatory signal rings from the previous concept",
     "generic startup dashboard chrome",
-    "purple gradient hero shell",
+    "purple-only gradient hero shells",
     "equal-weight card grids",
     "decorative animation that hides the verification task",
     "proof strings styled like marketing copy"
   ],
-  "nextValidationAction": "Validate the observatory redesign with typecheck, build, responsive inspection, reduced-motion behavior, and the project PR checklist."
+  "nextValidationAction": "Validate the forensic light-table redesign with API smoke, typecheck, lint, responsive inspection, reduced-motion behavior, and the project PR checklist."
 }

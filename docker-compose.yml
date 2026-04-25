@@ -3,7 +3,7 @@ services:
     build:
       context: .
       target: development
-    command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0"
+    command: npm run dev -- --hostname 0.0.0.0
     depends_on:
       postgres:
         condition: service_healthy
@@ -16,9 +16,10 @@ services:
     env_file:
       - .env
     ports:
-      - "3000:3000"
+      - "${WEB_PORT:-3000}:3000"
     volumes:
       - .:/app
+      - trustanchor_next_cache:/app/.next
       - trustanchor_node_modules:/app/node_modules
 
   postgres:
@@ -74,4 +75,5 @@ services:
 volumes:
   minio_data:
   postgres_data:
+  trustanchor_next_cache:
   trustanchor_node_modules:

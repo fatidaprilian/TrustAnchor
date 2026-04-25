@@ -1,28 +1,28 @@
 # TrustAnchor Design Contract
 
 ## 1. Design Intent and Product Personality
-TrustAnchor should feel like a civic signal instrument for certificate authenticity. The interface must make proof feel observable, locked, and readable within one scan for institutions, public officers, and recipients.
+TrustAnchor should now feel like a forensic document light table: precise, physical, and evidence-led. The interface should make users feel they are placing a certificate under controlled light, checking layers, and reading only the public proof needed to trust the record.
 
-This redesign is a new concept pass. Existing frontend code is used only for route behavior, copy requirements, form contracts, and accessibility evidence. It is not a visual continuity source.
+This is a zero-based redesign. Existing UI code is used for route behavior, copy needs, form contracts, and accessibility evidence only. The old observatory metaphor, orbit graphics, signal rings, balanced grid rhythm, and prior palette are discarded.
 
 Product personality:
-- Civic
-- Signal-led
-- Precise
-- Calm under scrutiny
-- Operationally assured
+- Forensic
+- Institutional
+- Tactile
+- Exacting
+- Quietly high-tech
 
 ## 2. Audience and Use-Context Signals
 Primary audiences:
-- Institution administrators issuing certificates from a controlled workspace
-- Authorized officers validating records during service or review
+- Institution administrators issuing certificate records
+- Authorized officers checking records during service or review
 - Public recipients proving that a certificate is genuine
 
 Use-context signals:
-- Verification must be the first decisive action on small screens
-- Public users need status language that is readable under pressure
-- Admin access must feel controlled without becoming a generic dashboard
-- Proof strings, hashes, and verification codes must look materially different from narrative copy
+- Verification remains the first decisive action on mobile
+- Proof strings, hashes, and verification codes must read like evidence labels
+- Admin login should feel like controlled access to an evidence bench
+- Public result pages should feel like a document inspection sheet, not a dashboard
 
 Confirmed inputs:
 - The app is a Next.js App Router application
@@ -33,156 +33,154 @@ Confirmed inputs:
 
 ## 3. Visual Direction and Distinctive Moves
 ### Chosen Conceptual Anchor
-Civic Signal Observatory
+Forensic Light Table
 
 Source domain:
-- Scientific observatories
-- Public infrastructure control rooms
-- Telemetry monitoring
+- Forensic document examination benches
+- Oblique light inspection
+- UV security ink review
+- Microprint and registration mark systems
+
+Specific reference point:
+- A document examiner's illuminated light table with translucent vellum overlays, registration rulers, edge clamps, and UV-reactive security fibers.
 
 Rationale:
-TrustAnchor turns document authenticity into a verifiable public signal. A civic signal observatory gives the interface a strong non-dashboard metaphor: signal rings, proof lanes, live telemetry, and controlled reading surfaces. It fits the product better than decorative security metaphors because verification is an act of observing evidence, not just storing data.
+TrustAnchor is about proving that a document has not been counterfeited. A forensic light table fits that work better than generic security dashboards because it gives the UI a physical inspection language: layered sheets, alignment marks, public-safe redaction, and proof bands.
 
 Distinctive moves:
-- A live signal field on the landing page that frames verification as the primary operation
-- Concentric scanner rings and proof ticks built in CSS, with reduced-motion fallbacks
-- Asymmetric lanes instead of equal-weight card grids
-- Report pages that read like signal confirmation sheets, not simple success cards
-- Admin login as an access console attached to the same proof network
+- Landing page starts as an angled inspection bench with a verification slip in the strongest light
+- Certificate proof is shown as layered paper, not equal cards
+- Microprint rails and registration ticks frame important values
+- Login becomes an operator access drawer beside the inspection surface
+- Verification results read like a stamped public evidence sheet
 
 ### Visual Reset Strategy
 Old visual DNA being discarded:
-- Frosted SaaS panels
-- Teal/brass continuity
-- Generic rounded card repetition
-- Balanced hero/card grid composition
-- Static proof presentation
+- Civic signal observatory metaphor
+- Orbit rings and scanner circles
+- Porcelain and midnight observatory palette
+- Equal-height instrument panels
+- Telemetry lane language
 
 New direction:
-- Porcelain, midnight ink, civic blue, oxide, and signal green palette
-- Ruled observatory surfaces with low-radius frames
-- Signal rings, scan sweeps, lane dividers, and registry ticks
-- Rich but purposeful CSS motion using transforms and opacity
+- Warm lab paper, graphite ink, cyan inspection light, ultraviolet violet, ember seal, and verified green
+- Layered evidence sheets with slight rotation and clipped corners
+- Fine registration grids, ruler marks, microprint rails, and clamp-like headers
+- CSS-only light sweep and paper lift motion with reduced-motion fallback
 
 ## 4. Color, Typography, Spacing, and Density Decisions
 Color behavior:
-- Porcelain and paper tones carry public readability
-- Midnight ink establishes authority
-- Civic blue is the main action and navigation color
-- Signal green marks valid/live states
-- Oxide and amber distinguish caution, audit, and invalid states
+- Lab paper and graphite create a document-first reading surface
+- Cyan blue represents inspection light and primary action
+- Ultraviolet violet highlights encrypted or hidden proof layers
+- Ember marks audit and seal moments
+- Green marks verified public status
 
 Typography:
-- Display text is assertive but not theatrical
-- Body text stays civic and readable
-- Metadata labels remain compact and explicit
-- Proof strings use monospaced treatment with strong containment
+- Display text uses a condensed technical voice for inspection headings
+- Body text uses a readable civic sans stack
+- Metadata labels stay compact and uppercase
+- Proof values use monospaced type and microprint containment
 
 Spacing and density:
-- Use an 8px base rhythm
-- Prefer long proof lanes and section bands over card piles
-- Keep mobile verification-first and single-task focused
-- Desktop may expose more telemetry, but must not equalize every surface
+- Use a 10px inspection rhythm rather than the previous 8px observatory rhythm
+- Desktop compositions should overlap and layer surfaces like papers on a bench
+- Mobile collapses into one clean inspection stack with verification first
+- Dense proof metadata is acceptable only when hierarchy and wrapping stay clear
 
 ## 5. Token Architecture and Alias Strategy
 Token layers:
-- Primitive tokens hold raw colors, radius, shadow, spacing, and motion durations
-- Semantic tokens express page, surface, text, border, action, valid, warning, and danger roles
-- Component tokens consume semantic roles for signal panels, proof lanes, report frames, and buttons
+- Primitive tokens hold raw colors, radius, shadows, spacing, and motion durations
+- Semantic tokens express bench, sheet, ink, grid, action, verified, audit, danger, and ultraviolet roles
+- Component tokens consume semantic roles for evidence sheets, clamps, proof rails, forms, and buttons
 
 Rules:
-- Components should consume semantic tokens instead of raw color values
-- Interactive states must be shared across landing, login, verification, and not-found screens
-- Motion values must have reduced-motion alternatives
+- Components consume semantic tokens instead of raw values
+- Focus, hover, loading, error, and success states must work across public and admin surfaces
+- Motion values must include reduced-motion fallbacks
 
 ## 6. Responsive Recomposition Plan
 Mobile:
-- Verification console appears before product narrative
-- Signal visualization becomes compact and secondary
-- Trust chain surfaces become a vertical proof sequence
+- Verification form appears first as a focused evidence slip
+- Layered document visual becomes a compact stacked sheet below the form
+- Trust steps collapse into a numbered inspection sequence
 
 Tablet:
-- Verification and signal summary form a two-band composition
-- Supporting proof lanes are paired, not miniaturized desktop
+- Verification and document preview form two stacked bands
+- Audience sections become two-column only when content stays readable
 
 Desktop:
-- Use asymmetric observatory lanes: narrative, verification console, and signal telemetry
-- Keep verification visually dominant through placement and contrast
-- Avoid centered hero symmetry
+- Use a wide inspection bench: verification slip, document specimen, and proof rail visible together
+- Allow controlled overlap and rotation to create a physical surface
+- Keep the primary verification action visually dominant
 
 Forbidden:
 - Scale-only shrink
-- Preserving desktop order on mobile without product reason
-- Equal-weight card rows as default layout
+- Preserving desktop overlap on narrow screens
+- Reusing the observatory orbit or signal-ring visual system
+- Generic dashboard sidebars or card grids
 
 ## 7. Motion, Interaction, and Feedback Rules
-Motion is functional signal behavior:
-- Page sections reveal with short opacity and vertical movement
-- Scanner rings rotate slowly on desktop
-- Scan lines and signal bars pulse to imply live verification readiness
-- Form and button states use immediate transform and border feedback
+Motion is inspection behavior:
+- Evidence sheets lift a few pixels on hover
+- Light bands sweep slowly across specimen surfaces
+- Buttons compress like physical controls
+- Inputs brighten as if moved under stronger light
+- Result status stamps settle into place
 - All non-essential motion stops under `prefers-reduced-motion`
 
-No new animation dependency is required for this slice. The current surface can meet the motion goal with CSS transforms, opacity, and pseudo-elements, keeping runtime cost low.
+No new animation dependency is required for this slice. CSS transforms, opacity, and pseudo-elements are enough for the current interaction depth.
 
 ## 8. Component Language, States, and Morphology
 Core morphology:
-- Low-radius framed instruments
-- Ruled lanes and dividers
-- Monospaced proof blocks
-- Signal chips with text plus color, never color alone
-- Buttons with clear solid primary treatment and visible focus
+- Low-radius evidence sheets
+- Clamped headers and ruler rails
+- Layered paper overlaps
+- Monospaced proof labels
+- Strong focus outlines that read like inspection marks
 
 State behavior:
-- Hover increases border strength or controlled lift
-- Focus uses high-contrast outline with offset
-- Active compresses slightly
-- Disabled remains legible
-- Errors use text and color together
+- Hover increases light and lift
+- Focus uses a cyan outline with offset
+- Active states compress slightly
+- Disabled states stay legible
+- Errors use message text and color together
 
 ## 9. Source Boundaries and Context Hygiene
 Used sources:
 - Current repository routes and UI behavior
-- Project brief, ADR, API contract, database schema, and flow overview
-- User-provided frontend library research file
-- Existing design docs as content to refine, not visual continuity to preserve
+- Project brief, architecture decision record, API contract, database schema, and flow overview
+- Existing UI as behavior evidence only
 
-Research used from the user file:
-- Prefer controlled transform/opacity motion before adding heavy animation stacks
-- Preserve accessibility and native browser behavior
-- Favor code ownership and small composable UI surfaces
-- Treat motion as interaction feedback, not decoration
-
-Research deliberately not adopted:
-- No Lenis, GSAP, Rive, Lottie, WebGL, or page-transition library is added because this app has a small public/auth surface and does not yet need dependency-level orchestration.
+No new frontend, animation, icon, canvas, or UI primitive library is added. This keeps the redesign compatible with the current Next.js and React dependency set.
 
 ## 10. Accessibility Non-Negotiables
 - WCAG 2.2 AA is the floor
 - Focus must be visible on links, buttons, and inputs
 - Interactive targets must be at least 44px high
-- Status must include readable text
+- Status must include readable text, not color alone
 - Form errors must be local and visible
 - Public verification and login must remain keyboard usable
 - Reduced motion must stop non-essential animation
 
 ## 11. Anti-Patterns to Avoid
-- Generic SaaS dashboards
-- Frosted glass as the primary style
-- Purple gradient startup shells
-- Decorative security padlock metaphors as the main visual idea
+- Observatory signal rings from the previous concept
+- Generic SaaS dashboard chrome
+- Purple-only gradient shells
 - Equal-weight card grids
-- Motion that hides the verification action
+- Decorative motion that hides form work
+- Proof strings styled like marketing copy
 
 ## 12. Implementation Notes for Future UI Tasks
-- Preserve route behavior and API contracts while allowing visual recomposition
-- Keep public verification dominant across viewports
-- Add future admin surfaces as controlled proof workflows, not generic dashboard pages
-- Introduce a motion/UI dependency only after live official documentation is checked and a real interaction need exists
+- Preserve route behavior and API contracts while changing composition freely
+- Add future admin pages as evidence workflows, not generic dashboards
+- Keep proof metadata readable before adding more ornament
+- Introduce a UI or motion dependency only after live official docs are checked and a clear interaction need exists
 
 ## Assumptions To Validate
+- The forensic inspection metaphor feels credible for education and public-sector users
 - Public verification may safely show recipient name, certificate number, institution, template, and hash
-- A login gateway is enough for the current admin-facing UI slice
-- The civic signal observatory anchor reads as official and reassuring for education and public-sector users
+- Bootstrap admin login remains enough for the current local development slice
 
 ## Next Validation Action
-Implement the new observatory-style frontend across landing, login, verification result, and not-found states, then validate type safety, build output, responsiveness, reduced motion, and accessibility-relevant UI states.
+Implement the forensic light-table frontend across landing, login, verification result, and not-found states, then validate API smoke, type safety, lint, responsive behavior, reduced motion, and the project PR checklist.
