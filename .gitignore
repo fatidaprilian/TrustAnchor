@@ -46,3 +46,6 @@ temp/
 *.orig
 *.rej
 .agentic-backup
+
+# Cryptography Keys
+*.pem
