@@ -3,12 +3,12 @@
 ## Issuance Flow
 1. An administrator signs in with bootstrap credentials.
 2. The administrator creates or selects a certificate template.
-3. The administrator submits recipient and issuance data.
+3. The administrator submits recipient and certificate-number data. The server assigns the issuance timestamp.
 4. The issuance service builds a canonical payload for the document.
 5. The proof service calculates a SHA-256 message digest from the canonical payload.
 6. The proof service signs the digest with the issuer RSA private key to produce the digital signature.
 7. The proof service encrypts the canonical payload with a random AES-256-GCM document key, then encrypts that document key with the platform master key.
-8. The issuance repository stores the proof material and public claims.
+8. The issuance repository encrypts the recipient identifier, then stores proof material and public claims.
 9. The audit log records the issuance event.
 10. The system returns a verification code, QR-ready verification URL, QR SVG endpoint, and proof summary.
 
@@ -45,6 +45,12 @@
 3. The admin form converts those academic fields into a structured `layoutDefinition` object.
 4. The template becomes available for issuance workflows.
 
+## Security Hardening Flow
+1. Login, admin mutations, public verification, QR, and PDF endpoints pass through Redis-backed rate limits.
+2. Admin mutation requests require a session cookie plus an `x-csrf-token` header that matches the readable CSRF cookie.
+3. Middleware attaches CSP, referrer, frame, permissions, and content-type security headers.
+4. Production proof generation requires explicit RSA signing keys and a document master key.
+
 ## Trust Boundaries
 - Browser to HTTP API: untrusted input, always validated.
 - HTTP API to service layer: typed DTOs only.
@@ -58,4 +64,4 @@
 - Course demonstration should include one valid verification and one tampered proof case, such as modifying the stored hash or encrypted payload in a test fixture.
 
 ## Next Validation Action
-Begin Phase 8 by validating rate limiting and CSRF protection for admin mutation endpoints.
+Begin Phase 9 by validating platform admin and institution-scoped dashboard boundaries.

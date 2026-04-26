@@ -44,6 +44,12 @@ export class ConflictError extends ApplicationError {
   }
 }
 
+export class RateLimitError extends ApplicationError {
+  public constructor(message = "Too many requests") {
+    super(ERROR_CODES.RATE_LIMIT_ERROR, message, 429);
+  }
+}
+
 export class ConfigurationError extends ApplicationError {
   public constructor(message: string, details?: unknown) {
     super(ERROR_CODES.CONFIGURATION_ERROR, message, 500, details);

@@ -1,6 +1,9 @@
+import { NextRequest } from "next/server";
+
 import { getEnvironment } from "@/modules/shared/config/env";
 import { DocumentStorageService } from "@/modules/document-storage/document-storage.service";
 import { handleRoute } from "@/modules/shared/http/api-response";
+import { enforceRateLimit } from "@/modules/shared/security/rate-limit.service";
 import { renderCertificatePdf } from "@/modules/verification/certificate-pdf.service";
 import { VerificationService } from "@/modules/verification/verification.service";
 
@@ -12,8 +15,9 @@ interface CertificatePdfRouteContext {
   };
 }
 
-export async function GET(_request: Request, context: CertificatePdfRouteContext): Promise<Response> {
+export async function GET(request: NextRequest, context: CertificatePdfRouteContext): Promise<Response> {
   return handleRoute("verification.certificate-pdf", async () => {
+    await enforceRateLimit(request, { limit: 20, scope: "certificate-pdf", windowSeconds: 60 });
     const verificationService = new VerificationService();
     const verificationResult = await verificationService.verifyByCode(context.params.verificationCode);
     const verificationUrl = new URL(

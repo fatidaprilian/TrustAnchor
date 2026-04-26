@@ -6,7 +6,7 @@ import { getEnvironment } from "@/modules/shared/config/env";
 import { AuthenticationError, ConfigurationError } from "@/modules/shared/errors/application-error";
 
 export const loginRequestSchema = z.object({
-  username: z.string().min(1, "Username is required"),
+  username: z.string().trim().min(1, "Username is required"),
   password: z.string().min(8, "Password must be at least 8 characters")
 });
 

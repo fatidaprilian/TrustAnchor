@@ -185,4 +185,4 @@ QR rendering uses the project dependency `qrcode-generator`; no new animation, i
 - Bootstrap admin login remains enough for the current local development slice
 
 ## Next Validation Action
-Begin Phase 8 by validating security-hardening UI states for rate limiting, CSRF failures, type safety, lint, responsive behavior, reduced motion, and the project PR checklist.
+Begin Phase 9 by validating role-scoped dashboard states for platform administrators and institution operators.

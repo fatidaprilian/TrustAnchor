@@ -8,6 +8,7 @@ It combines RSA-SHA256 digital signatures, SHA-256 hashing, envelope-style doubl
 - Certificate template creation
 - Certificate issuance with tamper-evident proof material
 - Public verification endpoint, verification page, QR SVG download, print-ready certificate page, and server-side PDF output
+- Redis-backed rate limiting, CSRF protection for admin mutations, CSP/security headers, and field-level encryption for recipient identifiers
 - Health check and OpenAPI JSON endpoint
 
 ## Tech Stack
@@ -77,4 +78,5 @@ After changing `package.json` or `package-lock.json`, rebuild the web image and 
 
 ## Current Scope
 This repository currently focuses on the first vertical slice: template creation, certificate issuance, and verification lookup.
-Phase 7 is complete with QR verification, browser print output, server-side PDF rendering, MinIO artifact storage, and revocation.
+Phase 8 is complete with QR verification, browser print output, server-side PDF rendering, MinIO artifact storage, revocation, Redis rate limiting, CSRF protection, security headers, server-owned issuance timestamps, and encrypted recipient identifiers.
+The current authenticated dashboard uses one bootstrap `admin` role; Phase 9 will split platform administration from institution-scoped operator/admin dashboards.

@@ -8,7 +8,7 @@
   },
   "project": {
     "name": "trustanchor",
-    "currentFocus": "Phase 8 Security Hardening is next after completing Enhanced Verification Phase 7.",
+    "currentFocus": "Phase 9 Multi-Institution Support is next after completing Security Hardening Phase 8.",
     "durableFacts": [
       "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
       "The web service host port is configurable through WEB_PORT with default 3000.",
@@ -21,7 +21,10 @@
       "Print-ready certificate pages are available at /verify/{verificationCode}/print.",
       "Tampered or legacy proof material returns proofVerified false with status proof_invalid instead of a 500.",
       "Bootstrap admin password accepts plaintext in development/test and requires SHA-256 hex in production.",
-      "Server-side certificate PDF rendering is available at /api/verifications/{verificationCode}/certificate-pdf and stores artifacts in MinIO."
+      "Server-side certificate PDF rendering is available at /api/verifications/{verificationCode}/certificate-pdf and stores artifacts in MinIO.",
+      "MinIO is used as a self-hosted open-source object storage target in Docker development.",
+      "Issued At is server-controlled audit metadata and is not editable from the admin issuance form.",
+      "Current authenticated access uses a single bootstrap admin role; Phase 9 should split platform admin from institution-scoped operator/admin dashboards."
     ]
   },
   "progress": {
@@ -39,16 +42,17 @@
       "Reworked the admin template form to collect academic certificate fields and generate layoutDefinition automatically.",
       "Fixed local login with plaintext BOOTSTRAP_ADMIN_PASSWORD while preserving production hash enforcement.",
       "Removed Public Claims JSON from issuance creation and made public claims derive from the selected academic template.",
-      "Completed Phase 7 with server-side PDF rendering, MinIO artifact storage, and certificate revocation."
+      "Completed Phase 7 with server-side PDF rendering, MinIO artifact storage, and certificate revocation.",
+      "Completed Phase 8 with Redis-backed rate limiting, CSRF protection, CSP/security headers, server-controlled issuance timestamps, recipient identifier field-level encryption, input trimming, and production key guards."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
-      "npm install reported 14 audit vulnerabilities after adding qrcode-generator, pdf-lib, and minio.",
+      "npm install reported 14 audit vulnerabilities after adding qrcode-generator, pdf-lib, minio, and redis.",
       "Playwright is not installed locally, so no browser screenshot regression was run.",
       ".next cache is owned by nobody/nogroup, so lint must use --no-cache unless cache permissions are fixed."
     ],
     "nextBestActions": [
-      "Begin Phase 8 with Redis-backed rate limiting and CSRF protection for admin mutations.",
+      "Begin Phase 9 with institution CRUD, role modeling, and institution-scoped dashboard data isolation.",
       "Upgrade Next.js to a patched compatible version in a separate dependency update."
     ],
     "validationState": [
@@ -58,7 +62,8 @@
       "QR unit tests cover QR matrix and SVG generation.",
       "Docker smoke passed for /verify/{code}, /verify/{code}/print, /api/verifications/{code}, and /api/verifications/{code}/qr using an existing local record.",
       "Docker smoke passed for bootstrap login and academic template creation.",
-      "Docker end-to-end smoke passed for login, academic template creation, issuance without public claims JSON, PDF generation, MinIO object storage, revocation, and public verification status."
+      "Docker end-to-end smoke passed for login, academic template creation, issuance without public claims JSON, PDF generation, MinIO object storage, revocation, and public verification status.",
+      "Docker Phase 8 smoke passed for login CSRF cookie issuance, missing-CSRF rejection, template creation, issuance without issuedAt, public verification, PDF generation, revocation, and encrypted recipient_identifier persistence."
     ]
   },
   "designContinuity": {
@@ -76,5 +81,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-04-26T09:35:53+07:00"
+  "lastUpdatedAt": "2026-04-26T14:20:00+07:00"
 }

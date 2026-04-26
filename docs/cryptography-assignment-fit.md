@@ -15,7 +15,7 @@ TrustAnchor fits the final cryptography assignment because it has a written syst
 2. The proof service calculates a SHA-256 message digest.
 3. The proof service signs the digest with an RSA private key using RSA-PSS SHA-256 (`PS256`).
 4. The proof service encrypts the canonical payload with AES-256-GCM and wraps the document key with the platform master key.
-5. The system stores the original public claims, document hash, digital signature, and encrypted proof material.
+5. The system stores the original public claims, document hash, digital signature, encrypted proof material, and an encrypted recipient identifier.
 
 ## Verifier Flow
 1. The verifier opens `/verify/{verificationCode}` or scans the QR code.
@@ -45,4 +45,3 @@ TrustAnchor fits the final cryptography assignment because it has a written syst
 ## Remaining Academic Polish
 - Convert these docs into a formal paper with theory, implementation screenshots, test evidence, and conclusion.
 - Prepare presentation slides around the signer flow, verifier flow, PDF/QR artifact, revocation, and tamper-detection demo.
-- Prepare presentation slides around the signer flow, verifier flow, and tamper-detection demo.

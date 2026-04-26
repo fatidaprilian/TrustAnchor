@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 
 import { getDatabasePool } from "@/modules/shared/config/database";
+import { decryptFieldValue, encryptFieldValue } from "@/modules/shared/security/field-encryption.service";
 
 export interface CertificateIssuanceRecord {
   certificateNumber: string;
@@ -79,7 +80,7 @@ function mapCertificateIssuanceRow(row: CertificateIssuanceRow): CertificateIssu
     payloadIv: row.payload_iv,
     payloadTag: row.payload_tag,
     publicClaims: row.public_claims,
-    recipientIdentifier: row.recipient_identifier,
+    recipientIdentifier: decryptFieldValue(row.recipient_identifier),
     recipientName: row.recipient_name,
     status: row.status,
     templateId: row.template_id,
@@ -146,7 +147,7 @@ export class CertificateIssuanceRepository {
         input.verificationCode,
         input.certificateNumber,
         input.recipientName,
-        input.recipientIdentifier,
+        encryptFieldValue(input.recipientIdentifier),
         input.issuedAt,
         input.documentHash,
         input.digitalSignature,

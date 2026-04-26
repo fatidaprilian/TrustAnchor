@@ -108,22 +108,16 @@ export const openApiDocument = {
           },
           recipientIdentifier: {
             type: "string",
-            description: "Institution-facing recipient identifier",
+            description: "Institution-facing recipient identifier. Stored with field-level encryption and not exposed publicly.",
             example: "NIM-2026-001"
           },
           certificateNumber: {
             type: "string",
             description: "Unique certificate number",
             example: "TA-2026-0001"
-          },
-          issuedAt: {
-            type: "string",
-            format: "date-time",
-            description: "Issue timestamp in ISO 8601 format",
-            example: "2026-04-21T12:00:00.000Z"
           }
         },
-        required: ["templateId", "recipientName", "recipientIdentifier", "certificateNumber", "issuedAt"]
+        required: ["templateId", "recipientName", "recipientIdentifier", "certificateNumber"]
       }
     },
     securitySchemes: {
@@ -131,6 +125,11 @@ export const openApiDocument = {
         type: "apiKey",
         in: "cookie",
         name: "trustanchor_session"
+      },
+      csrfHeader: {
+        type: "apiKey",
+        in: "header",
+        name: "x-csrf-token"
       }
     }
   },
@@ -204,7 +203,7 @@ export const openApiDocument = {
       post: {
         summary: "Create certificate template",
         description: "Creates a template for the active institution.",
-        security: [{ sessionCookie: [] }],
+        security: [{ csrfHeader: [], sessionCookie: [] }],
         requestBody: {
           required: true,
           content: {
@@ -234,7 +233,15 @@ export const openApiDocument = {
             }
           },
           "403": {
-            description: "Insufficient permissions",
+            description: "Insufficient permissions or invalid CSRF token",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            description: "Rate limit exceeded",
             content: {
               "application/json": {
                 schema: { $ref: "#/components/schemas/ErrorResponse" }
@@ -248,7 +255,7 @@ export const openApiDocument = {
       post: {
         summary: "Issue certificate",
         description: "Creates a new issuance record and generates SHA-256, RSA-SHA256, and encrypted proof material.",
-        security: [{ sessionCookie: [] }],
+        security: [{ csrfHeader: [], sessionCookie: [] }],
         requestBody: {
           required: true,
           content: {
@@ -284,6 +291,14 @@ export const openApiDocument = {
                 schema: { $ref: "#/components/schemas/ErrorResponse" }
               }
             }
+          },
+          "429": {
+            description: "Rate limit exceeded",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
           }
         }
       }
@@ -292,7 +307,7 @@ export const openApiDocument = {
       post: {
         summary: "Revoke certificate issuance",
         description: "Marks an issuance as revoked while keeping the audit and proof record intact.",
-        security: [{ sessionCookie: [] }],
+        security: [{ csrfHeader: [], sessionCookie: [] }],
         parameters: [
           {
             name: "issuanceId",
@@ -326,6 +341,14 @@ export const openApiDocument = {
           },
           "404": {
             description: "Issuance not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            description: "Rate limit exceeded",
             content: {
               "application/json": {
                 schema: { $ref: "#/components/schemas/ErrorResponse" }

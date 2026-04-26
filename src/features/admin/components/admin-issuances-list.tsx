@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 
+import { withCsrfHeaders } from "@/features/admin/lib/csrf";
+
 interface IssuanceRecord {
   certificateNumber: string;
   createdAt: string;
@@ -74,6 +76,7 @@ export function AdminIssuancesList(): JSX.Element {
 
     try {
       const response = await fetch(`/api/certificate-issuances/${encodeURIComponent(issuanceId)}/revoke`, {
+        headers: withCsrfHeaders(),
         method: "POST"
       });
 

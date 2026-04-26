@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 import { TrustAnchorWordmark } from "@/components/trustanchor-wordmark";
+import { withCsrfHeaders } from "@/features/admin/lib/csrf";
 
 interface SessionUser {
   role: string;
@@ -46,7 +47,7 @@ export function AdminShell({ children }: AdminShellProps): JSX.Element {
   const handleLogout = useCallback(async () => {
     setIsLoggingOut(true);
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await fetch("/api/auth/logout", { headers: withCsrfHeaders(), method: "POST" });
       router.push("/login");
       router.refresh();
     } catch {

@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { withCsrfHeaders } from "@/features/admin/lib/csrf";
+
 const createTemplateFormSchema = z.object({
   certificateType: z.string().min(1, "Certificate type is required"),
   academicYear: z.string().min(4, "Academic year is required"),
@@ -76,9 +78,9 @@ export function AdminTemplateForm(): JSX.Element {
 
       const response = await fetch("/api/certificate-templates", {
         body: JSON.stringify(payload),
-        headers: {
+        headers: withCsrfHeaders({
           "Content-Type": "application/json"
-        },
+        }),
         method: "POST"
       });
 

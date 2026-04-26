@@ -101,7 +101,7 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 
 ---
 
-## Phase 6: Template and Issuance Admin Forms  <-- CURRENT
+## Phase 6: Template and Issuance Admin Forms
 **Status: COMPLETED**
 
 | Deliverable | Status |
@@ -127,22 +127,23 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 
 ---
 
-## Phase 8: Security Hardening  <-- CURRENT
-**Status: NOT STARTED**
+## Phase 8: Security Hardening
+**Status: COMPLETED**
 
 | Deliverable | Status |
 |---|---|
-| Rate limiting with Redis | Planned |
-| CSRF protection for admin forms | Planned |
-| Recipient identifier field-level encryption | Planned |
-| Production signing key management (non-fallback RSA key pair) | Planned |
-| Content Security Policy headers | Planned |
-| Input sanitization audit | Planned |
-| Session rotation and forced expiration | Planned |
+| Rate limiting with Redis | Done |
+| CSRF protection for admin forms | Done |
+| Recipient identifier field-level encryption | Done |
+| Production signing key management (non-fallback RSA key pair) | Done |
+| Content Security Policy headers | Done |
+| Input sanitization audit | Done |
+| Session rotation and forced expiration | Done |
+| Server-controlled issuance timestamp | Done |
 
 ---
 
-## Phase 9: Multi-Institution Support
+## Phase 9: Multi-Institution Support  <-- CURRENT
 **Status: NOT STARTED**
 
 | Deliverable | Status |
@@ -178,20 +179,21 @@ Phase 4: Public Frontend    █████████████████�
 Phase 5: Admin Dashboard    ████████████████████ 100%
 Phase 6: Admin Forms        ████████████████████ 100%
 Phase 7: Verification+      ████████████████████ 100%
-Phase 8: Security           ░░░░░░░░░░░░░░░░░░░░   0%
+Phase 8: Security           ████████████████████ 100%
 Phase 9: Multi-Institution  ░░░░░░░░░░░░░░░░░░░░   0%
 Phase 10: Production        ░░░░░░░░░░░░░░░░░░░░   0%
 ```
 
-Overall progress: **7 of 10 phases completed (70%)**
+Overall progress: **8 of 10 phases completed (80%)**
 
 ## Assumptions To Validate
-- Admin forms for template and issuance creation are the next highest-value deliverable after the dashboard read views.
+- Phase 9 should avoid overbuilding identity; start with role and institution boundaries that unlock the academic/institution demo.
 - QR code rendering uses `qrcode-generator` to produce a real QR matrix as SVG without adding a binary dependency.
 - Browser print output is acceptable before server-side PDF rendering because it lets the team validate certificate content and QR placement first.
 - Server-side PDF rendering uses `pdf-lib`, then stores the generated artifact in MinIO through the official MinIO JavaScript SDK.
 - Multi-institution support can be deferred until the single-institution vertical slice is validated with a real institution.
+- The current authenticated role is a single bootstrap `admin`; Phase 9 will split this into platform admin and institution-scoped operator/admin roles.
 - The academic cryptography rubric is best met with RSA-SHA256, SHA-256 digest comparison, and a tamper-detection demo.
 
 ## Next Validation Action
-Begin Phase 8 by adding Redis-backed rate limiting and CSRF protection for admin mutations.
+Begin Phase 9 by introducing institution records, role-scoped dashboards, and institution-level data isolation.

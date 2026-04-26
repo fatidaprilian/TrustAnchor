@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { withCsrfHeaders } from "@/features/admin/lib/csrf";
+
 const createIssuanceFormSchema = z.object({
   certificateNumber: z.string().min(3, "Certificate number is required"),
-  issuedAt: z.string().datetime({ message: "Must be a valid ISO datetime (e.g. 2026-04-25T14:30:00Z)" }),
   recipientIdentifier: z.string().min(3, "Recipient identifier is required"),
   recipientName: z.string().min(3, "Recipient name is required"),
   templateId: z.string().uuid("Please select a valid template")
@@ -37,7 +38,6 @@ export function AdminIssuanceForm(): JSX.Element {
   } = useForm<CreateIssuanceFormValues>({
     defaultValues: {
       certificateNumber: "",
-      issuedAt: new Date().toISOString(),
       recipientIdentifier: "",
       recipientName: "",
       templateId: ""
@@ -72,7 +72,6 @@ export function AdminIssuanceForm(): JSX.Element {
     try {
       const payload = {
         certificateNumber: formValues.certificateNumber,
-        issuedAt: formValues.issuedAt,
         recipientIdentifier: formValues.recipientIdentifier,
         recipientName: formValues.recipientName,
         templateId: formValues.templateId
@@ -80,9 +79,9 @@ export function AdminIssuanceForm(): JSX.Element {
 
       const response = await fetch("/api/certificate-issuances", {
         body: JSON.stringify(payload),
-        headers: {
+        headers: withCsrfHeaders({
           "Content-Type": "application/json"
-        },
+        }),
         method: "POST"
       });
 
@@ -186,19 +185,6 @@ export function AdminIssuanceForm(): JSX.Element {
             type="text"
           />
           {errors.certificateNumber ? <span className="field-error">{errors.certificateNumber.message}</span> : null}
-        </label>
-
-        <label className="field-block" htmlFor="issuedAt">
-          <span className="field-label">Issued At (ISO Datetime)</span>
-          <input
-            {...register("issuedAt")}
-            aria-invalid={errors.issuedAt ? "true" : "false"}
-            className="field-input"
-            id="issuedAt"
-            placeholder="e.g. 2026-04-25T14:30:00Z"
-            type="text"
-          />
-          {errors.issuedAt ? <span className="field-error">{errors.issuedAt.message}</span> : null}
         </label>
 
         <div aria-live="polite" className="status-region">

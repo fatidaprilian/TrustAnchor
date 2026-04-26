@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 
 import { AuthenticationService, loginRequestSchema } from "@/modules/authentication/authentication.service";
 import { handleRoute, jsonSuccess } from "@/modules/shared/http/api-response";
+import { setCsrfCookie } from "@/modules/shared/security/csrf.service";
+import { enforceRateLimit } from "@/modules/shared/security/rate-limit.service";
 import {
   createSessionToken,
   getSessionCookieName,
@@ -12,6 +14,7 @@ export const runtime = "nodejs";
 
 export async function POST(request: NextRequest): Promise<Response> {
   return handleRoute("authentication.login", async () => {
+    await enforceRateLimit(request, { limit: 10, scope: "auth-login", windowSeconds: 60 });
     const requestBody = loginRequestSchema.parse(await request.json());
     const authenticationService = new AuthenticationService();
     const administrator = await authenticationService.authenticateBootstrapAdmin(requestBody);
@@ -29,6 +32,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     });
 
     response.cookies.set(getSessionCookieName(), sessionToken, getSessionCookieOptions());
+    setCsrfCookie(response);
 
     return response;
   });

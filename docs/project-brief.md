@@ -20,6 +20,7 @@ TrustAnchor is a web application for education institutions and government agenc
 - Academic certificate template management without requiring operators to write raw JSON.
 - Certificate issuance with SHA-256 message digest generation, RSA digital signing, and tamper-evident proof storage.
 - Verification endpoint and verification screen that recompute the document hash and verify the RSA signature.
+- Redis rate limiting, CSRF protection, security headers, server-controlled issuance timestamps, and field-level encryption for recipient identifiers.
 - Audit trail for sensitive actions.
 - OpenAPI 3.1 contract for all HTTP endpoints.
 
@@ -40,7 +41,8 @@ TrustAnchor is a web application for education institutions and government agenc
 - The first release targets a single institution per deployment, with room for multi-institution expansion.
 - The first vertical slice stores certificate payload metadata, RSA proof material, QR-ready verification links, browser print artifacts, server-side PDF output, and MinIO-stored certificate artifacts.
 - Bootstrap admin credentials are acceptable for local development until a full identity module is added.
-- MinIO is acceptable as the initial encrypted object storage target.
+- MinIO is acceptable as the initial self-hosted, open-source object storage target.
+- `issuedAt` is audit metadata owned by the server and is not editable from the admin form.
 
 ## Next Validation Action
-Begin Phase 8 security hardening with rate limiting and CSRF protection for admin mutation endpoints.
+Begin Phase 9 multi-institution support with role-scoped dashboards and institution-level data isolation.

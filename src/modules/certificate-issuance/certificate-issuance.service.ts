@@ -35,13 +35,14 @@ export class CertificateIssuanceService {
     }
 
     const verificationCode = createVerificationCode();
+    const issuedAt = new Date().toISOString();
     const templateClaims = templateRecord.layoutDefinition;
     const publicClaims = {
       academicYear: readStringClaim(templateClaims, "academicYear", ""),
       achievementLabel: readStringClaim(templateClaims, "achievementLabel", ""),
       certificateNumber: input.certificateNumber,
       institutionName: institutionRecord.name,
-      issuedAt: input.issuedAt,
+      issuedAt,
       programName: readStringClaim(templateClaims, "programName", templateRecord.templateName),
       recipientName: input.recipientName,
       signatoryName: readStringClaim(templateClaims, "signatoryName", ""),
@@ -56,7 +57,7 @@ export class CertificateIssuanceService {
       achievementLabel: publicClaims.achievementLabel,
       institutionId: institutionRecord.id,
       institutionName: institutionRecord.name,
-      issuedAt: input.issuedAt,
+      issuedAt,
       programName: publicClaims.programName,
       recipientIdentifier: input.recipientIdentifier,
       recipientName: input.recipientName,
@@ -74,7 +75,7 @@ export class CertificateIssuanceService {
         documentHash: proof.documentHash,
         encryptedPayload: proof.encryptedPayload,
         institutionId: institutionRecord.id,
-        issuedAt: input.issuedAt,
+        issuedAt,
         payloadIv: proof.payloadIv,
         payloadTag: proof.payloadTag,
         publicClaims,

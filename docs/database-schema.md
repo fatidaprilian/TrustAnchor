@@ -31,7 +31,7 @@ Indexes:
 - `verification_code` `TEXT` unique not null
 - `certificate_number` `TEXT` unique not null
 - `recipient_name` `TEXT` not null
-- `recipient_identifier` `TEXT` not null
+- `recipient_identifier` `TEXT` not null; stores a versioned AES-256-GCM encrypted value (`enc:v1:...`) for new records
 - `issued_at` `TIMESTAMPTZ` not null
 - `document_hash` `TEXT` not null
 - `digital_signature` `TEXT` not null
@@ -68,12 +68,12 @@ Indexes:
 - `document_hash` stores the SHA-256 digest of the canonical certificate payload.
 - `digital_signature` stores the compact RSA-SHA256 signature over that digest.
 - `encrypted_payload` and key-wrapping fields store AES-256-GCM envelope encryption output and must remain server-only.
+- `recipient_identifier` uses field-level AES-256-GCM encryption before persistence. Legacy plaintext values can still be read for compatibility, but new records are encrypted.
 - `status` supports revocation through the value `revoked`; revoked records stay immutable and verifiable but are no longer active.
 - Generated PDF artifacts are stored in MinIO under `certificate-artifacts/{verificationCode}.pdf`; the database remains the proof source of truth for this phase.
 
 ## Assumptions To Validate
-- Recipient identifier can be stored in raw form in the first release.
 - Template layout definition as `JSONB` is flexible enough before a richer template editor exists.
 
 ## Next Validation Action
-Review whether recipient identifiers need hashing, masking, or field-level encryption before production hardening, then decide whether PDF object keys should be persisted in PostgreSQL.
+Decide whether PDF object keys should be persisted in PostgreSQL, then model institution-scoped access control for Phase 9.
