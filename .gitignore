@@ -45,4 +45,4 @@ temp/
 *.backup
 *.orig
 *.rej
-*.agentic-backup
+.agentic-backup
