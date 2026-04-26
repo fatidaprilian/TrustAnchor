@@ -3,16 +3,126 @@
 ## Authentication
 
 ### `POST /api/auth/login`
-Purpose: create a bootstrap admin session.
+Purpose: create one internal session from either bootstrap platform credentials or institution operator credentials.
 
 Request body:
 - `username` string
 - `password` string
 
 Responses:
-- `200` session established
+- `200` session established with `role`, `institutionId`, and `institutionName`
 - `400` validation error
 - `401` invalid credentials
+- `500` internal error
+
+## Institutions
+
+### `GET /api/admin/institutions`
+Purpose: list institution workspaces for platform administrators.
+
+Auth:
+- Required platform administrator session
+
+Responses:
+- `200` institution list returned
+- `401` missing session
+- `403` platform administrator role required
+- `500` internal error
+
+### `POST /api/admin/institutions`
+Purpose: create an institution workspace.
+
+Auth:
+- Required platform administrator session
+- Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
+
+Request body:
+- `code` string
+- `name` string
+- `adminUsername` string
+- `adminPassword` string
+
+Responses:
+- `201` institution created
+- `400` validation error
+- `401` missing session
+- `403` platform administrator role or valid CSRF token required
+- `409` duplicate institution code
+- `429` rate limit exceeded
+- `500` internal error
+
+### `PATCH /api/admin/institutions/{institutionId}`
+Purpose: update an institution workspace.
+
+Auth:
+- Required platform administrator session
+- Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
+
+Request body:
+- `code` string
+- `name` string
+
+Responses:
+- `200` institution updated
+- `400` validation error
+- `401` missing session
+- `403` platform administrator role or valid CSRF token required
+- `404` institution not found
+- `409` duplicate institution code
+- `429` rate limit exceeded
+- `500` internal error
+
+### `GET /api/admin/institutions/{institutionId}/operators`
+Purpose: list operator accounts for one institution workspace.
+
+Auth:
+- Required platform administrator session
+
+Responses:
+- `200` operator list returned
+- `401` missing session
+- `403` platform administrator role required
+- `404` institution not found
+- `500` internal error
+
+### `POST /api/admin/institutions/{institutionId}/operators`
+Purpose: create an additional institution operator account.
+
+Auth:
+- Required platform administrator session
+- Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
+
+Request body:
+- `username` string
+- `password` string
+
+Responses:
+- `201` operator created
+- `400` validation error
+- `401` missing session
+- `403` platform administrator role or valid CSRF token required
+- `404` institution not found
+- `409` duplicate operator username
+- `429` rate limit exceeded
+- `500` internal error
+
+### `PATCH /api/admin/institutions/{institutionId}/operators/{operatorId}/password`
+Purpose: reset one institution operator password.
+
+Auth:
+- Required platform administrator session
+- Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
+
+Request body:
+- `password` string
+
+Responses:
+- `200` operator password reset
+- `400` validation error
+- `401` missing session
+- `403` platform administrator role or valid CSRF token required
+- `404` operator not found
+- `429` rate limit exceeded
 - `500` internal error
 
 ## Templates
@@ -21,8 +131,11 @@ Responses:
 Purpose: create a certificate template for the active institution.
 
 Auth:
-- Required bootstrap admin session
+- Required internal admin session
 - Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
+
+Scope:
+- Uses `institutionId` from the authenticated session.
 
 Request body:
 - `templateName` string
@@ -55,8 +168,11 @@ Responses:
 Purpose: issue a certificate and generate SHA-256, RSA-SHA256, and encrypted proof material.
 
 Auth:
-- Required bootstrap admin session
+- Required internal admin session
 - Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
+
+Scope:
+- Uses `institutionId` and `institutionName` from the authenticated session.
 
 Request body:
 - `templateId` string
@@ -164,6 +280,12 @@ Purpose: terminate the current admin session.
 
 Auth:
 - Required admin session
+
+Success body:
+- `data.role`
+- `data.username`
+- `data.institutionId`
+- `data.institutionName`
 - Required `x-csrf-token` header matching the readable `trustanchor_csrf` cookie
 
 Responses:
@@ -189,6 +311,9 @@ Purpose: return aggregated dashboard summary including counts and recent records
 Auth:
 - Required admin session
 
+Scope:
+- Counts, recent issuances, and recent audit logs are filtered by the session institution.
+
 Responses:
 - `200` dashboard summary
 - `401` missing session
@@ -200,6 +325,9 @@ Purpose: list certificate templates with pagination.
 
 Auth:
 - Required admin session
+
+Scope:
+- Returns templates for the session institution only.
 
 Query params:
 - `limit` integer (default 20, max 100)
@@ -217,6 +345,9 @@ Purpose: list certificate issuances with pagination.
 Auth:
 - Required admin session
 
+Scope:
+- Returns issuances for the session institution only.
+
 Query params:
 - `limit` integer (default 20, max 100)
 - `offset` integer (default 0)
@@ -233,6 +364,9 @@ Purpose: list audit log entries with pagination.
 Auth:
 - Required admin session
 
+Scope:
+- Returns audit logs whose detail payload is tied to the session institution.
+
 Query params:
 - `limit` integer (default 20, max 100)
 - `offset` integer (default 0)
@@ -243,11 +377,15 @@ Responses:
 - `403` insufficient role
 - `500` internal error
 
+## Roles
+- `platform_admin`: TrustAnchor/platform operator. Uses bootstrap credentials, manages institution workspaces and initial institution operators.
+- `institution_admin`: Internal operator for one institution. Uses a database-backed operator account and can manage templates, issuances, revocation, and audit views for its institution only.
+- Public verifier: no login role. Uses public verification pages and APIs by verification code or QR.
+
 ## Assumptions To Validate
-- The first release does not require a template list endpoint or an issuance list endpoint from the public surface.
 - Public verification response fields are acceptable for the target privacy posture.
-- Admin list endpoints return full records; field-level redaction may be needed in future phases.
+- Institution-owned credentials are enough for the first multi-institution slice; full self-service user management can be added later.
 - The course demo can show tamper detection through a unit test or controlled database change rather than exposing a public mutation endpoint.
 
 ## Next Validation Action
-Expand the contract when printable PDF certificate output, object storage, and revocation endpoints are implemented.
+Run the black-box test plan and capture API responses for the final presentation evidence.

@@ -1,8 +1,8 @@
 # Flow Overview
 
 ## Issuance Flow
-1. An administrator signs in with bootstrap credentials.
-2. The administrator creates or selects a certificate template.
+1. An institution administrator signs in with institution-owned credentials.
+2. The institution administrator creates or selects a certificate template.
 3. The administrator submits recipient and certificate-number data. The server assigns the issuance timestamp.
 4. The issuance service builds a canonical payload for the document.
 5. The proof service calculates a SHA-256 message digest from the canonical payload.
@@ -33,17 +33,34 @@
 6. The PDF endpoint renders the certificate server-side and stores the generated artifact in MinIO.
 
 ## Revocation Flow
-1. An administrator opens the issuance ledger.
-2. The administrator revokes an issuance record.
+1. An institution administrator opens the issuance ledger.
+2. The institution administrator revokes an issuance record.
 3. The revocation endpoint changes the immutable issuance record status to `revoked`.
 4. The audit log records `certificate_issuance.revoked`.
 5. Public verification still checks the cryptographic proof, but the result no longer counts as an active issued certificate.
 
 ## Admin Configuration Flow
-1. An administrator signs in.
-2. The administrator creates an academic template with institution, program, academic year, achievement text, and signatory fields.
-3. The admin form converts those academic fields into a structured `layoutDefinition` object.
-4. The template becomes available for issuance workflows.
+1. A platform administrator signs in and manages institution workspaces plus operator accounts.
+2. An institution administrator signs in with the operator account created for its institution.
+3. The institution administrator creates an academic template with institution, program, academic year, achievement text, and signatory fields.
+4. The admin form converts those academic fields into a structured `layoutDefinition` object.
+5. The template becomes available only inside that session institution's issuance workflow.
+
+## Multi-Institution Flow
+1. A platform administrator opens the Institutions page.
+2. The platform administrator creates an institution workspace with a unique code, display name, and initial operator account.
+3. The platform administrator can list operators and reset operator passwords for that institution.
+4. The institution operator signs in with its own username and password.
+5. The session automatically carries the operator's institution ID and institution name.
+6. Dashboard summary, templates, issuances, and audit logs are filtered by the session institution.
+7. Certificate issuance stores the session institution ID and institution name in the signed canonical payload.
+
+## Role Redirect Flow
+1. `/login` is the only internal login page.
+2. A valid `platform_admin` session redirects to `/admin/institutions`.
+3. A valid `institution_admin` session redirects to `/admin`.
+4. If a logged-in user opens `/`, middleware redirects to that role's internal home.
+5. Public verification remains unauthenticated through `/verify/{verificationCode}` and related public verification endpoints.
 
 ## Security Hardening Flow
 1. Login, admin mutations, public verification, QR, and PDF endpoints pass through Redis-backed rate limits.
@@ -64,4 +81,4 @@
 - Course demonstration should include one valid verification and one tampered proof case, such as modifying the stored hash or encrypted payload in a test fixture.
 
 ## Next Validation Action
-Begin Phase 9 by validating platform admin and institution-scoped dashboard boundaries.
+Run the black-box test plan and capture screenshots for the final presentation.

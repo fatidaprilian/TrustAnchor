@@ -7,9 +7,9 @@ import {
   CertificateTemplateRepository,
   type CertificateTemplateRecord
 } from "@/modules/certificate-template/certificate-template.repository";
-import { InstitutionRepository } from "@/modules/institution/institution.repository";
 
 export interface DashboardSummary {
+  institutionId: string;
   institutionName: string;
   templateCount: number;
   issuanceCount: number;
@@ -45,22 +45,19 @@ export class DashboardService {
 
   private readonly certificateTemplateRepository = new CertificateTemplateRepository();
 
-  private readonly institutionRepository = new InstitutionRepository();
-
-  public async getSummary(): Promise<DashboardSummary> {
-    const institution = await this.institutionRepository.getDefaultInstitution();
-
+  public async getSummary(institutionId: string, institutionName: string): Promise<DashboardSummary> {
     const [templateCount, issuanceCount, auditLogCount, recentIssuances, recentAuditLogs] = await Promise.all([
-      this.certificateTemplateRepository.countTemplatesByInstitution(institution.id),
-      this.certificateIssuanceRepository.countIssuancesByInstitution(institution.id),
-      this.auditLogRepository.countAuditLogs(),
-      this.certificateIssuanceRepository.findIssuancesByInstitution(institution.id, 5, 0),
-      this.auditLogRepository.findRecentAuditLogs(5, 0)
+      this.certificateTemplateRepository.countTemplatesByInstitution(institutionId),
+      this.certificateIssuanceRepository.countIssuancesByInstitution(institutionId),
+      this.auditLogRepository.countAuditLogsByInstitution(institutionId),
+      this.certificateIssuanceRepository.findIssuancesByInstitution(institutionId, 5, 0),
+      this.auditLogRepository.findRecentAuditLogsByInstitution(institutionId, 5, 0)
     ]);
 
     return {
       auditLogCount,
-      institutionName: institution.name,
+      institutionId,
+      institutionName,
       issuanceCount,
       recentAuditLogs: recentAuditLogs.map((log) => ({
         action: log.action,
@@ -82,38 +79,39 @@ export class DashboardService {
   }
 
   public async listTemplates(
+    institutionId: string,
     limit: number,
     offset: number
   ): Promise<PaginatedResult<CertificateTemplateRecord>> {
-    const institution = await this.institutionRepository.getDefaultInstitution();
     const [data, total] = await Promise.all([
-      this.certificateTemplateRepository.findTemplatesByInstitution(institution.id, limit, offset),
-      this.certificateTemplateRepository.countTemplatesByInstitution(institution.id)
+      this.certificateTemplateRepository.findTemplatesByInstitution(institutionId, limit, offset),
+      this.certificateTemplateRepository.countTemplatesByInstitution(institutionId)
     ]);
 
     return { data, limit, offset, total };
   }
 
   public async listIssuances(
+    institutionId: string,
     limit: number,
     offset: number
   ): Promise<PaginatedResult<CertificateIssuanceRecord>> {
-    const institution = await this.institutionRepository.getDefaultInstitution();
     const [data, total] = await Promise.all([
-      this.certificateIssuanceRepository.findIssuancesByInstitution(institution.id, limit, offset),
-      this.certificateIssuanceRepository.countIssuancesByInstitution(institution.id)
+      this.certificateIssuanceRepository.findIssuancesByInstitution(institutionId, limit, offset),
+      this.certificateIssuanceRepository.countIssuancesByInstitution(institutionId)
     ]);
 
     return { data, limit, offset, total };
   }
 
   public async listAuditLogs(
+    institutionId: string,
     limit: number,
     offset: number
   ): Promise<PaginatedResult<AuditLogRecord>> {
     const [data, total] = await Promise.all([
-      this.auditLogRepository.findRecentAuditLogs(limit, offset),
-      this.auditLogRepository.countAuditLogs()
+      this.auditLogRepository.findRecentAuditLogsByInstitution(institutionId, limit, offset),
+      this.auditLogRepository.countAuditLogsByInstitution(institutionId)
     ]);
 
     return { data, limit, offset, total };

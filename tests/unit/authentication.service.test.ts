@@ -2,6 +2,19 @@ import { createHash } from "node:crypto";
 
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
+vi.mock("@/modules/institution/institution.repository", () => ({
+  InstitutionRepository: class {
+    public async getDefaultInstitution() {
+      return {
+        code: "DEMO",
+        createdAt: "2026-04-26T00:00:00.000Z",
+        id: "inst_demo",
+        name: "TrustAnchor Demo Institution"
+      };
+    }
+  }
+}));
+
 function applyBaseEnvironment(password: string, nodeEnvironment = "test"): void {
   Object.assign(process.env, {
     APP_URL: "http://localhost:3000",

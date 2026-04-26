@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-04-25T12:46:40.935Z",
+  "timestamp": "2026-04-26T07:44:31.607Z",
   "files": {
     ".cursorrules": {
       "action": "restore",
-      "hash": "1a011d653c53dcbca042443a0c551d48bee37b9b84849a5b71105f1dde3956ca",
-      "mtimeMs": 1777082356527.2344
+      "hash": "94cc7cfb1c3375f1cd1e782c96ac588f0a177cc5e7666e5f09f1edb3695cfda5",
+      "mtimeMs": 1777121201070.1592
     },
     ".windsurfrules": {
       "action": "restore",
-      "hash": "1a011d653c53dcbca042443a0c551d48bee37b9b84849a5b71105f1dde3956ca",
-      "mtimeMs": 1777082356527.2344
+      "hash": "94cc7cfb1c3375f1cd1e782c96ac588f0a177cc5e7666e5f09f1edb3695cfda5",
+      "mtimeMs": 1777121201074.1592
     },
     ".agent-context/marketplace/trust-tiers.json": {
       "action": "restore",
@@ -19,12 +19,12 @@
     ".agent-context/policies/llm-judge-threshold.json": {
       "action": "restore",
       "hash": "73b025e154b1a021ea64e4aca88b27be42ea0ce2be074e778a554f69e1f499db",
-      "mtimeMs": 1777082356527.2344
+      "mtimeMs": 1777121201078.1592
     },
     ".agent-context/prompts/bootstrap-design.md": {
       "action": "restore",
-      "hash": "edc8649b3f905323b097c7fd653cb73ffad1cea9dc620bd6c5356f7e404f060e",
-      "mtimeMs": 1777082356474.7048
+      "hash": "55495a499954cb107bac5eccb7197ea117b9b102b1daf4611488c1eff8d86c5f",
+      "mtimeMs": 1777121200998.1592
     },
     ".agent-context/prompts/init-project.md": {
       "action": "restore",
@@ -33,38 +33,38 @@
     },
     ".agent-context/prompts/refactor.md": {
       "action": "restore",
-      "hash": "f1045b315d401be7ed72332403197dcb875d1789ddf0f23977a9bd1b0277bab5",
-      "mtimeMs": 1777044552714.9998
+      "hash": "5083969f5f24c3c82c5994764891a6681077854676220aa2b3e903fc9004eae4",
+      "mtimeMs": 1777121201002.1592
     },
     ".agent-context/prompts/review-code.md": {
       "action": "restore",
-      "hash": "bae49163f676de25cb141235acc1e3610b765a55e19962960da077ca18604943",
-      "mtimeMs": 1777044552719
+      "hash": "6f323f78870d52f7fa3635b0f410847fc24ad4780629488a2bc4a0b8eb6d172f",
+      "mtimeMs": 1777121201002.1592
     },
     ".agent-context/review-checklists/architecture-review.md": {
       "action": "restore",
-      "hash": "420f4c657550db3a8b7aad5606c09aae24889af5b3e23d9abca8696805958d75",
-      "mtimeMs": 1777044552719
+      "hash": "ca31bd7dbb9ed07ac3dcad0092334d59acb7fbce9d540f529db42d22a220c198",
+      "mtimeMs": 1777121201002.1592
     },
     ".agent-context/review-checklists/pr-checklist.md": {
       "action": "restore",
-      "hash": "12209371eb95f7ca3aaeb1255a274fef7d0be96417ac30541ef945e23ebef5f7",
-      "mtimeMs": 1777044552723.0002
+      "hash": "cd8a422d3d47d76b98ab877239521c3f44cc71a6bdc392427da78c9bfe7e7d77",
+      "mtimeMs": 1777121201006.1592
     },
     ".agent-context/rules/api-docs.md": {
       "action": "restore",
-      "hash": "f0b98b3cc4a8e4a4d3a954df3f829491fa2da264a2d0c210f15370912bd7ad2e",
-      "mtimeMs": 1777044552723.0002
+      "hash": "9a230d10641667fbc315eb16cee2df197cf45dfe4661fb7897d1eb67e02968db",
+      "mtimeMs": 1777121201006.1592
     },
     ".agent-context/rules/architecture.md": {
       "action": "restore",
-      "hash": "bda6229b4e17b4a343f399c23130537b9e46348510ecb371e0d43f0163442f45",
-      "mtimeMs": 1777044552723.0002
+      "hash": "733c02b2fde542adf1028cfcf951ce24653480a617b9330c49718de84e03e97d",
+      "mtimeMs": 1777121201006.1592
     },
     ".agent-context/rules/database-design.md": {
       "action": "restore",
-      "hash": "f471c0e33a31aee2e7f62a2009bf737c4ef3ca6f35db3264ba0ab0ccccdcd0f5",
-      "mtimeMs": 1777044552727.0005
+      "hash": "c10937ce985f0f874973a0271c732ddda1c9609f8c5af9b84d522d7abfa9995a",
+      "mtimeMs": 1777121201010.1592
     },
     ".agent-context/rules/docker-runtime.md": {
       "action": "restore",
@@ -78,18 +78,18 @@
     },
     ".agent-context/rules/error-handling.md": {
       "action": "restore",
-      "hash": "7e20b64069991c3a6f34c4721a5814635fc7df63de05d2794e66af41f88d2fbc",
-      "mtimeMs": 1777044552731.0007
+      "hash": "31e8fb6c3c2e18407c7d7458eabb082e82eceadef2110b66d6a97a04a9e04afa",
+      "mtimeMs": 1777121201010.1592
     },
     ".agent-context/rules/event-driven.md": {
       "action": "restore",
-      "hash": "d0ef663b530cbe036702fe41725b3537a8245baf8fd485c77785fd7f132e15f9",
-      "mtimeMs": 1777044552735.0007
+      "hash": "3afe4234552f5a0d56081c8af714167d9afd902ccb3a953ee946df24ccccb12f",
+      "mtimeMs": 1777121201014.1592
     },
     ".agent-context/rules/frontend-architecture.md": {
       "action": "restore",
-      "hash": "cc3cc98b5ad5583c82de5960cd9accd87c68b1b351baae783db91f386586db85",
-      "mtimeMs": 1777082356482.209
+      "hash": "9b6f272bf5ae59dcec82d34e53d551d4fa6862f996b8c51dc5faa9787460d00b",
+      "mtimeMs": 1777121201014.1592
     },
     ".agent-context/rules/git-workflow.md": {
       "action": "restore",
@@ -98,8 +98,8 @@
     },
     ".agent-context/rules/microservices.md": {
       "action": "restore",
-      "hash": "5aa30bfe4c8045a080b20e4074291df2bf170441c63ec5604d9f1e0338785a8c",
-      "mtimeMs": 1777044552739.001
+      "hash": "5182722ad3bb2b1f508a15b6bfc1ac62342f229a19581a84a4a0a9176367fd89",
+      "mtimeMs": 1777121201018.1592
     },
     ".agent-context/rules/naming-conv.md": {
       "action": "restore",
@@ -118,13 +118,18 @@
     },
     ".agent-context/rules/security.md": {
       "action": "restore",
-      "hash": "fb7c5072fac70a0bcd5d2bdf3d6597ec2e095bdd387d2f50a2a93962114c31ba",
-      "mtimeMs": 1777044552743.0012
+      "hash": "6e0f9401f3933a18aedfc5e04bab90aa16bfb0ce4aaf0fbc25dd06e86556c4d7",
+      "mtimeMs": 1777121201022.1592
     },
     ".agent-context/rules/testing.md": {
       "action": "restore",
-      "hash": "3a59cc9fcddbd1c114bb2bae28a417268bef560b4ffdcb4d237d18ceeafb79db",
-      "mtimeMs": 1777044552747.0015
+      "hash": "1cef8b988a02af8eba7885478b1a3f5c0246249f3f3485240c5fb90f813c7def",
+      "mtimeMs": 1777121201022.1592
+    },
+    ".agent-context/state/active-memory.json": {
+      "action": "restore",
+      "hash": "51de115928d56892490970eb90209dd2ee403e6f8e353dce08985608618627e7",
+      "mtimeMs": 1777188821659.2844
     },
     ".agent-context/state/architecture-map.md": {
       "action": "restore",
@@ -198,8 +203,8 @@
     },
     ".agent-context/state/memory-continuity-benchmark.json": {
       "action": "restore",
-      "hash": "4cdc528d9c43308d7f9fd8c3fbba929e288651a2dec239cae59ef8f07b22f171",
-      "mtimeMs": 1777082356500.9697
+      "hash": "f0509e62b10d0c102e38c94e0a0a2b5b71778ef0f1077209d157b7deace691e5",
+      "mtimeMs": 1777121201034.1592
     },
     ".agent-context/state/memory-continuity.json": {
       "action": "restore",
@@ -213,8 +218,8 @@
     },
     ".agent-context/state/onboarding-report.json": {
       "action": "restore",
-      "hash": "b36ece333a5425446f89987a672cc98630a29a2faba33319e7a1384615266600",
-      "mtimeMs": 1777082356530.9866
+      "hash": "2db2ec5451bd2844e6f93ca52c2d3d6ba9d29d55f0cb93dad7fc2fe10386d9fc",
+      "mtimeMs": 1777121201078.1592
     },
     ".agent-context/state/quality-trend-report.json": {
       "action": "restore",
@@ -238,8 +243,8 @@
     },
     ".agent-context/state/weekly-governance-report.json": {
       "action": "restore",
-      "hash": "2df5cf80bf58d6cf6fe6f2f8b3e48a1bc76ab26156077e214a28ff9a58ec4302",
-      "mtimeMs": 1776771697341.1772
+      "hash": "3f66884f556d713f19730abb14aebe9d8b0b3564397f110ab495b86141199bb6",
+      "mtimeMs": 1777121201042.1592
     }
   }
 }

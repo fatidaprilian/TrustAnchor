@@ -5,6 +5,7 @@ import { enforceRateLimit } from "@/modules/shared/security/rate-limit.service";
 import { VerificationService } from "@/modules/verification/verification.service";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 interface VerificationRouteContext {
   params: {

@@ -31,7 +31,7 @@ export default function LoginPage(): JSX.Element {
             </div>
             <div className="dark-rail">
               <span className="ledger-label ledger-label-light">Security posture</span>
-              <strong>Bootstrap credentials for controlled local development</strong>
+              <strong>Platform credentials and institution operator accounts</strong>
             </div>
           </div>
         </div>

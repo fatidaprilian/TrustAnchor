@@ -38,6 +38,18 @@ function redirectWithSecurityHeaders(url: URL): NextResponse {
   return applySecurityHeaders(NextResponse.redirect(url));
 }
 
+function getRoleHomePath(role: unknown): string | null {
+  if (role === "platform_admin" || role === "admin") {
+    return "/admin/institutions";
+  }
+
+  if (role === "institution_admin") {
+    return "/admin";
+  }
+
+  return null;
+}
+
 function getSessionSecretForMiddleware(): Uint8Array {
   const secret = process.env.SESSION_SECRET;
   if (!secret || secret.length < 32) {
@@ -51,18 +63,36 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   const sessionToken = request.cookies.get(SESSION_COOKIE_NAME)?.value;
 
+  if (pathname === "/login" && sessionToken) {
+    try {
+      const { payload } = await jwtVerify(sessionToken, getSessionSecretForMiddleware());
+      const roleHomePath = getRoleHomePath(payload.role);
+
+      if (roleHomePath) {
+        return redirectWithSecurityHeaders(new URL(roleHomePath, request.url));
+      }
+    } catch {
+      // invalid token, keep serving the public/login page
+    }
+  }
+
   if (pathname === "/login") {
+    return applySecurityHeaders(NextResponse.next());
+  }
+
+  if (pathname.startsWith("/admin/institutions")) {
     if (sessionToken) {
       try {
         const { payload } = await jwtVerify(sessionToken, getSessionSecretForMiddleware());
-        if (payload.role === "admin") {
+        if (payload.role === "institution_admin") {
           return redirectWithSecurityHeaders(new URL("/admin", request.url));
         }
       } catch {
-        // invalid token, just continue to login page
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("redirect", pathname);
+        return redirectWithSecurityHeaders(loginUrl);
       }
     }
-    return applySecurityHeaders(NextResponse.next());
   }
 
   if (!pathname.startsWith("/admin")) {
@@ -78,7 +108,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   try {
     const { payload } = await jwtVerify(sessionToken, getSessionSecretForMiddleware());
 
-    if (payload.role !== "admin") {
+    if (payload.role !== "admin" && payload.role !== "platform_admin" && payload.role !== "institution_admin") {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("redirect", pathname);
       return redirectWithSecurityHeaders(loginUrl);

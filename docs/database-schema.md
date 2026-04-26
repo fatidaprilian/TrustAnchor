@@ -11,6 +11,21 @@ PostgreSQL 16 is the source of truth for operational data.
 - `name` `TEXT` not null
 - `created_at` `TIMESTAMPTZ` not null
 
+Usage:
+- Platform administrators can create and update institution workspaces.
+- Institution operators sign in with accounts tied to one institution; admin dashboard queries are scoped to that session institution.
+
+### `institution_users`
+- `id` `TEXT` primary key
+- `institution_id` `TEXT` not null references `institutions(id)`
+- `username` `TEXT` unique not null
+- `password_hash` `TEXT` not null
+- `role` `TEXT` not null default `institution_admin`
+- `created_at` `TIMESTAMPTZ` not null
+
+Indexes:
+- `institution_users_institution_created_at_idx` on `(institution_id, created_at desc)`
+
 ### `certificate_templates`
 - `id` `TEXT` primary key
 - `institution_id` `TEXT` not null references `institutions(id)`
@@ -64,6 +79,7 @@ Indexes:
 ## Data Integrity Notes
 - Foreign keys are enforced at the database level.
 - Verification codes and certificate numbers are globally unique in the first release.
+- Multi-institution dashboard reads filter templates, issuances, and audit logs by the session institution.
 - Soft delete is deferred for the first slice because issuance records are append-only and must stay immutable.
 - `document_hash` stores the SHA-256 digest of the canonical certificate payload.
 - `digital_signature` stores the compact RSA-SHA256 signature over that digest.
@@ -76,4 +92,4 @@ Indexes:
 - Template layout definition as `JSONB` is flexible enough before a richer template editor exists.
 
 ## Next Validation Action
-Decide whether PDF object keys should be persisted in PostgreSQL, then model institution-scoped access control for Phase 9.
+Run the production migration baseline against a fresh PostgreSQL volume before final presentation.

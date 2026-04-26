@@ -43,6 +43,26 @@ function mapAuditLogRow(row: AuditLogRow): AuditLogRecord {
 }
 
 export class AuditLogRepository {
+  public async findRecentAuditLogsByInstitution(
+    institutionId: string,
+    limit: number,
+    offset: number
+  ): Promise<AuditLogRecord[]> {
+    const { rows } = await getDatabasePool().query<AuditLogRow>(
+      `
+        select id, actor_id, action, resource_type, resource_id, detail, created_at
+        from audit_logs
+        where detail->>'institutionId' = $1
+        order by created_at desc
+        limit $2
+        offset $3
+      `,
+      [institutionId, limit, offset]
+    );
+
+    return rows.map(mapAuditLogRow);
+  }
+
   public async findRecentAuditLogs(limit: number, offset: number): Promise<AuditLogRecord[]> {
     const { rows } = await getDatabasePool().query<AuditLogRow>(
       `
@@ -61,6 +81,15 @@ export class AuditLogRepository {
   public async countAuditLogs(): Promise<number> {
     const { rows } = await getDatabasePool().query<{ total: string }>(
       `select count(*)::text as total from audit_logs`
+    );
+
+    return parseInt(rows[0].total, 10);
+  }
+
+  public async countAuditLogsByInstitution(institutionId: string): Promise<number> {
+    const { rows } = await getDatabasePool().query<{ total: string }>(
+      `select count(*)::text as total from audit_logs where detail->>'institutionId' = $1`,
+      [institutionId]
     );
 
     return parseInt(rows[0].total, 10);

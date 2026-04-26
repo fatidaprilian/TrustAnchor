@@ -39,3 +39,10 @@ Desktop.ini
 # Local runtime data
 tmp/
 temp/
+
+# Misc
+*.bak
+*.backup
+*.orig
+*.rej
+*.agentic-backup

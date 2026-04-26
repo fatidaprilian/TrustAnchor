@@ -1,4 +1,5 @@
 import { randomBytes, timingSafeEqual } from "node:crypto";
+import { TextEncoder } from "node:util";
 
 import type { NextRequest } from "next/server";
 import type { NextResponse } from "next/server";
@@ -7,6 +8,7 @@ import { AuthorizationError } from "@/modules/shared/errors/application-error";
 
 const CSRF_COOKIE_NAME = "trustanchor_csrf";
 const CSRF_HEADER_NAME = "x-csrf-token";
+const textEncoder = new TextEncoder();
 
 export function createCsrfToken(): string {
   return randomBytes(32).toString("base64url");
@@ -36,8 +38,8 @@ export function requireCsrfProtection(request: NextRequest): void {
     throw new AuthorizationError("CSRF token is missing");
   }
 
-  const cookieBuffer = Buffer.from(csrfCookie, "utf8");
-  const headerBuffer = Buffer.from(csrfHeader, "utf8");
+  const cookieBuffer = textEncoder.encode(csrfCookie);
+  const headerBuffer = textEncoder.encode(csrfHeader);
   const isTokenValid = cookieBuffer.length === headerBuffer.length && timingSafeEqual(cookieBuffer, headerBuffer);
 
   if (!isTokenValid) {

@@ -7,6 +7,7 @@ import { enforceRateLimit } from "@/modules/shared/security/rate-limit.service";
 import { requireAdminSession } from "@/modules/shared/security/session.service";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 interface RevokeIssuanceRouteContext {
   params: {
@@ -20,7 +21,11 @@ export async function POST(request: NextRequest, context: RevokeIssuanceRouteCon
     requireCsrfProtection(request);
     await enforceRateLimit(request, { limit: 60, scope: "admin-mutation", windowSeconds: 60 });
     const certificateIssuanceService = new CertificateIssuanceService();
-    const revokedIssuance = await certificateIssuanceService.revokeIssuance(context.params.issuanceId, session.sub);
+    const revokedIssuance = await certificateIssuanceService.revokeIssuance(
+      context.params.issuanceId,
+      session.sub,
+      session.institutionId
+    );
 
     return jsonSuccess({
       data: revokedIssuance

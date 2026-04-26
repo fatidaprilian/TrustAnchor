@@ -13,6 +13,16 @@ const loginFormSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginFormSchema>;
 
+interface LoginResponseBody {
+  user?: {
+    role?: string;
+  };
+}
+
+function getDefaultRedirectPath(role?: string): string {
+  return role === "platform_admin" ? "/admin/institutions" : "/admin";
+}
+
 export function LoginForm(): JSX.Element {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -49,8 +59,9 @@ export function LoginForm(): JSX.Element {
         return;
       }
 
+      const responseBody = (await response.json()) as LoginResponseBody;
       const params = new URLSearchParams(window.location.search);
-      const redirectPath = params.get("redirect") ?? "/admin";
+      const redirectPath = params.get("redirect") ?? getDefaultRedirectPath(responseBody.user?.role);
       window.location.href = redirectPath;
     } catch {
       setErrorMessage("The sign-in service is unavailable right now. Please try again.");

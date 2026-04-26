@@ -4,7 +4,6 @@ import type { CreateCertificateIssuanceRequest } from "@/modules/certificate-iss
 import { CertificateIssuanceRepository } from "@/modules/certificate-issuance/certificate-issuance.repository";
 import { CertificateTemplateRepository } from "@/modules/certificate-template/certificate-template.repository";
 import { AuditLogRepository } from "@/modules/audit-log/audit-log.repository";
-import { InstitutionRepository } from "@/modules/institution/institution.repository";
 import { ConflictError, NotFoundError } from "@/modules/shared/errors/application-error";
 import { createDocumentProof } from "@/modules/shared/security/document-proof.service";
 
@@ -24,13 +23,15 @@ export class CertificateIssuanceService {
 
   private readonly certificateTemplateRepository = new CertificateTemplateRepository();
 
-  private readonly institutionRepository = new InstitutionRepository();
-
-  public async createIssuance(input: CreateCertificateIssuanceRequest, actorId: string) {
-    const institutionRecord = await this.institutionRepository.getDefaultInstitution();
+  public async createIssuance(
+    input: CreateCertificateIssuanceRequest,
+    actorId: string,
+    institutionId: string,
+    institutionName: string
+  ) {
     const templateRecord = await this.certificateTemplateRepository.findTemplateById(input.templateId);
 
-    if (!templateRecord || templateRecord.institutionId !== institutionRecord.id) {
+    if (!templateRecord || templateRecord.institutionId !== institutionId) {
       throw new NotFoundError("Certificate template was not found");
     }
 
@@ -41,7 +42,7 @@ export class CertificateIssuanceService {
       academicYear: readStringClaim(templateClaims, "academicYear", ""),
       achievementLabel: readStringClaim(templateClaims, "achievementLabel", ""),
       certificateNumber: input.certificateNumber,
-      institutionName: institutionRecord.name,
+      institutionName,
       issuedAt,
       programName: readStringClaim(templateClaims, "programName", templateRecord.templateName),
       recipientName: input.recipientName,
@@ -55,8 +56,8 @@ export class CertificateIssuanceService {
       certificateType: templateRecord.certificateType,
       academicYear: publicClaims.academicYear,
       achievementLabel: publicClaims.achievementLabel,
-      institutionId: institutionRecord.id,
-      institutionName: institutionRecord.name,
+      institutionId,
+      institutionName,
       issuedAt,
       programName: publicClaims.programName,
       recipientIdentifier: input.recipientIdentifier,
@@ -74,7 +75,7 @@ export class CertificateIssuanceService {
         digitalSignature: proof.digitalSignature,
         documentHash: proof.documentHash,
         encryptedPayload: proof.encryptedPayload,
-        institutionId: institutionRecord.id,
+        institutionId,
         issuedAt,
         payloadIv: proof.payloadIv,
         payloadTag: proof.payloadTag,
@@ -94,6 +95,7 @@ export class CertificateIssuanceService {
         actorId,
         detail: {
           certificateNumber: input.certificateNumber,
+          institutionId,
           templateId: templateRecord.id,
           verificationCode
         },
@@ -114,10 +116,10 @@ export class CertificateIssuanceService {
     }
   }
 
-  public async revokeIssuance(issuanceId: string, actorId: string) {
+  public async revokeIssuance(issuanceId: string, actorId: string, institutionId: string) {
     const issuanceRecord = await this.certificateIssuanceRepository.findById(issuanceId);
 
-    if (!issuanceRecord) {
+    if (!issuanceRecord || issuanceRecord.institutionId !== institutionId) {
       throw new NotFoundError("Certificate issuance was not found");
     }
 
@@ -132,6 +134,7 @@ export class CertificateIssuanceService {
       actorId,
       detail: {
         certificateNumber: revokedIssuance.certificateNumber,
+        institutionId: revokedIssuance.institutionId,
         verificationCode: revokedIssuance.verificationCode
       },
       resourceId: revokedIssuance.id,

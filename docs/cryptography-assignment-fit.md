@@ -34,7 +34,7 @@ TrustAnchor fits the final cryptography assignment because it has a written syst
 
 ## Demo Script
 1. Create or select a certificate template in the admin dashboard.
-2. Issue one certificate and record its verification code.
+2. Select an institution workspace, issue one certificate, and record its verification code.
 3. Open `/verify/{verificationCode}` and show the verified result plus QR code.
 4. Open `/verify/{verificationCode}/print` and show the printable certificate artifact with the same hash and QR verification link.
 5. Download `/api/verifications/{verificationCode}/certificate-pdf` and show the generated PDF artifact.
@@ -45,3 +45,4 @@ TrustAnchor fits the final cryptography assignment because it has a written syst
 ## Remaining Academic Polish
 - Convert these docs into a formal paper with theory, implementation screenshots, test evidence, and conclusion.
 - Prepare presentation slides around the signer flow, verifier flow, PDF/QR artifact, revocation, and tamper-detection demo.
+- If showing multi-institution scope, demonstrate that platform admins manage institutions while institution admins only see templates and issuances for their own institution.

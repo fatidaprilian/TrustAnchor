@@ -8,6 +8,7 @@ import { renderCertificatePdf } from "@/modules/verification/certificate-pdf.ser
 import { VerificationService } from "@/modules/verification/verification.service";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 interface CertificatePdfRouteContext {
   params: {

@@ -8,7 +8,7 @@ TrustAnchor is a web application for education institutions and government agenc
 - Protect issued records with digital signatures and envelope-style double encryption.
 - Provide instant verification through a public verification code and QR-ready lookup flow.
 - Keep an audit trail for issuance, verification, and administrative actions.
-- Run locally through Docker Compose in a developer-friendly way.
+- Run through Docker Compose with production deployment guidance.
 
 ## Primary Users
 - Institution administrators who configure templates and issue certificates.
@@ -21,6 +21,8 @@ TrustAnchor is a web application for education institutions and government agenc
 - Certificate issuance with SHA-256 message digest generation, RSA digital signing, and tamper-evident proof storage.
 - Verification endpoint and verification screen that recompute the document hash and verify the RSA signature.
 - Redis rate limiting, CSRF protection, security headers, server-controlled issuance timestamps, and field-level encryption for recipient identifiers.
+- Platform administrator institution management and institution-owned operator login.
+- Role-based internal dashboards: platform admins manage institutions and operators, while institution admins manage templates, issuances, revocation, and audit views for their institution.
 - Audit trail for sensitive actions.
 - OpenAPI 3.1 contract for all HTTP endpoints.
 
@@ -39,10 +41,11 @@ TrustAnchor is a web application for education institutions and government agenc
 
 ## Assumptions To Validate
 - The first release targets a single institution per deployment, with room for multi-institution expansion.
+- The current multi-institution slice separates platform administrator access from institution administrator/operator access.
 - The first vertical slice stores certificate payload metadata, RSA proof material, QR-ready verification links, browser print artifacts, server-side PDF output, and MinIO-stored certificate artifacts.
-- Bootstrap admin credentials are acceptable for local development until a full identity module is added.
+- Bootstrap admin credentials are platform-only; institution admins use database-backed operator accounts.
 - MinIO is acceptable as the initial self-hosted, open-source object storage target.
 - `issuedAt` is audit metadata owned by the server and is not editable from the admin form.
 
 ## Next Validation Action
-Begin Phase 9 multi-institution support with role-scoped dashboards and institution-level data isolation.
+Run the black-box test plan and capture screenshots for the final presentation.

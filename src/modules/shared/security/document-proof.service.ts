@@ -2,9 +2,11 @@ import {
   createCipheriv,
   createDecipheriv,
   createHash,
+  createSecretKey,
   generateKeyPairSync,
   randomBytes
 } from "node:crypto";
+import { TextDecoder, TextEncoder } from "node:util";
 
 import { CompactSign, compactVerify, importPKCS8, importSPKI, type KeyLike } from "jose";
 
@@ -43,6 +45,8 @@ export interface VerifiedDocumentProof<TPayload extends Record<string, unknown>>
 type JsonRecord = Record<string, unknown>;
 
 let cachedSigningKeys: { privateKey: KeyLike; publicKey: KeyLike } | null = null;
+const textDecoder = new TextDecoder();
+const textEncoder = new TextEncoder();
 
 function getGlobalSigningKeyCache(): {
   __trustanchorSigningKeys?: { privateKey: KeyLike; publicKey: KeyLike };
@@ -68,17 +72,32 @@ function canonicalizeValue(inputValue: unknown): unknown {
   return inputValue;
 }
 
-function encodeBase64(inputBuffer: Buffer): string {
-  return inputBuffer.toString("base64");
+function toUint8Array(inputValue: Uint8Array): Uint8Array {
+  const outputValue = new Uint8Array(inputValue.byteLength);
+  outputValue.set(inputValue);
+
+  return outputValue;
 }
 
-function decodeBase64(inputValue: string): Buffer {
-  return Buffer.from(inputValue, "base64");
+function encodeUtf8(inputValue: string): Uint8Array {
+  return textEncoder.encode(inputValue);
 }
 
-function encryptBuffer(plaintextBuffer: Buffer, keyBuffer: Buffer): { ciphertext: string; iv: string; tag: string } {
-  const initializationVector = randomBytes(12);
-  const cipher = createCipheriv("aes-256-gcm", keyBuffer, initializationVector);
+function decodeUtf8(inputValue: Uint8Array): string {
+  return textDecoder.decode(inputValue);
+}
+
+function encodeBase64(inputValue: Uint8Array): string {
+  return Buffer.from(inputValue).toString("base64");
+}
+
+function decodeBase64(inputValue: string): Uint8Array {
+  return toUint8Array(Buffer.from(inputValue, "base64"));
+}
+
+function encryptBuffer(plaintextBuffer: Uint8Array, keyBuffer: Uint8Array): { ciphertext: string; iv: string; tag: string } {
+  const initializationVector = toUint8Array(randomBytes(12));
+  const cipher = createCipheriv("aes-256-gcm", createSecretKey(keyBuffer), initializationVector);
   const encryptedBuffer = Buffer.concat([cipher.update(plaintextBuffer), cipher.final()]);
   const authenticationTag = cipher.getAuthTag();
 
@@ -89,14 +108,14 @@ function encryptBuffer(plaintextBuffer: Buffer, keyBuffer: Buffer): { ciphertext
   };
 }
 
-function decryptBuffer(ciphertext: string, iv: string, tag: string, keyBuffer: Buffer): Buffer {
-  const decipher = createDecipheriv("aes-256-gcm", keyBuffer, decodeBase64(iv));
+function decryptBuffer(ciphertext: string, iv: string, tag: string, keyBuffer: Uint8Array): Uint8Array {
+  const decipher = createDecipheriv("aes-256-gcm", createSecretKey(keyBuffer), decodeBase64(iv));
   decipher.setAuthTag(decodeBase64(tag));
 
-  return Buffer.concat([decipher.update(decodeBase64(ciphertext)), decipher.final()]);
+  return toUint8Array(Buffer.concat([decipher.update(decodeBase64(ciphertext)), decipher.final()]));
 }
 
-function getMasterKey(): Buffer {
+function getMasterKey(): Uint8Array {
   const { DOCUMENT_MASTER_KEY, NODE_ENV, SESSION_SECRET } = getEnvironment();
 
   if (DOCUMENT_MASTER_KEY) {
@@ -113,7 +132,7 @@ function getMasterKey(): Buffer {
     throw new ConfigurationError("DOCUMENT_MASTER_KEY is required in production");
   }
 
-  return createHash("sha256").update(SESSION_SECRET).digest();
+  return toUint8Array(createHash("sha256").update(SESSION_SECRET).digest());
 }
 
 async function resolveSigningKeys(): Promise<{ privateKey: KeyLike; publicKey: KeyLike }> {
@@ -167,11 +186,11 @@ export function buildCanonicalPayloadString(payload: JsonRecord): string {
 export async function createDocumentProof(payload: JsonRecord): Promise<DocumentProof> {
   const canonicalPayload = buildCanonicalPayloadString(payload);
   const documentHash = createHash("sha256").update(canonicalPayload).digest("hex");
-  const documentKey = randomBytes(32);
-  const payloadEncryption = encryptBuffer(Buffer.from(canonicalPayload, "utf8"), documentKey);
+  const documentKey = toUint8Array(randomBytes(32));
+  const payloadEncryption = encryptBuffer(encodeUtf8(canonicalPayload), documentKey);
   const wrappedDocumentKey = encryptBuffer(documentKey, getMasterKey());
   const signingKeys = await resolveSigningKeys();
-  const digitalSignature = await new CompactSign(Buffer.from(documentHash, "utf8"))
+  const digitalSignature = await new CompactSign(encodeUtf8(documentHash))
     .setProtectedHeader({ alg: "PS256", typ: "JWT" })
     .sign(signingKeys.privateKey);
 
@@ -193,7 +212,7 @@ export async function verifyStoredDocumentProof<TPayload extends JsonRecord>(
 ): Promise<VerifiedDocumentProof<TPayload>> {
   const signingKeys = await resolveSigningKeys();
   const verifiedSignature = await compactVerify(storedProof.digitalSignature, signingKeys.publicKey);
-  const signedHash = Buffer.from(verifiedSignature.payload).toString("utf8");
+  const signedHash = decodeUtf8(verifiedSignature.payload);
 
   if (signedHash !== storedProof.documentHash) {
     throw new ConfigurationError("Stored digital signature does not match the stored document hash");
@@ -210,15 +229,16 @@ export async function verifyStoredDocumentProof<TPayload extends JsonRecord>(
     storedProof.payloadIv,
     storedProof.payloadTag,
     documentKey
-  ).toString("utf8");
-  const recalculatedHash = createHash("sha256").update(canonicalPayload).digest("hex");
+  );
+  const canonicalPayloadString = decodeUtf8(canonicalPayload);
+  const recalculatedHash = createHash("sha256").update(canonicalPayloadString).digest("hex");
 
   if (recalculatedHash !== storedProof.documentHash) {
     throw new ConfigurationError("Stored proof hash does not match the decrypted payload");
   }
 
   return {
-    canonicalPayload: JSON.parse(canonicalPayload) as TPayload,
+    canonicalPayload: JSON.parse(canonicalPayloadString) as TPayload,
     digitalSignatureVerified: true,
     documentHash: recalculatedHash
   };

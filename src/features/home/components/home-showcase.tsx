@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { TrustAnchorWordmark } from "@/components/trustanchor-wordmark";
+import { InternalAccessPanel } from "@/features/home/components/internal-access-panel";
+import { InternalNavAction } from "@/features/home/components/internal-nav-action";
 import { VerificationLookupForm } from "@/features/verification/components/verification-lookup-form";
 
 const inspectionPasses = [
@@ -69,9 +71,7 @@ export function HomeShowcase(): JSX.Element {
           <Link className="text-link" href="/api/openapi.json">
             OpenAPI
           </Link>
-          <Link className="button button-secondary" href="/login">
-            Admin access
-          </Link>
+          <InternalNavAction />
         </nav>
       </section>
 
@@ -126,26 +126,7 @@ export function HomeShowcase(): JSX.Element {
           </div>
         </aside>
 
-        <div className="bench-copy evidence-sheet reveal-surface">
-          <span className="sheet-clamp">Issuance workflow</span>
-          <div className="section-stack">
-            <span className="section-kicker">Forensic light table</span>
-            <h2 className="section-title">Layered proof for documents that must survive scrutiny.</h2>
-            <p className="body-copy">
-              Each record is treated like evidence: aligned to a template, sealed with proof material, then reduced to a
-              public lookup result that avoids exposing encrypted internals.
-            </p>
-          </div>
-
-          <div className="hero-actions" aria-label="Secondary actions">
-            <Link className="button button-primary" href="/admin">
-              Enter issuing desk
-            </Link>
-            <a className="button button-tertiary" href="/api/openapi.json">
-              Inspect API contract
-            </a>
-          </div>
-        </div>
+        <InternalAccessPanel />
       </section>
 
       <section className="inspection-band evidence-sheet reveal-surface">

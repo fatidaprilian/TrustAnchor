@@ -8,7 +8,7 @@
   },
   "project": {
     "name": "trustanchor",
-    "currentFocus": "Phase 9 Multi-Institution Support is next after completing Security Hardening Phase 8.",
+    "currentFocus": "All roadmap phases are completed; next action is running the black-box test plan and preparing presentation evidence.",
     "durableFacts": [
       "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
       "The web service host port is configurable through WEB_PORT with default 3000.",
@@ -24,7 +24,15 @@
       "Server-side certificate PDF rendering is available at /api/verifications/{verificationCode}/certificate-pdf and stores artifacts in MinIO.",
       "MinIO is used as a self-hosted open-source object storage target in Docker development.",
       "Issued At is server-controlled audit metadata and is not editable from the admin issuance form.",
-      "Current authenticated access uses a single bootstrap admin role; Phase 9 should split platform admin from institution-scoped operator/admin dashboards."
+      "Current authenticated access has two internal login roles: platform_admin from bootstrap credentials and institution_admin from institution-owned DB credentials.",
+      "Public verification is unauthenticated and is not a login role.",
+      "Admin dashboard summaries, template lists, issuance lists, and audit logs are scoped by session institutionId.",
+      "The Institutions admin page is available to platform_admin sessions at /admin/institutions.",
+      "Creating an institution also creates its initial institution_admin operator account.",
+      "Platform admins can list institution operators, add operators, and reset operator passwords.",
+      "Active sessions on /login redirect by role: platform_admin to /admin/institutions, institution_admin to /admin.",
+      "The public homepage remains accessible while signed in and shows a role-aware internal access panel.",
+      "Phase 10 includes production Docker Compose, standalone Docker image, migration baseline, production environment template, deployment guide, and black-box test plan."
     ]
   },
   "progress": {
@@ -43,7 +51,12 @@
       "Fixed local login with plaintext BOOTSTRAP_ADMIN_PASSWORD while preserving production hash enforcement.",
       "Removed Public Claims JSON from issuance creation and made public claims derive from the selected academic template.",
       "Completed Phase 7 with server-side PDF rendering, MinIO artifact storage, and certificate revocation.",
-      "Completed Phase 8 with Redis-backed rate limiting, CSRF protection, CSP/security headers, server-controlled issuance timestamps, recipient identifier field-level encryption, input trimming, and production key guards."
+      "Completed Phase 8 with Redis-backed rate limiting, CSRF protection, CSP/security headers, server-controlled issuance timestamps, recipient identifier field-level encryption, input trimming, and production key guards.",
+      "Started Phase 9 by adding institution list/create/update endpoints, platform_admin session role, institution_admin DB-backed login, institution-scoped dashboard reads, and an admin Institutions page.",
+      "Completed Phase 9 by adding role-based redirects, role-specific platform access control, operator listing, operator creation, and operator password reset flows.",
+      "Completed Phase 10 with production Docker optimization, production compose health checks, versioned migration baseline, production env documentation, monitoring/backup guidance, and docs/blackbox-testing.md.",
+      "Updated the homepage internal access panel so logged-in users see a dashboard shortcut while public verification stays available.",
+      "Resolved IDE TypeScript Buffer incompatibilities in crypto helpers by passing Uint8Array/KeyObject values to strict crypto APIs."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
@@ -52,7 +65,7 @@
       ".next cache is owned by nobody/nogroup, so lint must use --no-cache unless cache permissions are fixed."
     ],
     "nextBestActions": [
-      "Begin Phase 9 with institution CRUD, role modeling, and institution-scoped dashboard data isolation.",
+      "Run docs/blackbox-testing.md against the production compose stack and capture screenshots for the final presentation.",
       "Upgrade Next.js to a patched compatible version in a separate dependency update."
     ],
     "validationState": [
@@ -63,7 +76,11 @@
       "Docker smoke passed for /verify/{code}, /verify/{code}/print, /api/verifications/{code}, and /api/verifications/{code}/qr using an existing local record.",
       "Docker smoke passed for bootstrap login and academic template creation.",
       "Docker end-to-end smoke passed for login, academic template creation, issuance without public claims JSON, PDF generation, MinIO object storage, revocation, and public verification status.",
-      "Docker Phase 8 smoke passed for login CSRF cookie issuance, missing-CSRF rejection, template creation, issuance without issuedAt, public verification, PDF generation, revocation, and encrypted recipient_identifier persistence."
+      "Docker Phase 8 smoke passed for login CSRF cookie issuance, missing-CSRF rejection, template creation, issuance without issuedAt, public verification, PDF generation, revocation, and encrypted recipient_identifier persistence.",
+      "Docker Phase 9 smoke passed for platform_admin login without institution dropdown, role-based / and /login redirects, institution creation with initial operator credentials, institution_admin login, platform route denial for institution_admin, scoped dashboard summary, scoped template creation, operator list, operator creation, and operator password reset.",
+      "Docker production image build passed with standalone Next.js output.",
+      "Docker Compose production config validates with .env.production.example.",
+      "Homepage smoke passed: signed-in users can still load / with 200 while /login redirects by role."
     ]
   },
   "designContinuity": {
@@ -81,5 +98,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-04-26T14:20:00+07:00"
+  "lastUpdatedAt": "2026-04-26T15:12:00+07:00"
 }

@@ -1,19 +1,28 @@
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
+import { createCipheriv, createDecipheriv, createHash, createSecretKey, randomBytes } from "node:crypto";
+import { TextDecoder } from "node:util";
 
 import { getEnvironment } from "@/modules/shared/config/env";
 import { ConfigurationError } from "@/modules/shared/errors/application-error";
 
 const FIELD_ENCRYPTION_PREFIX = "enc:v1";
+const textDecoder = new TextDecoder();
 
-function encodeBase64(inputBuffer: Buffer): string {
-  return inputBuffer.toString("base64url");
+function toUint8Array(inputValue: Uint8Array): Uint8Array {
+  const outputValue = new Uint8Array(inputValue.byteLength);
+  outputValue.set(inputValue);
+
+  return outputValue;
 }
 
-function decodeBase64(inputValue: string): Buffer {
-  return Buffer.from(inputValue, "base64url");
+function encodeBase64(inputValue: Uint8Array): string {
+  return Buffer.from(inputValue).toString("base64url");
 }
 
-function getFieldEncryptionKey(): Buffer {
+function decodeBase64(inputValue: string): Uint8Array {
+  return toUint8Array(Buffer.from(inputValue, "base64url"));
+}
+
+function getFieldEncryptionKey(): Uint8Array {
   const { DOCUMENT_MASTER_KEY, NODE_ENV, SESSION_SECRET } = getEnvironment();
   const sourceKey = DOCUMENT_MASTER_KEY ? Buffer.from(DOCUMENT_MASTER_KEY, "base64") : Buffer.from(SESSION_SECRET, "utf8");
 
@@ -25,12 +34,12 @@ function getFieldEncryptionKey(): Buffer {
     throw new ConfigurationError("DOCUMENT_MASTER_KEY is required for field-level encryption in production");
   }
 
-  return createHash("sha256").update(sourceKey).update("trustanchor:field-encryption:v1").digest();
+  return toUint8Array(createHash("sha256").update(sourceKey).update("trustanchor:field-encryption:v1").digest());
 }
 
 export function encryptFieldValue(plaintextValue: string): string {
-  const initializationVector = randomBytes(12);
-  const cipher = createCipheriv("aes-256-gcm", getFieldEncryptionKey(), initializationVector);
+  const initializationVector = toUint8Array(randomBytes(12));
+  const cipher = createCipheriv("aes-256-gcm", createSecretKey(getFieldEncryptionKey()), initializationVector);
   const ciphertext = Buffer.concat([cipher.update(plaintextValue, "utf8"), cipher.final()]);
   const tag = cipher.getAuthTag();
 
@@ -48,8 +57,12 @@ export function decryptFieldValue(storedValue: string): string {
     throw new ConfigurationError("Encrypted field value is malformed");
   }
 
-  const decipher = createDecipheriv("aes-256-gcm", getFieldEncryptionKey(), decodeBase64(encodedInitializationVector));
+  const decipher = createDecipheriv(
+    "aes-256-gcm",
+    createSecretKey(getFieldEncryptionKey()),
+    decodeBase64(encodedInitializationVector)
+  );
   decipher.setAuthTag(decodeBase64(encodedTag));
 
-  return Buffer.concat([decipher.update(decodeBase64(encodedCiphertext)), decipher.final()]).toString("utf8");
+  return textDecoder.decode(Buffer.concat([decipher.update(decodeBase64(encodedCiphertext)), decipher.final()]));
 }

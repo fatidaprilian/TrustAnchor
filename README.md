@@ -5,6 +5,7 @@ It combines RSA-SHA256 digital signatures, SHA-256 hashing, envelope-style doubl
 
 ## Core Capabilities
 - Bootstrap admin authentication
+- Platform admin and institution admin role separation
 - Certificate template creation
 - Certificate issuance with tamper-evident proof material
 - Public verification endpoint, verification page, QR SVG download, print-ready certificate page, and server-side PDF output
@@ -19,47 +20,39 @@ It combines RSA-SHA256 digital signatures, SHA-256 hashing, envelope-style doubl
 - MinIO
 - Docker Compose
 
-## Quick Start (Docker Development)
-1. Copy environment template:
+## Production Start (Docker)
+1. Copy the production environment template:
    ```bash
-   cp .env.example .env
+   cp .env.production.example .env.production
    ```
-2. Fill required values in `.env`.
-   For local development, `BOOTSTRAP_ADMIN_PASSWORD` may be plaintext. In production it must be a SHA-256 hex hash.
-3. Start services:
+2. Fill required values in `.env.production`.
+   `BOOTSTRAP_ADMIN_PASSWORD` must be a SHA-256 hex hash, and RSA signing keys must be explicit PEM values.
+3. Build and start services:
    ```bash
-   docker compose up -d
+   docker compose -f docker-compose.production.yml --env-file .env.production up -d --build
    ```
-4. Open `http://localhost:3000`.
+4. Open the HTTPS origin configured in `APP_URL`.
 
-The development image installs dependencies during the Docker build with `npm ci`.
-The running `web` container starts Next.js directly, so `docker compose up -d` does not run `npm install` on every create.
-If port `3000` is already used on the host, set `WEB_PORT=3001` and update `APP_URL=http://localhost:3001` in `.env`, then run `docker compose up -d` again.
+If port `3000` is already used on the host, set `WEB_PORT=3001` and update `APP_URL` to the matching public origin before starting the stack.
 
-After changing `package.json` or `package-lock.json`, rebuild the web image and refresh the dependency volume:
+After changing `package.json` or `package-lock.json`, rebuild the production image:
    ```bash
-   docker compose down
-   docker volume rm trustanchor_trustanchor_node_modules
-   docker compose up -d --build
+   docker compose -f docker-compose.production.yml --env-file .env.production up -d --build web
    ```
 
-## Quick Start (Host Node.js)
+## Operator Verification
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Start infrastructure services:
+2. Validate the codebase:
    ```bash
-   docker compose up -d postgres redis minio minio-init
+   npm run validate
    ```
-3. Start the app on the host:
-   ```bash
-   npm run dev
-   ```
-4. Open `http://localhost:3000`.
+3. Run the black-box plan in [Black-Box Test Plan](docs/blackbox-testing.md).
 
 ## NPM Scripts
-- `npm run dev` - start development server
+- `npm run dev` - start local server
 - `npm run build` - build production bundle
 - `npm run start` - run production server
 - `npm run lint` - run lint checks
@@ -75,8 +68,11 @@ After changing `package.json` or `package-lock.json`, rebuild the web image and 
 - [Cryptography Assignment Fit](docs/cryptography-assignment-fit.md)
 - [Design Contract](docs/DESIGN.md)
 - [Design Intent](docs/design-intent.json)
+- [Production Deployment](docs/production-deployment.md)
+- [Black-Box Test Plan](docs/blackbox-testing.md)
 
 ## Current Scope
 This repository currently focuses on the first vertical slice: template creation, certificate issuance, and verification lookup.
 Phase 8 is complete with QR verification, browser print output, server-side PDF rendering, MinIO artifact storage, revocation, Redis rate limiting, CSRF protection, security headers, server-owned issuance timestamps, and encrypted recipient identifiers.
-The current authenticated dashboard uses one bootstrap `admin` role; Phase 9 will split platform administration from institution-scoped operator/admin dashboards.
+Phase 9 is complete with platform-admin institution management, institution-owned operator login, role-based redirects, operator list/reset flows, and institution-scoped dashboard data.
+Phase 10 is complete with production Docker configuration, health checks, migration baseline, environment documentation, monitoring guidance, backup guidance, and black-box test coverage.

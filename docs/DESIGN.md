@@ -182,7 +182,7 @@ QR rendering uses the project dependency `qrcode-generator`; no new animation, i
 ## Assumptions To Validate
 - The forensic inspection metaphor feels credible for education and public-sector users
 - Public verification may safely show recipient name, certificate number, institution, template, and hash
-- Bootstrap admin login remains enough for the current local development slice
+- Bootstrap admin login is platform-only; institution operators use institution-owned accounts
 
 ## Next Validation Action
-Begin Phase 9 by validating role-scoped dashboard states for platform administrators and institution operators.
+Run the black-box test plan and capture production UI screenshots for the final presentation.

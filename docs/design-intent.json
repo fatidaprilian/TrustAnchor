@@ -18,7 +18,7 @@
     "assumptionsToValidate": [
       "The forensic inspection metaphor feels credible for education and public-sector users",
       "Public verification may safely show the documented public fields",
-      "Bootstrap admin login remains enough for the current local development slice; Phase 9 will split platform and institution-scoped dashboard roles"
+      "Bootstrap login opens a platform-admin session, while institution operators sign in with institution-owned credentials"
     ]
   },
   "repoEvidence": {

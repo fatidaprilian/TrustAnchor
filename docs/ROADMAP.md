@@ -143,29 +143,36 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 
 ---
 
-## Phase 9: Multi-Institution Support  <-- CURRENT
-**Status: NOT STARTED**
+## Phase 9: Multi-Institution Support
+**Status: COMPLETED**
 
 | Deliverable | Status |
 |---|---|
-| Institution CRUD endpoints | Planned |
-| Institution selection during login | Planned |
-| Data isolation enforcement per institution | Planned |
-| Institution-scoped template and issuance queries | Planned |
+| Institution list/create/update endpoints | Done |
+| Institution-owned operator login | Done |
+| Platform admin institution page | Done |
+| Session institution context (`institutionId`, `institutionName`) | Done |
+| Role-based login redirects and root redirect for active sessions | Done |
+| Role-specific admin navigation and access control | Done |
+| Data isolation enforcement per institution | Done |
+| Institution-scoped template and issuance queries | Done |
+| Institution-scoped audit log queries | Done |
+| Operator list/reset management | Done |
 
 ---
 
 ## Phase 10: Production Deployment
-**Status: NOT STARTED**
+**Status: COMPLETED**
 
 | Deliverable | Status |
 |---|---|
-| Production Docker image optimization | Planned |
-| Health check integration for container orchestration | Planned |
-| Database migration strategy and versioned schema files | Planned |
-| Environment variable documentation for operators | Planned |
-| Monitoring and alerting integration | Planned |
-| Backup and recovery plan for PostgreSQL | Planned |
+| Production Docker image optimization | Done |
+| Health check integration for container orchestration | Done |
+| Database migration strategy and versioned schema files | Done |
+| Environment variable documentation for operators | Done |
+| Monitoring and alerting integration | Done |
+| Backup and recovery plan for PostgreSQL and MinIO | Done |
+| Black-box test plan | Done |
 
 ---
 
@@ -180,20 +187,20 @@ Phase 5: Admin Dashboard    █████████████████�
 Phase 6: Admin Forms        ████████████████████ 100%
 Phase 7: Verification+      ████████████████████ 100%
 Phase 8: Security           ████████████████████ 100%
-Phase 9: Multi-Institution  ░░░░░░░░░░░░░░░░░░░░   0%
-Phase 10: Production        ░░░░░░░░░░░░░░░░░░░░   0%
+Phase 9: Multi-Institution  ████████████████████ 100%
+Phase 10: Production        ████████████████████ 100%
 ```
 
-Overall progress: **8 of 10 phases completed (80%)**
+Overall progress: **10 of 10 phases completed (100%)**
 
 ## Assumptions To Validate
 - Phase 9 should avoid overbuilding identity; start with role and institution boundaries that unlock the academic/institution demo.
 - QR code rendering uses `qrcode-generator` to produce a real QR matrix as SVG without adding a binary dependency.
 - Browser print output is acceptable before server-side PDF rendering because it lets the team validate certificate content and QR placement first.
 - Server-side PDF rendering uses `pdf-lib`, then stores the generated artifact in MinIO through the official MinIO JavaScript SDK.
-- Multi-institution support can be deferred until the single-institution vertical slice is validated with a real institution.
-- The current authenticated role is a single bootstrap `admin`; Phase 9 will split this into platform admin and institution-scoped operator/admin roles.
+- The authenticated roles are `platform_admin` and `institution_admin`; public verification remains unauthenticated and is not a login role.
+- Platform admins are responsible for institution and operator lifecycle; institution admins are responsible for certificate operations inside their institution.
 - The academic cryptography rubric is best met with RSA-SHA256, SHA-256 digest comparison, and a tamper-detection demo.
 
 ## Next Validation Action
-Begin Phase 9 by introducing institution records, role-scoped dashboards, and institution-level data isolation.
+Run the black-box test plan against the production compose stack and capture screenshots for the final presentation.

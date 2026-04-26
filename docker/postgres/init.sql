@@ -19,6 +19,18 @@ create table if not exists certificate_templates (
 create index if not exists certificate_templates_institution_created_at_idx
   on certificate_templates (institution_id, created_at desc);
 
+create table if not exists institution_users (
+  id text primary key,
+  institution_id text not null references institutions(id),
+  username text not null unique,
+  password_hash text not null,
+  role text not null default 'institution_admin',
+  created_at timestamptz not null default now()
+);
+
+create index if not exists institution_users_institution_created_at_idx
+  on institution_users (institution_id, created_at desc);
+
 create table if not exists certificate_issuances (
   id text primary key,
   institution_id text not null references institutions(id),
@@ -62,4 +74,14 @@ create index if not exists audit_logs_resource_lookup_idx
 
 insert into institutions (id, code, name)
 values ('inst_demo', 'DEMO', 'TrustAnchor Demo Institution')
+on conflict (id) do nothing;
+
+insert into institution_users (id, institution_id, username, password_hash, role)
+values (
+  'inst_demo_operator',
+  'inst_demo',
+  'demooperator',
+  'd6a76e25dc2d8eccea9f8318104ee699fe1108e00242df8d45d4308833a1215a',
+  'institution_admin'
+)
 on conflict (id) do nothing;

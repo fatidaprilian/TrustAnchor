@@ -10,6 +10,7 @@ import { enforceRateLimit } from "@/modules/shared/security/rate-limit.service";
 import { requireAdminSession } from "@/modules/shared/security/session.service";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest): Promise<Response> {
   return handleRoute("certificate-template.create", async () => {
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     await enforceRateLimit(request, { limit: 60, scope: "admin-mutation", windowSeconds: 60 });
     const requestBody = createCertificateTemplateSchema.parse(await request.json());
     const certificateTemplateService = new CertificateTemplateService();
-    const createdTemplate = await certificateTemplateService.createTemplate(requestBody, session.sub);
+    const createdTemplate = await certificateTemplateService.createTemplate(requestBody, session.sub, session.institutionId);
 
     return jsonSuccess(
       {

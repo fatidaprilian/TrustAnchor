@@ -7,8 +7,8 @@ export const openApiDocument = {
   },
   servers: [
     {
-      url: "http://localhost:3000",
-      description: "Local development server"
+      url: "https://trustanchor.example.edu",
+      description: "Production server"
     }
   ],
   components: {
@@ -63,6 +63,75 @@ export const openApiDocument = {
           }
         },
         required: ["username", "password"]
+      },
+      CreateInstitutionRequest: {
+        type: "object",
+        properties: {
+          code: {
+            type: "string",
+            description: "Unique institution code",
+            example: "UNIV-DEMO"
+          },
+          name: {
+            type: "string",
+            description: "Institution display name",
+            example: "Demo University"
+          },
+          adminUsername: {
+            type: "string",
+            description: "Initial institution operator username",
+            example: "demo-operator"
+          },
+          adminPassword: {
+            type: "string",
+            description: "Initial institution operator password",
+            example: "change-this-password"
+          }
+        },
+        required: ["code", "name", "adminUsername", "adminPassword"]
+      },
+      UpdateInstitutionRequest: {
+        type: "object",
+        properties: {
+          code: {
+            type: "string",
+            description: "Unique institution code",
+            example: "UNIV-DEMO"
+          },
+          name: {
+            type: "string",
+            description: "Institution display name",
+            example: "Demo University"
+          }
+        },
+        required: ["code", "name"]
+      },
+      CreateInstitutionOperatorRequest: {
+        type: "object",
+        properties: {
+          username: {
+            type: "string",
+            description: "Institution operator username",
+            example: "operator-demo"
+          },
+          password: {
+            type: "string",
+            description: "Institution operator temporary password",
+            example: "change-this-password"
+          }
+        },
+        required: ["username", "password"]
+      },
+      ResetInstitutionOperatorPasswordRequest: {
+        type: "object",
+        properties: {
+          password: {
+            type: "string",
+            description: "New institution operator password",
+            example: "change-this-password"
+          }
+        },
+        required: ["password"]
       },
       CreateTemplateRequest: {
         type: "object",
@@ -167,7 +236,7 @@ export const openApiDocument = {
     "/api/auth/login": {
       post: {
         summary: "Create bootstrap admin session",
-        description: "Validates bootstrap credentials and creates an HTTP-only session cookie.",
+        description: "Validates bootstrap platform credentials or institution operator credentials and creates an HTTP-only session cookie.",
         requestBody: {
           required: true,
           content: {
@@ -190,6 +259,250 @@ export const openApiDocument = {
           },
           "401": {
             description: "Invalid credentials",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/institutions": {
+      get: {
+        summary: "List institutions",
+        description: "Returns all institution workspaces for platform administrators.",
+        security: [{ sessionCookie: [] }],
+        responses: {
+          "200": {
+            description: "Institution list returned"
+          },
+          "403": {
+            description: "Platform administrator role required",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+      post: {
+        summary: "Create institution",
+        description: "Creates an institution workspace for platform administrators.",
+        security: [{ csrfHeader: [], sessionCookie: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/UpdateInstitutionRequest" }
+            }
+          }
+        },
+        responses: {
+          "201": {
+            description: "Institution created"
+          },
+          "403": {
+            description: "Platform administrator role or valid CSRF token required",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            description: "Institution code already exists",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            description: "Rate limit exceeded",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/institutions/{institutionId}": {
+      patch: {
+        summary: "Update institution",
+        description: "Updates an institution workspace for platform administrators.",
+        security: [{ csrfHeader: [], sessionCookie: [] }],
+        parameters: [
+          {
+            name: "institutionId",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            }
+          }
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/CreateInstitutionRequest" }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Institution updated"
+          },
+          "403": {
+            description: "Platform administrator role or valid CSRF token required",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            description: "Institution not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            description: "Institution code already exists",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/institutions/{institutionId}/operators": {
+      get: {
+        summary: "List institution operators",
+        description: "Lists operator accounts for one institution workspace.",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "institutionId",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Operator list returned"
+          },
+          "403": {
+            description: "Platform administrator role required",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+      post: {
+        summary: "Create institution operator",
+        description: "Creates an additional institution operator account.",
+        security: [{ csrfHeader: [], sessionCookie: [] }],
+        parameters: [
+          {
+            name: "institutionId",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            }
+          }
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/CreateInstitutionOperatorRequest" }
+            }
+          }
+        },
+        responses: {
+          "201": {
+            description: "Operator created"
+          },
+          "403": {
+            description: "Platform administrator role or valid CSRF token required",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            description: "Operator username already exists",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/institutions/{institutionId}/operators/{operatorId}/password": {
+      patch: {
+        summary: "Reset institution operator password",
+        description: "Updates the password for one institution operator account.",
+        security: [{ csrfHeader: [], sessionCookie: [] }],
+        parameters: [
+          {
+            name: "institutionId",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            }
+          },
+          {
+            name: "operatorId",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            }
+          }
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ResetInstitutionOperatorPasswordRequest" }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Operator password reset"
+          },
+          "403": {
+            description: "Platform administrator role or valid CSRF token required",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            description: "Operator not found",
             content: {
               "application/json": {
                 schema: { $ref: "#/components/schemas/ErrorResponse" }

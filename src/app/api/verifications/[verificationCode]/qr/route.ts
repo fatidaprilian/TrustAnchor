@@ -6,6 +6,7 @@ import { enforceRateLimit } from "@/modules/shared/security/rate-limit.service";
 import { buildQrSvg } from "@/modules/verification/verification-qr";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 interface VerificationQrRouteContext {
   params: {

@@ -9,14 +9,14 @@ import { AuthenticationError, AuthorizationError } from "@/modules/shared/errors
 const SESSION_COOKIE_NAME = "trustanchor_session";
 const SESSION_DURATION_HOURS = "8h";
 
-const sessionPayloadSchema = {
-  role: "admin"
-} as const;
+export type AdminRole = "platform_admin" | "institution_admin";
 
 export interface SessionPayload {
+  institutionId: string;
+  institutionName: string;
   sub: string;
   username: string;
-  role: "admin";
+  role: AdminRole;
 }
 
 function getSessionSecret(): Uint8Array {
@@ -26,6 +26,8 @@ function getSessionSecret(): Uint8Array {
 
 export async function createSessionToken(payload: SessionPayload): Promise<string> {
   return new SignJWT({
+    institutionId: payload.institutionId,
+    institutionName: payload.institutionName,
     role: payload.role,
     username: payload.username
   })
@@ -38,15 +40,26 @@ export async function createSessionToken(payload: SessionPayload): Promise<strin
 
 export async function verifySessionToken(token: string): Promise<SessionPayload> {
   const { payload } = await jwtVerify(token, getSessionSecret());
+  const isSupportedRole = payload.role === "platform_admin" || payload.role === "institution_admin" || payload.role === "admin";
 
-  if (payload.role !== sessionPayloadSchema.role || typeof payload.sub !== "string" || typeof payload.username !== "string") {
+  if (
+    !isSupportedRole ||
+    typeof payload.sub !== "string" ||
+    typeof payload.username !== "string" ||
+    typeof payload.institutionId !== "string" ||
+    typeof payload.institutionName !== "string"
+  ) {
     throw new AuthenticationError("Session payload is invalid");
   }
+  const role: AdminRole =
+    payload.role === "admin" || payload.role === "platform_admin" ? "platform_admin" : "institution_admin";
 
   return {
+    institutionId: payload.institutionId,
+    institutionName: payload.institutionName,
     sub: payload.sub,
     username: payload.username,
-    role: payload.role
+    role
   };
 }
 
@@ -59,8 +72,18 @@ export async function requireAdminSession(request: NextRequest): Promise<Session
 
   const session = await verifySessionToken(token);
 
-  if (session.role !== "admin") {
+  if (session.role !== "platform_admin" && session.role !== "institution_admin") {
     throw new AuthorizationError();
+  }
+
+  return session;
+}
+
+export async function requirePlatformAdminSession(request: NextRequest): Promise<SessionPayload> {
+  const session = await requireAdminSession(request);
+
+  if (session.role !== "platform_admin") {
+    throw new AuthorizationError("Platform administrator role is required");
   }
 
   return session;

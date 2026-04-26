@@ -8,12 +8,15 @@ import { TrustAnchorWordmark } from "@/components/trustanchor-wordmark";
 import { withCsrfHeaders } from "@/features/admin/lib/csrf";
 
 interface SessionUser {
+  institutionId: string;
+  institutionName: string;
   role: string;
   username: string;
 }
 
 const navigationItems = [
   { href: "/admin", label: "Overview" },
+  { href: "/admin/institutions", label: "Institutions", platformOnly: true },
   { href: "/admin/templates", label: "Templates" },
   { href: "/admin/issuances", label: "Issuances" },
   { href: "/admin/audit-log", label: "Audit trail" }
@@ -63,7 +66,7 @@ export function AdminShell({ children }: AdminShellProps): JSX.Element {
         </div>
 
         <nav className="admin-nav" aria-label="Dashboard navigation">
-          {navigationItems.map((item) => {
+          {navigationItems.filter((item) => !("platformOnly" in item) || sessionUser?.role === "platform_admin").map((item) => {
             const isActive = item.href === "/admin"
               ? pathname === "/admin"
               : pathname.startsWith(item.href);
@@ -86,6 +89,7 @@ export function AdminShell({ children }: AdminShellProps): JSX.Element {
               <span className="admin-operator-label">Operator</span>
               <strong className="admin-operator-name">{sessionUser.username}</strong>
               <span className="admin-operator-role">{sessionUser.role}</span>
+              <span className="admin-operator-role">{sessionUser.institutionName}</span>
             </div>
           ) : null}
           <button

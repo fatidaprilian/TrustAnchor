@@ -5,6 +5,7 @@ import { getCsrfCookieName, requireCsrfProtection } from "@/modules/shared/secur
 import { getSessionCookieName } from "@/modules/shared/security/session.service";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest): Promise<Response> {
   return handleRoute("authentication.logout", async () => {
