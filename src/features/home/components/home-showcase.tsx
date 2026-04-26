@@ -31,7 +31,7 @@ const inspectionPasses = [
 ] as const;
 
 const evidenceMarks = [
-  "Ed25519-ready proof signature",
+  "RSA-SHA256 proof signature",
   "AES-GCM encrypted payload",
   "Public verification code",
   "Append-heavy audit log"

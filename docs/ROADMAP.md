@@ -15,6 +15,7 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 | Database schema plan (`docs/database-schema.md`) | Done |
 | API contract (`docs/api-contract.md`) | Done |
 | Flow overview (`docs/flow-overview.md`) | Done |
+| Cryptography assignment fit (`docs/cryptography-assignment-fit.md`) | Done |
 | Design contract (`docs/DESIGN.md`, `docs/design-intent.json`) | Done |
 | Docker Compose infrastructure (PostgreSQL, Redis, MinIO) | Done |
 | Next.js project scaffold with TypeScript and strict mode | Done |
@@ -31,7 +32,7 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 | Application error hierarchy with typed error codes | Done |
 | Structured logging with pino | Done |
 | Session service (JWT with jose, signed cookies) | Done |
-| Document proof service (Ed25519 signing, AES-256-GCM double encryption) | Done |
+| Document proof service (RSA-SHA256 signing, SHA-256 hashing, AES-256-GCM double encryption) | Done |
 | Authentication service (bootstrap admin, timing-safe comparison) | Done |
 | Institution repository (default institution lookup) | Done |
 | Certificate template repository (create, find by ID) | Done |
@@ -114,19 +115,19 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 ---
 
 ## Phase 7: Enhanced Verification
-**Status: NOT STARTED**
+**Status: COMPLETED**
 
 | Deliverable | Status |
 |---|---|
-| QR code generation for verification codes | Planned |
-| QR code download or print-ready view | Planned |
-| PDF certificate rendering (server-side) | Planned |
-| Document storage integration with MinIO | Planned |
-| Certificate revocation workflow | Planned |
+| QR code generation for verification codes | Done |
+| QR code download or print-ready view | Done |
+| PDF certificate rendering (server-side) | Done |
+| Document storage integration with MinIO | Done |
+| Certificate revocation workflow | Done |
 
 ---
 
-## Phase 8: Security Hardening
+## Phase 8: Security Hardening  <-- CURRENT
 **Status: NOT STARTED**
 
 | Deliverable | Status |
@@ -134,7 +135,7 @@ This roadmap tracks the phased delivery of TrustAnchor from initial project docs
 | Rate limiting with Redis | Planned |
 | CSRF protection for admin forms | Planned |
 | Recipient identifier field-level encryption | Planned |
-| Production signing key management (non-fallback Ed25519) | Planned |
+| Production signing key management (non-fallback RSA key pair) | Planned |
 | Content Security Policy headers | Planned |
 | Input sanitization audit | Planned |
 | Session rotation and forced expiration | Planned |
@@ -175,19 +176,22 @@ Phase 2: Core Backend       █████████████████�
 Phase 3: API Routes         ████████████████████ 100%
 Phase 4: Public Frontend    ████████████████████ 100%
 Phase 5: Admin Dashboard    ████████████████████ 100%
-Phase 6: Admin Forms        ████████████████████ 100%  <-- CURRENT
-Phase 7: Verification+      ░░░░░░░░░░░░░░░░░░░░   0%
+Phase 6: Admin Forms        ████████████████████ 100%
+Phase 7: Verification+      ████████████████████ 100%
 Phase 8: Security           ░░░░░░░░░░░░░░░░░░░░   0%
 Phase 9: Multi-Institution  ░░░░░░░░░░░░░░░░░░░░   0%
 Phase 10: Production        ░░░░░░░░░░░░░░░░░░░░   0%
 ```
 
-Overall progress: **6 of 10 phases completed (60%)**
+Overall progress: **7 of 10 phases completed (70%)**
 
 ## Assumptions To Validate
 - Admin forms for template and issuance creation are the next highest-value deliverable after the dashboard read views.
-- QR code generation can use a CSS or SVG approach before adding a binary dependency.
+- QR code rendering uses `qrcode-generator` to produce a real QR matrix as SVG without adding a binary dependency.
+- Browser print output is acceptable before server-side PDF rendering because it lets the team validate certificate content and QR placement first.
+- Server-side PDF rendering uses `pdf-lib`, then stores the generated artifact in MinIO through the official MinIO JavaScript SDK.
 - Multi-institution support can be deferred until the single-institution vertical slice is validated with a real institution.
+- The academic cryptography rubric is best met with RSA-SHA256, SHA-256 digest comparison, and a tamper-detection demo.
 
 ## Next Validation Action
-Begin Phase 7 by exploring QR code generation for verification codes and integrating PDF certificate rendering so that issued certificates can be visually distributed and verified.
+Begin Phase 8 by adding Redis-backed rate limiting and CSRF protection for admin mutations.

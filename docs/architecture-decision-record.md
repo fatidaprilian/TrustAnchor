@@ -34,21 +34,27 @@ TrustAnchor will start as a TypeScript modular monolith built with Next.js App R
 - Certificate payloads use a two-layer envelope encryption model:
   - The canonical payload is encrypted with a random document key by `AES-256-GCM`.
   - The document key is encrypted again with a platform master key.
-- Digital signatures use Ed25519 keys when available, with development-only fallback keys outside production.
+- Digital signatures use RSA-PSS with SHA-256 (`PS256`) so the implementation maps cleanly to the course requirement for RSA signatures and SHA-256 message digests.
+- The signer hashes the canonical payload with SHA-256, signs the digest with the RSA private key, and stores the compact signature with the encrypted proof material.
+- The verifier uses the RSA public key to validate the stored signature, compares the signed digest with the stored digest, decrypts the payload, and recomputes SHA-256 to detect tampering.
 
 ## Data Decisions
 - PostgreSQL is the system of record for templates, issuance records, and audit logs.
-- MinIO is reserved for encrypted document binaries and future rendered artifacts.
+- MinIO stores generated certificate PDF artifacts under `certificate-artifacts/{verificationCode}.pdf`.
 - Audit-sensitive tables use append-heavy writes and keep timestamps in `TIMESTAMPTZ`.
+- Revocation changes only the issuance `status`; proof material and audit history remain intact.
 
 ## Trade-Offs
 - A monolith is simpler to ship now, but service extraction remains possible later if domain boundaries stay clean.
 - Route handlers inside Next.js are convenient, but business logic must remain outside the transport layer.
-- Development fallback signing keys reduce setup friction, but production will require explicit key material.
+- Development fallback RSA signing keys reduce setup friction, but production will require explicit RSA key material from a secure secret source.
+- RSA signatures are larger than Ed25519 signatures, but RSA is chosen here to satisfy the academic rubric and to make the private-key/public-key demonstration straightforward.
+- PDF files are rendered on demand and stored in MinIO. PostgreSQL stays the proof source of truth, so a lost PDF can be regenerated from the issuance record.
 
 ## Assumptions To Validate
-- PDF generation can land after the proof-generation and verification slice without blocking the architecture.
 - Verification throughput in the first release is low enough to stay in the monolith.
+- The course accepts RSA-PSS as the RSA signature scheme because it still uses SHA-256 and an RSA private/public key pair for signer and verifier roles.
+- Persisting PDF object keys in PostgreSQL may be useful later, but object naming is deterministic enough for the current phase.
 
 ## Next Validation Action
-Implement the first vertical slice with repository-backed template creation, certificate issuance, and verification lookup.
+Begin security hardening with rate limiting, CSRF protection, and production signing key management.

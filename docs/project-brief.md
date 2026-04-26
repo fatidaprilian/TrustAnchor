@@ -17,11 +17,17 @@ TrustAnchor is a web application for education institutions and government agenc
 
 ## Core Capabilities
 - Bootstrap administrator authentication.
-- Certificate template management.
-- Certificate issuance with tamper-evident proof generation.
-- Verification endpoint and verification screen.
+- Academic certificate template management without requiring operators to write raw JSON.
+- Certificate issuance with SHA-256 message digest generation, RSA digital signing, and tamper-evident proof storage.
+- Verification endpoint and verification screen that recompute the document hash and verify the RSA signature.
 - Audit trail for sensitive actions.
 - OpenAPI 3.1 contract for all HTTP endpoints.
+
+## Academic Cryptography Fit
+- Makalah scope: explain SHA-256 hashing, RSA digital signature generation, AES-256-GCM envelope encryption, audit logging, and verification outcomes.
+- Program scope: demonstrate issuing a certificate, verifying the original record, and rejecting proof when the stored hash, signature, or encrypted payload is changed.
+- Presentation scope: show signer and verifier flow, including the private key used for signing and the public key used for verification.
+- Security properties covered: authentication of the issuing institution, data integrity through hash comparison, and non-repudiation through RSA signatures.
 
 ## Constraints
 - Repository rules require project docs before application code.
@@ -32,9 +38,9 @@ TrustAnchor is a web application for education institutions and government agenc
 
 ## Assumptions To Validate
 - The first release targets a single institution per deployment, with room for multi-institution expansion.
-- The first vertical slice stores certificate payload metadata and proof material before full PDF rendering is added.
+- The first vertical slice stores certificate payload metadata, RSA proof material, QR-ready verification links, browser print artifacts, server-side PDF output, and MinIO-stored certificate artifacts.
 - Bootstrap admin credentials are acceptable for local development until a full identity module is added.
 - MinIO is acceptable as the initial encrypted object storage target.
 
 ## Next Validation Action
-Build the first vertical slice that creates templates, issues certificates, and verifies them through a public verification code.
+Begin Phase 8 security hardening with rate limiting and CSRF protection for admin mutation endpoints.

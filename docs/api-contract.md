@@ -29,6 +29,17 @@ Request body:
 - `schemaVersion` string
 - `layoutDefinition` object
 
+Current admin form builds `layoutDefinition` from academic fields instead of asking the operator to write JSON:
+- `format` fixed as `academic-certificate-v1`
+- `institutionDisplayName`
+- `programName`
+- `academicYear`
+- `achievementLabel`
+- `signatoryName`
+- `signatoryTitle`
+- `verificationPlacement`
+- `visibleFields`
+
 Responses:
 - `201` template created
 - `400` validation error
@@ -39,7 +50,7 @@ Responses:
 ## Issuance
 
 ### `POST /api/certificate-issuances`
-Purpose: issue a certificate and generate proof material.
+Purpose: issue a certificate and generate SHA-256, RSA-SHA256, and encrypted proof material.
 
 Auth:
 - Required bootstrap admin session
@@ -60,6 +71,28 @@ Responses:
 - `409` duplicate certificate number
 - `500` internal error
 
+Success body:
+- `data.verificationCode` public code used by the verification page and QR link
+- `data.documentHash` SHA-256 digest of the canonical certificate payload
+- `data.digitalSignature` compact RSA-SHA256 signature over the digest
+- `data.encryptedPayload` encrypted canonical payload; server-only in normal UI flows
+
+### `POST /api/certificate-issuances/{issuanceId}/revoke`
+Purpose: revoke an issued certificate without deleting the audit record.
+
+Auth:
+- Required bootstrap admin session
+
+Path params:
+- `issuanceId` string
+
+Responses:
+- `200` issuance revoked or already revoked
+- `401` missing session
+- `403` insufficient role
+- `404` issuance not found
+- `500` internal error
+
 ## Verification
 
 ### `GET /api/verifications/{verificationCode}`
@@ -72,6 +105,31 @@ Responses:
 - `200` verification result
 - `404` verification code not found
 - `500` internal error
+
+Success body:
+- `data.certificateNumber`
+- `data.recipientName`
+- `data.institutionName`
+- `data.templateName`
+- `data.issuedAt`
+- `data.verifiedAt`
+- `data.status`
+- `data.proofVerified` boolean
+- `data.verificationCode`
+- `data.documentHash`
+
+Verification behavior:
+- The server validates the RSA digital signature with the issuer public key.
+- The server compares the signed digest with the stored SHA-256 document hash.
+- The server decrypts the payload and recomputes SHA-256 before returning a valid result.
+- If proof material has been modified, the request returns a safe public result with `proofVerified: false` and `status: "proof_invalid"` instead of marking the certificate verified.
+
+QR behavior:
+- `/verify/{verificationCode}` renders a scannable QR code that points to the absolute verification URL.
+- `/verify/{verificationCode}/print` renders a print-ready certificate artifact with public claims, document hash, and QR verification link.
+- `/api/verifications/{verificationCode}/qr` returns a downloadable SVG QR code for the absolute verification URL.
+- `/api/verifications/{verificationCode}/certificate-pdf` renders a server-side PDF certificate, stores a copy in MinIO, and returns the PDF response.
+- QR generation is presentation-only; `/api/verifications/{verificationCode}` remains the source of verification truth.
 
 ## System
 
@@ -173,6 +231,7 @@ Responses:
 - The first release does not require a template list endpoint or an issuance list endpoint from the public surface.
 - Public verification response fields are acceptable for the target privacy posture.
 - Admin list endpoints return full records; field-level redaction may be needed in future phases.
+- The course demo can show tamper detection through a unit test or controlled database change rather than exposing a public mutation endpoint.
 
 ## Next Validation Action
-Expand the contract after the admin forms for template creation and certificate issuance are defined.
+Expand the contract when printable PDF certificate output, object storage, and revocation endpoints are implemented.

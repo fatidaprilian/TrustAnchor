@@ -29,6 +29,7 @@ Confirmed inputs:
 - `/` is the public verification entry and product overview
 - `/login` is the controlled admin entry
 - `/verify/[verificationCode]` presents the public verification result
+- `/verify/[verificationCode]/print` presents the print-ready certificate artifact
 - TrustAnchor centers on digital signatures, double encryption, audit logging, and instant verification
 
 ## 3. Visual Direction and Distinctive Moves
@@ -53,6 +54,7 @@ Distinctive moves:
 - Microprint rails and registration ticks frame important values
 - Login becomes an operator access drawer beside the inspection surface
 - Verification results read like a stamped public evidence sheet
+- Print-ready certificate artifacts read like formal evidence sheets placed on the same light table
 
 ### Visual Reset Strategy
 Old visual DNA being discarded:
@@ -152,7 +154,7 @@ Used sources:
 - Project brief, architecture decision record, API contract, database schema, and flow overview
 - Existing UI as behavior evidence only
 
-No new frontend, animation, icon, canvas, or UI primitive library is added. This keeps the redesign compatible with the current Next.js and React dependency set.
+QR rendering uses the project dependency `qrcode-generator`; no new animation, icon, canvas, or UI primitive library is added.
 
 ## 10. Accessibility Non-Negotiables
 - WCAG 2.2 AA is the floor
@@ -173,7 +175,7 @@ No new frontend, animation, icon, canvas, or UI primitive library is added. This
 
 ## 12. Implementation Notes for Future UI Tasks
 - Preserve route behavior and API contracts while changing composition freely
-- Add future admin pages as evidence workflows, not generic dashboards
+- Add future admin and certificate artifact pages as evidence workflows, not generic dashboards
 - Keep proof metadata readable before adding more ornament
 - Introduce a UI or motion dependency only after live official docs are checked and a clear interaction need exists
 
@@ -183,4 +185,4 @@ No new frontend, animation, icon, canvas, or UI primitive library is added. This
 - Bootstrap admin login remains enough for the current local development slice
 
 ## Next Validation Action
-Implement the forensic light-table frontend across landing, login, verification result, and not-found states, then validate API smoke, type safety, lint, responsive behavior, reduced motion, and the project PR checklist.
+Begin Phase 8 by validating security-hardening UI states for rate limiting, CSRF failures, type safety, lint, responsive behavior, reduced motion, and the project PR checklist.

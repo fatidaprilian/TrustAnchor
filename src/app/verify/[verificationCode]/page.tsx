@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { TrustAnchorWordmark } from "@/components/trustanchor-wordmark";
 import { VerificationResultCard } from "@/features/verification/components/verification-result-card";
+import { getEnvironment } from "@/modules/shared/config/env";
 import { NotFoundError } from "@/modules/shared/errors/application-error";
 import { VerificationService } from "@/modules/verification/verification.service";
 
@@ -19,6 +20,10 @@ export default async function VerificationPage({
 
   try {
     const verificationResult = await verificationService.verifyByCode(params.verificationCode);
+    const verificationUrl = new URL(
+      `/verify/${encodeURIComponent(verificationResult.verificationCode)}`,
+      getEnvironment().APP_URL
+    ).toString();
 
     return (
       <main className="page-shell page-shell-verify">
@@ -32,7 +37,7 @@ export default async function VerificationPage({
           </div>
         </section>
 
-        <VerificationResultCard verificationResult={verificationResult} />
+        <VerificationResultCard verificationResult={verificationResult} verificationUrl={verificationUrl} />
       </main>
     );
   } catch (error) {

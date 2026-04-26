@@ -8,14 +8,20 @@
   },
   "project": {
     "name": "trustanchor",
-    "currentFocus": "Admin Dashboard implementation and Template/Issuance creation forms (Phase 5 & 6).",
+    "currentFocus": "Phase 8 Security Hardening is next after completing Enhanced Verification Phase 7.",
     "durableFacts": [
       "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
       "The web service host port is configurable through WEB_PORT with default 3000.",
       "Bootstrap admin authentication is environment-backed through BOOTSTRAP_ADMIN_USERNAME and BOOTSTRAP_ADMIN_PASSWORD.",
-      "BOOTSTRAP_ADMIN_PASSWORD is now securely hashed in the .env using SHA-256.",
+      "BOOTSTRAP_ADMIN_PASSWORD may be plaintext in development/test and must be SHA-256 hex in production.",
       "The active UI concept is a forensic document light table with layered evidence sheets, registration rails, and CSS-only inspection-light motion.",
-      "Admin routes are protected by Next.js middleware using JWT session tokens stored in cookies."
+      "Admin routes are protected by Next.js middleware using JWT session tokens stored in cookies.",
+      "Document proof signing now uses RSA-PSS SHA-256 (PS256) to align with the cryptography assignment rubric.",
+      "Public verification pages render scannable QR codes from qrcode-generator.",
+      "Print-ready certificate pages are available at /verify/{verificationCode}/print.",
+      "Tampered or legacy proof material returns proofVerified false with status proof_invalid instead of a 500.",
+      "Bootstrap admin password accepts plaintext in development/test and requires SHA-256 hex in production.",
+      "Server-side certificate PDF rendering is available at /api/verifications/{verificationCode}/certificate-pdf and stores artifacts in MinIO."
     ]
   },
   "progress": {
@@ -25,20 +31,34 @@
       "Added forms for template and certificate issuance with strict zod validation and JSON parsing.",
       "Fixed client-side Next.js App Router redirect caching issues on login using hard window.location.href navigation.",
       "Updated .env and authentication.service to use SHA-256 password hashing instead of plain text.",
-      "Updated Roadmap to show Phase 5 and Phase 6 as COMPLETED (60% total progress)."
+      "Updated Roadmap to show Phase 5 and Phase 6 as COMPLETED (60% total progress).",
+      "Added cryptography assignment fit documentation mapping makalah, program, presentation, signer flow, verifier flow, and tamper demo evidence.",
+      "Started Phase 7 by adding QR code rendering on public verification pages.",
+      "Added QR SVG download endpoint and print-ready certificate artifact page.",
+      "Updated verification service to return a safe invalid-proof result when stored proof cannot validate.",
+      "Reworked the admin template form to collect academic certificate fields and generate layoutDefinition automatically.",
+      "Fixed local login with plaintext BOOTSTRAP_ADMIN_PASSWORD while preserving production hash enforcement.",
+      "Removed Public Claims JSON from issuance creation and made public claims derive from the selected academic template.",
+      "Completed Phase 7 with server-side PDF rendering, MinIO artifact storage, and certificate revocation."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
-      "Playwright is not installed locally, so no browser screenshot regression was run."
+      "npm install reported 14 audit vulnerabilities after adding qrcode-generator, pdf-lib, and minio.",
+      "Playwright is not installed locally, so no browser screenshot regression was run.",
+      ".next cache is owned by nobody/nogroup, so lint must use --no-cache unless cache permissions are fixed."
     ],
     "nextBestActions": [
-      "Begin Phase 7: Explore QR code generation for verification codes and PDF certificate rendering.",
+      "Begin Phase 8 with Redis-backed rate limiting and CSRF protection for admin mutations.",
       "Upgrade Next.js to a patched compatible version in a separate dependency update."
     ],
     "validationState": [
-      "npm run typecheck and npm run lint passed locally.",
+      "npm run validate passed locally after adding the validate script.",
       "API smoke test passed for health, OpenAPI, login, certificate template creation, certificate issuance, and public verification.",
-      "Admin routes effectively protected and session redirect intercepting /login correctly."
+      "Document proof unit tests cover RSA-SHA256 happy path plus tampered hash and tampered encrypted payload rejection.",
+      "QR unit tests cover QR matrix and SVG generation.",
+      "Docker smoke passed for /verify/{code}, /verify/{code}/print, /api/verifications/{code}, and /api/verifications/{code}/qr using an existing local record.",
+      "Docker smoke passed for bootstrap login and academic template creation.",
+      "Docker end-to-end smoke passed for login, academic template creation, issuance without public claims JSON, PDF generation, MinIO object storage, revocation, and public verification status."
     ]
   },
   "designContinuity": {
@@ -56,5 +76,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-04-25T22:28:00+07:00"
+  "lastUpdatedAt": "2026-04-26T09:35:53+07:00"
 }

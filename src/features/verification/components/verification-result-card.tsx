@@ -1,7 +1,9 @@
 import type { VerificationResult } from "@/modules/verification/verification.service";
+import { VerificationQrCode } from "@/features/verification/components/verification-qr-code";
 
 interface VerificationResultCardProps {
   verificationResult: VerificationResult;
+  verificationUrl: string;
 }
 
 function formatDate(dateValue: string): string {
@@ -12,9 +14,19 @@ function formatDate(dateValue: string): string {
 }
 
 export function VerificationResultCard({
-  verificationResult
+  verificationResult,
+  verificationUrl
 }: VerificationResultCardProps): JSX.Element {
-  const isValidRecord = verificationResult.status.toLowerCase() === "issued";
+  const isValidRecord = verificationResult.status.toLowerCase() === "issued" && verificationResult.proofVerified;
+  const encodedVerificationCode = encodeURIComponent(verificationResult.verificationCode);
+  const resultTitle = verificationResult.proofVerified
+    ? isValidRecord
+      ? "Certificate proof matched the stored record."
+      : "The record was found, but is not active."
+    : "Proof mismatch detected.";
+  const resultSummary = verificationResult.proofVerified
+    ? "This public sheet shows safe claims from the certificate record while private encrypted proof material remains server-side."
+    : "The record exists, but its stored signature, hash, or encrypted payload did not validate.";
 
   return (
     <section className="result-bench" aria-labelledby="verification-result-heading">
@@ -24,12 +36,9 @@ export function VerificationResultCard({
           <div className="section-stack">
             <span className="section-kicker">Verification result</span>
             <h1 className="section-title section-title-large" id="verification-result-heading">
-              {isValidRecord ? "Certificate proof matched the stored record." : "The record was found, but is not active."}
+              {resultTitle}
             </h1>
-            <p className="body-copy">
-              This public sheet shows safe claims from the certificate record while private encrypted proof material
-              remains server-side.
-            </p>
+            <p className="body-copy">{resultSummary}</p>
           </div>
 
           <div className={`stamp ${isValidRecord ? "stamp-verified" : "stamp-danger"}`} aria-label="Verification status">
@@ -78,6 +87,23 @@ export function VerificationResultCard({
           </div>
         </div>
 
+        <VerificationQrCode
+          verificationCode={verificationResult.verificationCode}
+          verificationUrl={verificationUrl}
+        />
+
+        <div className="proof-actions" aria-label="Certificate artifact actions">
+          <a className="button button-secondary" href={`/verify/${encodedVerificationCode}/print`}>
+            Print certificate
+          </a>
+          <a className="button button-tertiary" download href={`/api/verifications/${encodedVerificationCode}/qr`}>
+            Download QR
+          </a>
+          <a className="button button-tertiary" href={`/api/verifications/${encodedVerificationCode}/certificate-pdf`}>
+            Download PDF
+          </a>
+        </div>
+
         <div className="inspection-grid inspection-grid-compact" aria-label="Verification checks">
           <article className="inspection-pass">
             <div className="pass-index">
@@ -85,7 +111,11 @@ export function VerificationResultCard({
               <span>Signature</span>
             </div>
             <h3>Proof signature matched</h3>
-            <p>The stored digital signature validates the proof material attached to this record.</p>
+            <p>
+              {verificationResult.proofVerified
+                ? "The stored digital signature validates the proof material attached to this record."
+                : "The stored digital signature or signed hash no longer matches this record."}
+            </p>
           </article>
           <article className="inspection-pass">
             <div className="pass-index">
@@ -93,7 +123,11 @@ export function VerificationResultCard({
               <span>Hash</span>
             </div>
             <h3>Document hash matched</h3>
-            <p>The public result reflects the canonical hash produced during issuance.</p>
+            <p>
+              {verificationResult.proofVerified
+                ? "The public result reflects the canonical hash produced during issuance."
+                : "The canonical payload hash could not be confirmed against the stored proof."}
+            </p>
           </article>
           <article className="inspection-pass">
             <div className="pass-index">

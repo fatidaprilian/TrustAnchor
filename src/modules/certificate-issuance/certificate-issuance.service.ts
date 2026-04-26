@@ -12,6 +12,11 @@ function createVerificationCode(): string {
   return `TA-${randomBytes(5).toString("hex").toUpperCase()}`;
 }
 
+function readStringClaim(source: Record<string, unknown>, key: string, fallback: string): string {
+  const value = source[key];
+  return typeof value === "string" && value.trim().length > 0 ? value : fallback;
+}
+
 export class CertificateIssuanceService {
   private readonly auditLogRepository = new AuditLogRepository();
 
@@ -30,23 +35,34 @@ export class CertificateIssuanceService {
     }
 
     const verificationCode = createVerificationCode();
+    const templateClaims = templateRecord.layoutDefinition;
     const publicClaims = {
+      academicYear: readStringClaim(templateClaims, "academicYear", ""),
+      achievementLabel: readStringClaim(templateClaims, "achievementLabel", ""),
       certificateNumber: input.certificateNumber,
       institutionName: institutionRecord.name,
       issuedAt: input.issuedAt,
+      programName: readStringClaim(templateClaims, "programName", templateRecord.templateName),
       recipientName: input.recipientName,
+      signatoryName: readStringClaim(templateClaims, "signatoryName", ""),
+      signatoryTitle: readStringClaim(templateClaims, "signatoryTitle", ""),
       templateName: templateRecord.templateName,
       verificationCode
     };
     const proof = await createDocumentProof({
       certificateNumber: input.certificateNumber,
       certificateType: templateRecord.certificateType,
+      academicYear: publicClaims.academicYear,
+      achievementLabel: publicClaims.achievementLabel,
       institutionId: institutionRecord.id,
       institutionName: institutionRecord.name,
       issuedAt: input.issuedAt,
+      programName: publicClaims.programName,
       recipientIdentifier: input.recipientIdentifier,
       recipientName: input.recipientName,
       schemaVersion: templateRecord.schemaVersion,
+      signatoryName: publicClaims.signatoryName,
+      signatoryTitle: publicClaims.signatoryTitle,
       templateId: templateRecord.id,
       verificationCode
     });
@@ -95,5 +111,32 @@ export class CertificateIssuanceService {
 
       throw error;
     }
+  }
+
+  public async revokeIssuance(issuanceId: string, actorId: string) {
+    const issuanceRecord = await this.certificateIssuanceRepository.findById(issuanceId);
+
+    if (!issuanceRecord) {
+      throw new NotFoundError("Certificate issuance was not found");
+    }
+
+    if (issuanceRecord.status === "revoked") {
+      return issuanceRecord;
+    }
+
+    const revokedIssuance = await this.certificateIssuanceRepository.updateIssuanceStatus(issuanceId, "revoked");
+
+    await this.auditLogRepository.createAuditLogRecord({
+      action: "certificate_issuance.revoked",
+      actorId,
+      detail: {
+        certificateNumber: revokedIssuance.certificateNumber,
+        verificationCode: revokedIssuance.verificationCode
+      },
+      resourceId: revokedIssuance.id,
+      resourceType: "certificate_issuance"
+    });
+
+    return revokedIssuance;
   }
 }

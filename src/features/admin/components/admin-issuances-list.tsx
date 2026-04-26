@@ -40,6 +40,7 @@ export function AdminIssuancesList(): JSX.Element {
   const [meta, setMeta] = useState<PaginationMeta>({ limit: PAGE_SIZE, offset: 0, total: 0 });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [revokingIssuanceId, setRevokingIssuanceId] = useState<string | null>(null);
 
   const loadIssuances = useCallback(async (offset: number) => {
     setIsLoading(true);
@@ -66,6 +67,28 @@ export function AdminIssuancesList(): JSX.Element {
 
   const currentPage = Math.floor(meta.offset / meta.limit) + 1;
   const totalPages = Math.ceil(meta.total / meta.limit) || 1;
+
+  async function revokeIssuance(issuanceId: string): Promise<void> {
+    setRevokingIssuanceId(issuanceId);
+    setErrorMessage(null);
+
+    try {
+      const response = await fetch(`/api/certificate-issuances/${encodeURIComponent(issuanceId)}/revoke`, {
+        method: "POST"
+      });
+
+      if (!response.ok) {
+        setErrorMessage("Failed to revoke issuance");
+        return;
+      }
+
+      await loadIssuances(meta.offset);
+    } catch {
+      setErrorMessage("Revocation service is unavailable");
+    } finally {
+      setRevokingIssuanceId(null);
+    }
+  }
 
   return (
     <div className="admin-page">
@@ -102,15 +125,16 @@ export function AdminIssuancesList(): JSX.Element {
           <section className="admin-data-section evidence-sheet reveal-surface" aria-label="Issuance records">
             <span className="sheet-clamp">Issuance records</span>
             <div className="admin-evidence-table">
-              <div className="admin-table-header-row admin-table-5col">
+              <div className="admin-table-header-row admin-table-6col">
                 <span>Recipient</span>
                 <span>Certificate number</span>
                 <span>Verification code</span>
                 <span>Status</span>
                 <span>Issued</span>
+                <span>Action</span>
               </div>
               {issuances.map((issuance) => (
-                <div className="admin-table-row admin-table-5col" key={issuance.id}>
+                <div className="admin-table-row admin-table-6col" key={issuance.id}>
                   <strong>{issuance.recipientName}</strong>
                   <code>{issuance.certificateNumber}</code>
                   <code>{issuance.verificationCode}</code>
@@ -118,6 +142,14 @@ export function AdminIssuancesList(): JSX.Element {
                     {issuance.status}
                   </span>
                   <span className="admin-timestamp">{formatTimestamp(issuance.createdAt)}</span>
+                  <button
+                    className="admin-inline-action"
+                    disabled={issuance.status === "revoked" || revokingIssuanceId === issuance.id}
+                    onClick={() => void revokeIssuance(issuance.id)}
+                    type="button"
+                  >
+                    {revokingIssuanceId === issuance.id ? "Revoking..." : "Revoke"}
+                  </button>
                 </div>
               ))}
             </div>

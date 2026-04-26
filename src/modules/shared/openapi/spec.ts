@@ -3,7 +3,7 @@ export const openApiDocument = {
   info: {
     title: "TrustAnchor API",
     version: "0.1.0",
-    description: "API for issuing tamper-evident digital certificates and verifying them instantly."
+    description: "API for issuing RSA-SHA256 signed digital certificates and verifying them instantly."
   },
   servers: [
     {
@@ -247,7 +247,7 @@ export const openApiDocument = {
     "/api/certificate-issuances": {
       post: {
         summary: "Issue certificate",
-        description: "Creates a new issuance record and generates tamper-evident proof material.",
+        description: "Creates a new issuance record and generates SHA-256, RSA-SHA256, and encrypted proof material.",
         security: [{ sessionCookie: [] }],
         requestBody: {
           required: true,
@@ -288,10 +288,57 @@ export const openApiDocument = {
         }
       }
     },
+    "/api/certificate-issuances/{issuanceId}/revoke": {
+      post: {
+        summary: "Revoke certificate issuance",
+        description: "Marks an issuance as revoked while keeping the audit and proof record intact.",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "issuanceId",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            },
+            description: "Issuance record identifier"
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Issuance revoked"
+          },
+          "401": {
+            description: "Missing session",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            description: "Insufficient permissions",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            description: "Issuance not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/verifications/{verificationCode}": {
       get: {
         summary: "Verify certificate",
-        description: "Returns public verification status and proof metadata for a certificate.",
+        description: "Returns public verification status after the server validates the RSA signature and document hash.",
         parameters: [
           {
             name: "verificationCode",
@@ -307,6 +354,75 @@ export const openApiDocument = {
         responses: {
           "200": {
             description: "Verification result"
+          },
+          "404": {
+            description: "Verification code not found",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/verifications/{verificationCode}/qr": {
+      get: {
+        summary: "Get verification QR code",
+        description: "Returns an SVG QR code that points to the public verification page.",
+        parameters: [
+          {
+            name: "verificationCode",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            },
+            description: "Public verification code printed on the certificate",
+            example: "TA-0F5N9A7K2Q"
+          }
+        ],
+        responses: {
+          "200": {
+            description: "SVG QR code",
+            content: {
+              "image/svg+xml": {
+                schema: {
+                  type: "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/verifications/{verificationCode}/certificate-pdf": {
+      get: {
+        summary: "Get certificate PDF",
+        description: "Renders a server-side PDF certificate, stores a copy in MinIO, and returns the PDF.",
+        parameters: [
+          {
+            name: "verificationCode",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string"
+            },
+            description: "Public verification code printed on the certificate",
+            example: "TA-0F5N9A7K2Q"
+          }
+        ],
+        responses: {
+          "200": {
+            description: "PDF certificate artifact",
+            content: {
+              "application/pdf": {
+                schema: {
+                  type: "string",
+                  format: "binary"
+                }
+              }
+            }
           },
           "404": {
             description: "Verification code not found",

@@ -10,14 +10,6 @@ import { z } from "zod";
 const createIssuanceFormSchema = z.object({
   certificateNumber: z.string().min(3, "Certificate number is required"),
   issuedAt: z.string().datetime({ message: "Must be a valid ISO datetime (e.g. 2026-04-25T14:30:00Z)" }),
-  publicClaims: z.string().refine((val) => {
-    try {
-      JSON.parse(val);
-      return true;
-    } catch {
-      return false;
-    }
-  }, { message: "Must be a valid JSON object" }),
   recipientIdentifier: z.string().min(3, "Recipient identifier is required"),
   recipientName: z.string().min(3, "Recipient name is required"),
   templateId: z.string().uuid("Please select a valid template")
@@ -46,7 +38,6 @@ export function AdminIssuanceForm(): JSX.Element {
     defaultValues: {
       certificateNumber: "",
       issuedAt: new Date().toISOString(),
-      publicClaims: "{\n  \"course\": \"\",\n  \"grade\": \"\"\n}",
       recipientIdentifier: "",
       recipientName: "",
       templateId: ""
@@ -82,7 +73,6 @@ export function AdminIssuanceForm(): JSX.Element {
       const payload = {
         certificateNumber: formValues.certificateNumber,
         issuedAt: formValues.issuedAt,
-        publicClaims: JSON.parse(formValues.publicClaims),
         recipientIdentifier: formValues.recipientIdentifier,
         recipientName: formValues.recipientName,
         templateId: formValues.templateId
@@ -124,8 +114,8 @@ export function AdminIssuanceForm(): JSX.Element {
             <span className="section-kicker">Issuance ledger</span>
             <h1 className="admin-page-title">Issue Certificate</h1>
             <p className="body-copy">
-              Create a new certificate issuance record tied to a specific template. Cryptographic proofs will be
-              automatically generated and sealed.
+              Create a certificate from an academic template. Public claims and cryptographic proofs are generated
+              automatically.
             </p>
           </div>
           <Link className="button button-tertiary" href="/admin/issuances">
@@ -209,19 +199,6 @@ export function AdminIssuanceForm(): JSX.Element {
             type="text"
           />
           {errors.issuedAt ? <span className="field-error">{errors.issuedAt.message}</span> : null}
-        </label>
-
-        <label className="field-block" htmlFor="publicClaims">
-          <span className="field-label">Public Claims (JSON)</span>
-          <textarea
-            {...register("publicClaims")}
-            aria-invalid={errors.publicClaims ? "true" : "false"}
-            className="field-input"
-            id="publicClaims"
-            rows={5}
-            style={{ fontFamily: "monospace", resize: "vertical" }}
-          />
-          {errors.publicClaims ? <span className="field-error">{errors.publicClaims.message}</span> : null}
         </label>
 
         <div aria-live="polite" className="status-region">

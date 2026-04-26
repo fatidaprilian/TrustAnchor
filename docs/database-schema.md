@@ -65,10 +65,15 @@ Indexes:
 - Foreign keys are enforced at the database level.
 - Verification codes and certificate numbers are globally unique in the first release.
 - Soft delete is deferred for the first slice because issuance records are append-only and must stay immutable.
+- `document_hash` stores the SHA-256 digest of the canonical certificate payload.
+- `digital_signature` stores the compact RSA-SHA256 signature over that digest.
+- `encrypted_payload` and key-wrapping fields store AES-256-GCM envelope encryption output and must remain server-only.
+- `status` supports revocation through the value `revoked`; revoked records stay immutable and verifiable but are no longer active.
+- Generated PDF artifacts are stored in MinIO under `certificate-artifacts/{verificationCode}.pdf`; the database remains the proof source of truth for this phase.
 
 ## Assumptions To Validate
 - Recipient identifier can be stored in raw form in the first release.
 - Template layout definition as `JSONB` is flexible enough before a richer template editor exists.
 
 ## Next Validation Action
-Review whether recipient identifiers need hashing, masking, or field-level encryption before production hardening.
+Review whether recipient identifiers need hashing, masking, or field-level encryption before production hardening, then decide whether PDF object keys should be persisted in PostgreSQL.

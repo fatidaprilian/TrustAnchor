@@ -7,7 +7,8 @@
     "routesInScope": [
       "/",
       "/login",
-      "/verify/[verificationCode]"
+      "/verify/[verificationCode]",
+      "/verify/[verificationCode]/print"
     ],
     "confirmedContext": [
       "Used by education institutions and government agencies",
@@ -25,7 +26,7 @@
       "currentFrontendShape": "Small App Router UI with home, login, verification result, and not-found pages",
       "existingUiUsedAsVisualReference": false,
       "existingUiUsedAsBehaviorReference": true,
-      "newDependencyRequired": false
+      "newDependencyRequired": true
     }
   },
   "visualResetStrategy": {
@@ -94,13 +95,22 @@
     "motionDerivationSource": "Motion imitates oblique light sweeps, paper lift, button compression, and status stamp settlement.",
     "validationRule": "Every visual token must explain how it supports document inspection rather than generic dashboard presentation."
   },
-  "libraryResearchStatus": "not-required",
+  "libraryResearchStatus": "local-package-verified",
   "libraryDecisions": [
     {
-      "name": "No new UI or animation library",
-      "purpose": "Keep the redesign within the existing Next.js, React, CSS, and form stack",
+      "name": "qrcode-generator",
+      "purpose": "Render scannable verification QR matrices as SVG without a binary runtime dependency",
       "sourceUrl": "local package.json",
-      "fetchedDate": "2026-04-25",
+      "fetchedDate": "2026-04-26",
+      "stableCompatibleVersion": "2.0.4",
+      "risk": "The Docker node_modules volume must be refreshed after package changes",
+      "fallbackIfUnavailable": "Keep verification code text visible and defer QR rendering until dependency install succeeds"
+    },
+    {
+      "name": "No new animation, icon, canvas, or UI primitive library",
+      "purpose": "Keep certificate print output within the existing Next.js, React, CSS, and form stack",
+      "sourceUrl": "local package.json",
+      "fetchedDate": "2026-04-26",
       "stableCompatibleVersion": "Existing project dependencies",
       "risk": "CSS must stay organized because no component library is hiding complexity",
       "fallbackIfUnavailable": "Native CSS and existing React components"
@@ -112,7 +122,8 @@
       "Landing page uses layered document sheets as the primary visual asset",
       "Verification console is positioned like a lit evidence slip",
       "Trust chain appears as numbered inspection passes instead of equal cards",
-      "Verification result becomes a stamped public evidence sheet"
+      "Verification result becomes a stamped public evidence sheet",
+      "Print-ready certificate artifact becomes a formal evidence sheet with hash strip and QR verification link"
     ]
   },
   "tokenSystem": {

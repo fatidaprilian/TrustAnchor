@@ -4,11 +4,17 @@ import { NotFoundError } from "@/modules/shared/errors/application-error";
 import { verifyStoredDocumentProof } from "@/modules/shared/security/document-proof.service";
 
 export interface VerificationResult {
+  academicYear: string;
+  achievementLabel: string;
   certificateNumber: string;
   documentHash: string;
   institutionName: string;
   issuedAt: string;
+  proofVerified: boolean;
+  programName: string;
   recipientName: string;
+  signatoryName: string;
+  signatoryTitle: string;
   status: string;
   templateName: string;
   verificationCode: string;
@@ -27,21 +33,37 @@ export class VerificationService {
       throw new NotFoundError("Verification code was not found");
     }
 
-    const verifiedProof = await verifyStoredDocumentProof<{
-      institutionName: string;
-      issuedAt: string;
-      recipientName: string;
-      verificationCode: string;
-    }>({
-      digitalSignature: issuanceRecord.digitalSignature,
-      documentHash: issuanceRecord.documentHash,
-      encryptedPayload: issuanceRecord.encryptedPayload,
-      payloadIv: issuanceRecord.payloadIv,
-      payloadTag: issuanceRecord.payloadTag,
-      wrappedDocumentKey: issuanceRecord.wrappedDocumentKey,
-      wrappedKeyIv: issuanceRecord.wrappedKeyIv,
-      wrappedKeyTag: issuanceRecord.wrappedKeyTag
-    });
+    let proofVerified = true;
+    let verifiedCanonicalPayload: {
+      institutionName?: string;
+      issuedAt?: string;
+      recipientName?: string;
+      verificationCode?: string;
+    } = {};
+    let verifiedDocumentHash = issuanceRecord.documentHash;
+
+    try {
+      const verifiedProof = await verifyStoredDocumentProof<{
+        institutionName: string;
+        issuedAt: string;
+        recipientName: string;
+        verificationCode: string;
+      }>({
+        digitalSignature: issuanceRecord.digitalSignature,
+        documentHash: issuanceRecord.documentHash,
+        encryptedPayload: issuanceRecord.encryptedPayload,
+        payloadIv: issuanceRecord.payloadIv,
+        payloadTag: issuanceRecord.payloadTag,
+        wrappedDocumentKey: issuanceRecord.wrappedDocumentKey,
+        wrappedKeyIv: issuanceRecord.wrappedKeyIv,
+        wrappedKeyTag: issuanceRecord.wrappedKeyTag
+      });
+
+      verifiedCanonicalPayload = verifiedProof.canonicalPayload;
+      verifiedDocumentHash = verifiedProof.documentHash;
+    } catch {
+      proofVerified = false;
+    }
 
     await this.auditLogRepository.createAuditLogRecord({
       action: "certificate_issuance.verified",
@@ -54,15 +76,28 @@ export class VerificationService {
     });
 
     return {
+      academicYear:
+        typeof issuanceRecord.publicClaims.academicYear === "string" ? issuanceRecord.publicClaims.academicYear : "",
+      achievementLabel:
+        typeof issuanceRecord.publicClaims.achievementLabel === "string" ? issuanceRecord.publicClaims.achievementLabel : "",
       certificateNumber: issuanceRecord.certificateNumber,
-      documentHash: verifiedProof.documentHash,
+      documentHash: verifiedDocumentHash,
       institutionName:
         typeof issuanceRecord.publicClaims.institutionName === "string"
           ? issuanceRecord.publicClaims.institutionName
-          : verifiedProof.canonicalPayload.institutionName,
+          : verifiedCanonicalPayload.institutionName ?? "Unknown institution",
       issuedAt: issuanceRecord.issuedAt,
+      proofVerified,
+      programName:
+        typeof issuanceRecord.publicClaims.programName === "string"
+          ? issuanceRecord.publicClaims.programName
+          : "Academic program",
       recipientName: issuanceRecord.recipientName,
-      status: issuanceRecord.status,
+      signatoryName:
+        typeof issuanceRecord.publicClaims.signatoryName === "string" ? issuanceRecord.publicClaims.signatoryName : "",
+      signatoryTitle:
+        typeof issuanceRecord.publicClaims.signatoryTitle === "string" ? issuanceRecord.publicClaims.signatoryTitle : "",
+      status: proofVerified ? issuanceRecord.status : "proof_invalid",
       templateName:
         typeof issuanceRecord.publicClaims.templateName === "string"
           ? issuanceRecord.publicClaims.templateName

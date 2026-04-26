@@ -132,8 +132,8 @@ async function resolveSigningKeys(): Promise<{ privateKey: KeyLike; publicKey: K
 
   if (SIGNATURE_PRIVATE_KEY_PEM && SIGNATURE_PUBLIC_KEY_PEM) {
     cachedSigningKeys = {
-      privateKey: await importPKCS8(SIGNATURE_PRIVATE_KEY_PEM, "EdDSA"),
-      publicKey: await importSPKI(SIGNATURE_PUBLIC_KEY_PEM, "EdDSA")
+      privateKey: await importPKCS8(SIGNATURE_PRIVATE_KEY_PEM, "PS256"),
+      publicKey: await importSPKI(SIGNATURE_PUBLIC_KEY_PEM, "PS256")
     };
     globalSigningKeyCache.__trustanchorSigningKeys = cachedSigningKeys;
 
@@ -144,13 +144,16 @@ async function resolveSigningKeys(): Promise<{ privateKey: KeyLike; publicKey: K
     throw new ConfigurationError("Signature key material is required in production");
   }
 
-  const generatedKeyPair = generateKeyPairSync("ed25519");
+  const generatedKeyPair = generateKeyPairSync("rsa", {
+    modulusLength: 2048,
+    publicExponent: 0x10001
+  });
   const exportedPrivateKey = generatedKeyPair.privateKey.export({ format: "pem", type: "pkcs8" }).toString();
   const exportedPublicKey = generatedKeyPair.publicKey.export({ format: "pem", type: "spki" }).toString();
 
   cachedSigningKeys = {
-    privateKey: await importPKCS8(exportedPrivateKey, "EdDSA"),
-    publicKey: await importSPKI(exportedPublicKey, "EdDSA")
+    privateKey: await importPKCS8(exportedPrivateKey, "PS256"),
+    publicKey: await importSPKI(exportedPublicKey, "PS256")
   };
   globalSigningKeyCache.__trustanchorSigningKeys = cachedSigningKeys;
 
@@ -169,7 +172,7 @@ export async function createDocumentProof(payload: JsonRecord): Promise<Document
   const wrappedDocumentKey = encryptBuffer(documentKey, getMasterKey());
   const signingKeys = await resolveSigningKeys();
   const digitalSignature = await new CompactSign(Buffer.from(documentHash, "utf8"))
-    .setProtectedHeader({ alg: "EdDSA", typ: "JWT" })
+    .setProtectedHeader({ alg: "PS256", typ: "JWT" })
     .sign(signingKeys.privateKey);
 
   return {

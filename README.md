@@ -1,13 +1,13 @@
 # TrustAnchor
 
 TrustAnchor is a web application for issuing and verifying anti-counterfeit digital certificates.  
-It combines digital signatures, envelope-style double encryption, and audit logging to help institutions validate documents with confidence.
+It combines RSA-SHA256 digital signatures, SHA-256 hashing, envelope-style double encryption, QR-backed verification, and audit logging to help institutions validate documents with confidence.
 
 ## Core Capabilities
 - Bootstrap admin authentication
 - Certificate template creation
 - Certificate issuance with tamper-evident proof material
-- Public verification endpoint and verification page
+- Public verification endpoint, verification page, QR SVG download, print-ready certificate page, and server-side PDF output
 - Health check and OpenAPI JSON endpoint
 
 ## Tech Stack
@@ -24,6 +24,7 @@ It combines digital signatures, envelope-style double encryption, and audit logg
    cp .env.example .env
    ```
 2. Fill required values in `.env`.
+   For local development, `BOOTSTRAP_ADMIN_PASSWORD` may be plaintext. In production it must be a SHA-256 hex hash.
 3. Start services:
    ```bash
    docker compose up -d
@@ -70,8 +71,10 @@ After changing `package.json` or `package-lock.json`, rebuild the web image and 
 - [Flow Overview](docs/flow-overview.md)
 - [Database Schema](docs/database-schema.md)
 - [API Contract](docs/api-contract.md)
+- [Cryptography Assignment Fit](docs/cryptography-assignment-fit.md)
 - [Design Contract](docs/DESIGN.md)
 - [Design Intent](docs/design-intent.json)
 
 ## Current Scope
 This repository currently focuses on the first vertical slice: template creation, certificate issuance, and verification lookup.
+Phase 7 is complete with QR verification, browser print output, server-side PDF rendering, MinIO artifact storage, and revocation.

@@ -25,8 +25,8 @@ export function normalizeError(error: unknown): ApplicationError {
 
 export async function handleRoute<TPayload>(
   actionName: string,
-  handler: () => Promise<NextResponse<TPayload> | NextResponse>
-): Promise<NextResponse> {
+  handler: () => Promise<NextResponse<TPayload> | NextResponse | Response>
+): Promise<Response> {
   try {
     return await handler();
   } catch (error) {

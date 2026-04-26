@@ -198,6 +198,73 @@ export class CertificateIssuanceRepository {
     return issuanceRow ? mapCertificateIssuanceRow(issuanceRow) : null;
   }
 
+  public async findById(issuanceId: string): Promise<CertificateIssuanceRecord | null> {
+    const { rows } = await getDatabasePool().query<CertificateIssuanceRow>(
+      `
+        select
+          id,
+          institution_id,
+          template_id,
+          verification_code,
+          certificate_number,
+          recipient_name,
+          recipient_identifier,
+          issued_at,
+          document_hash,
+          digital_signature,
+          encrypted_payload,
+          payload_iv,
+          payload_tag,
+          wrapped_document_key,
+          wrapped_key_iv,
+          wrapped_key_tag,
+          public_claims,
+          status,
+          created_at
+        from certificate_issuances
+        where id = $1
+        limit 1
+      `,
+      [issuanceId]
+    );
+
+    const issuanceRow = rows[0];
+    return issuanceRow ? mapCertificateIssuanceRow(issuanceRow) : null;
+  }
+
+  public async updateIssuanceStatus(issuanceId: string, status: string): Promise<CertificateIssuanceRecord> {
+    const { rows } = await getDatabasePool().query<CertificateIssuanceRow>(
+      `
+        update certificate_issuances
+        set status = $2
+        where id = $1
+        returning
+          id,
+          institution_id,
+          template_id,
+          verification_code,
+          certificate_number,
+          recipient_name,
+          recipient_identifier,
+          issued_at,
+          document_hash,
+          digital_signature,
+          encrypted_payload,
+          payload_iv,
+          payload_tag,
+          wrapped_document_key,
+          wrapped_key_iv,
+          wrapped_key_tag,
+          public_claims,
+          status,
+          created_at
+      `,
+      [issuanceId, status]
+    );
+
+    return mapCertificateIssuanceRow(rows[0]);
+  }
+
   public async findIssuancesByInstitution(
     institutionId: string,
     limit: number,

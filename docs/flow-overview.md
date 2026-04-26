@@ -5,23 +5,45 @@
 2. The administrator creates or selects a certificate template.
 3. The administrator submits recipient and issuance data.
 4. The issuance service builds a canonical payload for the document.
-5. The signature service hashes the payload, signs the hash, and performs double encryption.
-6. The issuance repository stores the proof material and public claims.
-7. The audit log records the issuance event.
-8. The system returns a verification code and proof summary.
+5. The proof service calculates a SHA-256 message digest from the canonical payload.
+6. The proof service signs the digest with the issuer RSA private key to produce the digital signature.
+7. The proof service encrypts the canonical payload with a random AES-256-GCM document key, then encrypts that document key with the platform master key.
+8. The issuance repository stores the proof material and public claims.
+9. The audit log records the issuance event.
+10. The system returns a verification code, QR-ready verification URL, QR SVG endpoint, and proof summary.
 
 ## Verification Flow
 1. A recipient or officer opens the public verification page.
-2. The user submits a verification code or scans a QR-ready code in a later phase.
+2. The user submits a verification code or scans the QR code printed with the certificate.
 3. The verification service loads the issuance record.
-4. The signature service verifies the stored digital signature and document hash.
-5. The system returns a safe public verification response.
-6. The audit log records the verification attempt when required by policy.
+4. The proof service verifies the stored digital signature with the issuer RSA public key and reads the signed digest.
+5. The proof service compares the signed digest with the stored document hash.
+6. The proof service decrypts the canonical payload and recomputes SHA-256.
+7. If both hash comparisons match, the certificate is authentic and unmodified.
+8. If the signature, hash, or encrypted payload was changed, verification returns `proofVerified: false` and `status: "proof_invalid"` instead of a valid proof.
+9. The system returns a safe public verification response.
+10. The audit log records the verification attempt when required by policy.
+
+## Print Artifact Flow
+1. A user opens `/verify/{verificationCode}/print` from the verification result page.
+2. The system verifies the same proof material used by the public verification page.
+3. The print view renders public certificate claims, the document hash, the verification code, and a scannable QR code.
+4. The user can print the page through the browser or download the QR SVG from `/api/verifications/{verificationCode}/qr`.
+5. The user can download `/api/verifications/{verificationCode}/certificate-pdf`.
+6. The PDF endpoint renders the certificate server-side and stores the generated artifact in MinIO.
+
+## Revocation Flow
+1. An administrator opens the issuance ledger.
+2. The administrator revokes an issuance record.
+3. The revocation endpoint changes the immutable issuance record status to `revoked`.
+4. The audit log records `certificate_issuance.revoked`.
+5. Public verification still checks the cryptographic proof, but the result no longer counts as an active issued certificate.
 
 ## Admin Configuration Flow
 1. An administrator signs in.
-2. The administrator creates a template with a schema version and layout definition.
-3. The template becomes available for issuance workflows.
+2. The administrator creates an academic template with institution, program, academic year, achievement text, and signatory fields.
+3. The admin form converts those academic fields into a structured `layoutDefinition` object.
+4. The template becomes available for issuance workflows.
 
 ## Trust Boundaries
 - Browser to HTTP API: untrusted input, always validated.
@@ -33,6 +55,7 @@
 ## Assumptions To Validate
 - Public verification can expose recipient name and certificate number without violating privacy requirements.
 - Audit logging for public verification attempts is acceptable in the first release.
+- Course demonstration should include one valid verification and one tampered proof case, such as modifying the stored hash or encrypted payload in a test fixture.
 
 ## Next Validation Action
-Validate the exposed verification fields with the target institution before expanding the public response payload.
+Begin Phase 8 by validating rate limiting and CSRF protection for admin mutation endpoints.
