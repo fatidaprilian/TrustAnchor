@@ -7,7 +7,7 @@
 4. The issuance service builds a canonical payload for the document.
 5. The proof service calculates a SHA-256 message digest from the canonical payload.
 6. The proof service signs the digest with the issuer RSA private key to produce the digital signature.
-7. The proof service encrypts the canonical payload with a random AES-256-GCM document key, then encrypts that document key with the platform master key.
+7. The proof service transforms the canonical payload with Autokey Cipher, encrypts that transformed payload with a random AES-256-GCM document key, then encrypts that document key with the platform master key.
 8. The issuance repository encrypts the recipient identifier, then stores proof material and public claims.
 9. The audit log records the issuance event.
 10. The system returns a verification code, QR-ready verification URL, QR SVG endpoint, and proof summary.
@@ -18,7 +18,7 @@
 3. The verification service loads the issuance record.
 4. The proof service verifies the stored digital signature with the issuer RSA public key and reads the signed digest.
 5. The proof service compares the signed digest with the stored document hash.
-6. The proof service decrypts the canonical payload and recomputes SHA-256.
+6. The proof service decrypts the payload, reverses the Autokey Cipher layer when present, and recomputes SHA-256 from the canonical payload.
 7. If both hash comparisons match, the certificate is authentic and unmodified.
 8. If the signature, hash, or encrypted payload was changed, verification returns `proofVerified: false` and `status: "proof_invalid"` instead of a valid proof.
 9. The system returns a safe public verification response.

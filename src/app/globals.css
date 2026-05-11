@@ -1,20 +1,20 @@
 :root {
-  --paper-010: oklch(0.985 0.012 88);
-  --paper-050: oklch(0.955 0.019 89);
-  --paper-120: oklch(0.895 0.024 86);
-  --graphite-980: oklch(0.17 0.022 250);
-  --graphite-820: oklch(0.29 0.026 248);
-  --graphite-620: oklch(0.46 0.028 245);
-  --cyan-560: oklch(0.68 0.15 218);
-  --cyan-680: oklch(0.54 0.16 228);
-  --uv-620: oklch(0.58 0.18 300);
-  --ember-590: oklch(0.66 0.17 45);
-  --verified-560: oklch(0.66 0.15 152);
-  --danger-560: oklch(0.57 0.18 28);
-  --bench-shadow: 0 28px 80px rgba(26, 29, 37, 0.16);
-  --sheet-shadow: 0 18px 48px rgba(34, 32, 28, 0.14);
-  --control-shadow: 0 12px 28px rgba(22, 142, 190, 0.2);
-  --radius-sheet: 10px;
+  --paper-010: oklch(0.995 0.006 95);
+  --paper-050: oklch(0.978 0.018 100);
+  --paper-120: oklch(0.925 0.035 98);
+  --graphite-980: oklch(0.18 0.024 246);
+  --graphite-820: oklch(0.31 0.031 246);
+  --graphite-620: oklch(0.48 0.032 244);
+  --cyan-560: oklch(0.73 0.14 218);
+  --cyan-680: oklch(0.58 0.15 225);
+  --uv-620: oklch(0.62 0.17 298);
+  --ember-590: oklch(0.78 0.16 78);
+  --verified-560: oklch(0.71 0.15 154);
+  --danger-560: oklch(0.64 0.18 28);
+  --bench-shadow: 0 28px 78px rgba(31, 65, 88, 0.13);
+  --sheet-shadow: 0 18px 46px rgba(55, 74, 77, 0.12);
+  --control-shadow: 0 12px 28px rgba(32, 149, 205, 0.22);
+  --radius-sheet: 8px;
   --radius-control: 8px;
   --radius-pill: 999px;
   --font-body: "Aptos", "Segoe UI", "Noto Sans", sans-serif;
@@ -41,9 +41,8 @@
 
 html {
   background:
-    radial-gradient(circle at 18% 12%, rgba(77, 213, 235, 0.18), transparent 30%),
-    radial-gradient(circle at 82% 4%, rgba(157, 86, 217, 0.14), transparent 26%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(237, 229, 210, 0.76)),
+    linear-gradient(115deg, rgba(247, 253, 255, 0.92) 0%, rgba(255, 255, 250, 0.96) 46%, rgba(237, 250, 240, 0.9) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(241, 248, 246, 0.88)),
     var(--color-page-bg);
   color: var(--color-text-primary);
   font-family: var(--font-body);
@@ -61,18 +60,11 @@ body {
 }
 
 .app-body::before {
-  background:
-    repeating-linear-gradient(90deg, rgba(31, 37, 48, 0.045) 0 1px, transparent 1px 58px),
-    repeating-linear-gradient(180deg, rgba(31, 37, 48, 0.035) 0 1px, transparent 1px 58px);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: fixed;
-  z-index: -2;
+  display: none;
 }
 
 .app-body::after {
-  background: linear-gradient(100deg, transparent, rgba(58, 197, 224, 0.18), transparent);
+  background: linear-gradient(100deg, transparent, rgba(91, 210, 234, 0.2), rgba(255, 218, 91, 0.14), transparent);
   content: "";
   height: 120vh;
   left: 46%;
@@ -80,7 +72,7 @@ body {
   position: fixed;
   top: -10vh;
   transform: rotate(12deg);
-  width: 22vw;
+  width: 24vw;
   z-index: -1;
 }
 
@@ -181,12 +173,12 @@ code {
 }
 
 .brand-signature-light .brand-emblem {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(31, 119, 158, 0.22);
 }
 
 .brand-signature-light .brand-emblem-core {
-  color: rgba(255, 255, 255, 0.96);
+  color: var(--graphite-980);
 }
 
 .brand-signature-copy {
@@ -210,7 +202,7 @@ code {
 }
 
 .brand-signature-light .brand-signature-copy span {
-  color: rgba(236, 244, 244, 0.72);
+  color: var(--color-text-secondary);
 }
 
 .section-stack {
@@ -234,7 +226,7 @@ code {
 
 .section-kicker-light,
 .ledger-label-light {
-  color: rgba(238, 245, 244, 0.68);
+  color: color-mix(in srgb, var(--color-action) 64%, var(--graphite-980));
 }
 
 .hero-title,
@@ -295,14 +287,14 @@ code {
 }
 
 .lead-copy-light {
-  color: rgba(241, 246, 245, 0.76);
+  color: var(--color-text-secondary);
 }
 
 .evidence-sheet {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(246, 239, 221, 0.82)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 254, 255, 0.9) 50%, rgba(247, 252, 239, 0.88)),
     var(--paper-010);
-  border: 1px solid rgba(44, 49, 60, 0.14);
+  border: 1px solid rgba(43, 92, 112, 0.16);
   border-radius: var(--radius-sheet);
   box-shadow: var(--sheet-shadow);
   overflow: hidden;
@@ -311,8 +303,8 @@ code {
 
 .evidence-sheet::before {
   background:
-    repeating-linear-gradient(90deg, rgba(41, 47, 60, 0.055) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(180deg, rgba(41, 47, 60, 0.04) 0 1px, transparent 1px 34px);
+    linear-gradient(90deg, rgba(42, 188, 216, 0.42) 0 6px, transparent 6px),
+    linear-gradient(180deg, rgba(255, 218, 91, 0.18), transparent 120px);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -321,7 +313,7 @@ code {
 
 .evidence-sheet::after {
   animation: light-sweep 8s ease-in-out infinite;
-  background: linear-gradient(105deg, transparent 26%, rgba(92, 219, 236, 0.18), transparent 68%);
+  background: linear-gradient(105deg, transparent 26%, rgba(92, 219, 236, 0.2), rgba(255, 218, 91, 0.12), transparent 68%);
   content: "";
   inset: -40% -20%;
   pointer-events: none;
@@ -336,23 +328,23 @@ code {
 
 .evidence-sheet-strong {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(242, 237, 224, 0.92)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(239, 251, 255, 0.94) 55%, rgba(248, 255, 239, 0.92)),
     var(--paper-010);
 }
 
 .evidence-sheet-dark {
   background:
-    radial-gradient(circle at 12% 8%, rgba(87, 210, 226, 0.22), transparent 28%),
-    linear-gradient(135deg, rgba(25, 29, 42, 0.98), rgba(38, 32, 52, 0.97));
-  border-color: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.96);
+    linear-gradient(135deg, rgba(236, 250, 255, 0.98), rgba(255, 252, 232, 0.94) 58%, rgba(236, 255, 244, 0.92)),
+    var(--paper-010);
+  border-color: rgba(31, 119, 158, 0.2);
+  color: var(--graphite-980);
 }
 
 .sheet-clamp {
   align-items: center;
-  background: rgba(30, 36, 47, 0.92);
+  background: linear-gradient(90deg, var(--color-action), color-mix(in srgb, var(--color-verified) 70%, white));
   border-radius: 0 0 8px 8px;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.98);
   display: inline-flex;
   font-size: 0.72rem;
   font-weight: 900;
@@ -367,7 +359,7 @@ code {
 }
 
 .evidence-sheet-dark .sheet-clamp {
-  background: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(90deg, var(--color-audit), var(--color-action));
 }
 
 .reveal-surface {
@@ -468,8 +460,8 @@ code {
 
 .specimen-sheet-back {
   background:
-    linear-gradient(135deg, rgba(125, 80, 206, 0.2), transparent 42%),
-    rgba(255, 255, 255, 0.58);
+    linear-gradient(135deg, rgba(255, 218, 91, 0.38), rgba(115, 224, 166, 0.16) 48%, transparent),
+    rgba(255, 255, 255, 0.72);
   inset: 96px 52px auto 84px;
   position: absolute;
   transform: rotate(-7deg);
@@ -477,8 +469,7 @@ code {
 
 .specimen-sheet-main {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(244, 238, 220, 0.9)),
-    repeating-linear-gradient(90deg, rgba(31, 37, 48, 0.045) 0 1px, transparent 1px 30px);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(240, 252, 255, 0.92) 56%, rgba(250, 255, 239, 0.88));
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -582,7 +573,7 @@ code {
 
 .uv-strip {
   background:
-    linear-gradient(135deg, rgba(93, 219, 231, 0.24), rgba(157, 86, 217, 0.28)),
+    linear-gradient(135deg, rgba(93, 219, 231, 0.28), rgba(255, 218, 91, 0.28), rgba(115, 224, 166, 0.22)),
     rgba(255, 255, 255, 0.64);
   border: 1px solid rgba(117, 75, 179, 0.22);
   border-radius: 999px;
@@ -893,9 +884,8 @@ code {
 
 .drawer-specimen {
   background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px 26px),
-    rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(232, 249, 255, 0.78));
+  border: 1px solid rgba(31, 119, 158, 0.18);
   border-radius: 12px;
   display: grid;
   gap: 12px;
@@ -904,7 +894,7 @@ code {
 }
 
 .drawer-specimen span {
-  background: rgba(90, 220, 235, 0.72);
+  background: linear-gradient(90deg, var(--color-action), var(--color-audit));
   border-radius: 999px;
   height: 10px;
   width: 44%;
@@ -917,7 +907,7 @@ code {
 }
 
 .drawer-specimen code {
-  color: rgba(238, 245, 244, 0.72);
+  color: var(--color-text-secondary);
   overflow-wrap: anywhere;
 }
 
@@ -927,8 +917,8 @@ code {
 }
 
 .dark-rail {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(31, 119, 158, 0.16);
   border-radius: var(--radius-control);
   display: flex;
   flex-direction: column;
@@ -937,7 +927,7 @@ code {
 }
 
 .dark-rail strong {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--graphite-980);
 }
 
 .access-frame {
@@ -1073,6 +1063,11 @@ code {
 }
 
 .certificate-artifact {
+  --paper-010: oklch(0.985 0.012 88);
+  --graphite-980: oklch(0.17 0.022 250);
+  --graphite-820: oklch(0.29 0.026 248);
+  --color-text-secondary: rgba(48, 54, 67, 0.74);
+  --color-verified: oklch(0.66 0.15 152);
   background:
     linear-gradient(90deg, rgba(42, 49, 64, 0.08) 1px, transparent 1px) 0 0 / 38px 38px,
     linear-gradient(180deg, rgba(42, 49, 64, 0.06) 1px, transparent 1px) 0 0 / 38px 38px,
@@ -1500,7 +1495,7 @@ code {
 }
 
 .admin-sidebar {
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(43, 92, 112, 0.16);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -1520,7 +1515,7 @@ code {
 }
 
 .admin-sidebar-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(43, 92, 112, 0.14);
   padding: 24px 20px;
 }
 
@@ -1535,7 +1530,7 @@ code {
 .admin-nav-item {
   align-items: center;
   border-radius: var(--radius-control);
-  color: rgba(238, 245, 244, 0.72);
+  color: var(--color-text-secondary);
   display: flex;
   font-size: 0.92rem;
   font-weight: 800;
@@ -1548,17 +1543,17 @@ code {
 }
 
 .admin-nav-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.96);
+  background: rgba(49, 173, 220, 0.1);
+  color: var(--graphite-980);
 }
 
 .admin-nav-item-active {
-  background: rgba(29, 154, 205, 0.22);
-  color: rgba(255, 255, 255, 0.98);
+  background: linear-gradient(90deg, rgba(49, 173, 220, 0.18), rgba(255, 218, 91, 0.18));
+  color: var(--graphite-980);
 }
 
 .admin-sidebar-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(43, 92, 112, 0.14);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1567,8 +1562,8 @@ code {
 }
 
 .admin-operator-badge {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(43, 92, 112, 0.14);
   border-radius: var(--radius-control);
   display: flex;
   flex-direction: column;
@@ -1577,7 +1572,7 @@ code {
 }
 
 .admin-operator-label {
-  color: rgba(238, 245, 244, 0.56);
+  color: var(--color-text-secondary);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0;
@@ -1585,14 +1580,14 @@ code {
 }
 
 .admin-operator-name {
-  color: rgba(255, 255, 255, 0.96);
+  color: var(--graphite-980);
   font-size: 0.95rem;
 }
 
 .admin-operator-role {
-  background: rgba(29, 154, 205, 0.28);
+  background: rgba(49, 173, 220, 0.14);
   border-radius: var(--radius-pill);
-  color: rgba(255, 255, 255, 0.88);
+  color: color-mix(in srgb, var(--color-action) 70%, var(--graphite-980));
   display: inline-block;
   font-size: 0.68rem;
   font-weight: 900;
@@ -1604,22 +1599,22 @@ code {
 }
 
 .admin-logout-button {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(43, 92, 112, 0.18);
+  color: var(--graphite-820);
   font-size: 0.86rem;
   min-height: 40px;
   width: 100%;
 }
 
 .admin-logout-button:hover {
-  background: rgba(190, 75, 45, 0.2);
-  border-color: rgba(190, 75, 45, 0.36);
-  color: rgba(255, 255, 255, 0.94);
+  background: rgba(224, 99, 72, 0.12);
+  border-color: rgba(224, 99, 72, 0.32);
+  color: color-mix(in srgb, var(--color-danger) 72%, var(--graphite-980));
 }
 
 .admin-nav-home-link {
-  color: rgba(238, 245, 244, 0.56);
+  color: var(--color-text-secondary);
   font-size: 0.8rem;
   font-weight: 800;
   padding: 6px 4px;
@@ -1628,7 +1623,7 @@ code {
 }
 
 .admin-nav-home-link:hover {
-  color: rgba(238, 245, 244, 0.88);
+  color: var(--graphite-980);
 }
 
 /* Admin content area */
@@ -2091,7 +2086,7 @@ code {
   }
 
   .admin-sidebar {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(43, 92, 112, 0.16);
     border-right: none;
     height: auto;
     position: relative;

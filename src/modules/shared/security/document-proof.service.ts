@@ -44,6 +44,8 @@ export interface VerifiedDocumentProof<TPayload extends Record<string, unknown>>
 
 type JsonRecord = Record<string, unknown>;
 
+const AUTOKEY_PAYLOAD_PREFIX = "autokey:v1:";
+const LATIN_ALPHABET_LENGTH = 26;
 let cachedSigningKeys: { privateKey: KeyLike; publicKey: KeyLike } | null = null;
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
@@ -93,6 +95,100 @@ function encodeBase64(inputValue: Uint8Array): string {
 
 function decodeBase64(inputValue: string): Uint8Array {
   return toUint8Array(Buffer.from(inputValue, "base64"));
+}
+
+function encodeBase64Url(inputValue: string): string {
+  return Buffer.from(inputValue, "utf8").toString("base64url");
+}
+
+function decodeBase64Url(inputValue: string): string {
+  return Buffer.from(inputValue, "base64url").toString("utf8");
+}
+
+function isAsciiLetter(inputValue: string): boolean {
+  return /^[A-Za-z]$/.test(inputValue);
+}
+
+function normalizeAutokeySeed(seedValue: string): string {
+  const normalizedSeed = seedValue.toUpperCase().replace(/[^A-Z]/g, "");
+
+  if (!normalizedSeed) {
+    throw new ConfigurationError("Autokey cipher seed must contain at least one alphabetic character");
+  }
+
+  return normalizedSeed;
+}
+
+function shiftAsciiLetter(inputLetter: string, shiftAmount: number): string {
+  const alphabetBase = inputLetter >= "a" && inputLetter <= "z" ? 97 : 65;
+  const letterOffset = inputLetter.charCodeAt(0) - alphabetBase;
+  const shiftedOffset = (letterOffset + shiftAmount + LATIN_ALPHABET_LENGTH) % LATIN_ALPHABET_LENGTH;
+
+  return String.fromCharCode(alphabetBase + shiftedOffset);
+}
+
+export function encryptWithAutokeyCipher(plaintextValue: string, seedValue: string): string {
+  const seedLetters = normalizeAutokeySeed(seedValue);
+  const plaintextKeyLetters: string[] = [];
+  let letterCursor = 0;
+
+  return Array.from(plaintextValue, (inputLetter) => {
+    if (!isAsciiLetter(inputLetter)) {
+      return inputLetter;
+    }
+
+    const keyLetter =
+      letterCursor < seedLetters.length
+        ? seedLetters[letterCursor]
+        : plaintextKeyLetters[letterCursor - seedLetters.length];
+    const encryptedLetter = shiftAsciiLetter(inputLetter, keyLetter.charCodeAt(0) - 65);
+
+    plaintextKeyLetters.push(inputLetter.toUpperCase());
+    letterCursor += 1;
+
+    return encryptedLetter;
+  }).join("");
+}
+
+export function decryptWithAutokeyCipher(ciphertextValue: string, seedValue: string): string {
+  const seedLetters = normalizeAutokeySeed(seedValue);
+  const plaintextKeyLetters: string[] = [];
+  let letterCursor = 0;
+
+  return Array.from(ciphertextValue, (inputLetter) => {
+    if (!isAsciiLetter(inputLetter)) {
+      return inputLetter;
+    }
+
+    const keyLetter =
+      letterCursor < seedLetters.length
+        ? seedLetters[letterCursor]
+        : plaintextKeyLetters[letterCursor - seedLetters.length];
+    const decryptedLetter = shiftAsciiLetter(inputLetter, -(keyLetter.charCodeAt(0) - 65));
+
+    plaintextKeyLetters.push(decryptedLetter.toUpperCase());
+    letterCursor += 1;
+
+    return decryptedLetter;
+  }).join("");
+}
+
+function encodeAutokeyPayload(canonicalPayload: string, documentHash: string): string {
+  return `${AUTOKEY_PAYLOAD_PREFIX}${encodeBase64Url(encryptWithAutokeyCipher(canonicalPayload, documentHash))}`;
+}
+
+function decodeAutokeyPayload(storedPayload: string, documentHash: string): string {
+  if (!storedPayload.startsWith(AUTOKEY_PAYLOAD_PREFIX)) {
+    return storedPayload;
+  }
+
+  const encodedAutokeyPayload = storedPayload.slice(AUTOKEY_PAYLOAD_PREFIX.length);
+
+  if (!encodedAutokeyPayload) {
+    throw new ConfigurationError("Autokey payload is malformed");
+  }
+
+  return decryptWithAutokeyCipher(decodeBase64Url(encodedAutokeyPayload), documentHash);
 }
 
 function encryptBuffer(plaintextBuffer: Uint8Array, keyBuffer: Uint8Array): { ciphertext: string; iv: string; tag: string } {
@@ -186,8 +282,9 @@ export function buildCanonicalPayloadString(payload: JsonRecord): string {
 export async function createDocumentProof(payload: JsonRecord): Promise<DocumentProof> {
   const canonicalPayload = buildCanonicalPayloadString(payload);
   const documentHash = createHash("sha256").update(canonicalPayload).digest("hex");
+  const autokeyPayload = encodeAutokeyPayload(canonicalPayload, documentHash);
   const documentKey = toUint8Array(randomBytes(32));
-  const payloadEncryption = encryptBuffer(encodeUtf8(canonicalPayload), documentKey);
+  const payloadEncryption = encryptBuffer(encodeUtf8(autokeyPayload), documentKey);
   const wrappedDocumentKey = encryptBuffer(documentKey, getMasterKey());
   const signingKeys = await resolveSigningKeys();
   const digitalSignature = await new CompactSign(encodeUtf8(documentHash))
@@ -230,7 +327,7 @@ export async function verifyStoredDocumentProof<TPayload extends JsonRecord>(
     storedProof.payloadTag,
     documentKey
   );
-  const canonicalPayloadString = decodeUtf8(canonicalPayload);
+  const canonicalPayloadString = decodeAutokeyPayload(decodeUtf8(canonicalPayload), storedProof.documentHash);
   const recalculatedHash = createHash("sha256").update(canonicalPayloadString).digest("hex");
 
   if (recalculatedHash !== storedProof.documentHash) {

@@ -8,15 +8,16 @@
   },
   "project": {
     "name": "trustanchor",
-    "currentFocus": "All roadmap phases are completed; next action is running the black-box test plan and preparing presentation evidence.",
+    "currentFocus": "Autokey Cipher proof layer and bright UI refresh are implemented; next action is black-box testing and presentation screenshots.",
     "durableFacts": [
       "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
       "The web service host port is configurable through WEB_PORT with default 3000.",
       "Bootstrap admin authentication is environment-backed through BOOTSTRAP_ADMIN_USERNAME and BOOTSTRAP_ADMIN_PASSWORD.",
       "BOOTSTRAP_ADMIN_PASSWORD may be plaintext in development/test and must be SHA-256 hex in production.",
-      "The active UI concept is a forensic document light table with layered evidence sheets, registration rails, and CSS-only inspection-light motion.",
+      "The active UI concept is a sunlit forensic registry light table with bright evidence sheets, color tabs, registration rails, and CSS-only daylight motion.",
       "Admin routes are protected by Next.js middleware using JWT session tokens stored in cookies.",
-      "Document proof signing now uses RSA-PSS SHA-256 (PS256) to align with the cryptography assignment rubric.",
+      "Document proof signing uses RSA-PSS SHA-256 (PS256) to align with the cryptography assignment rubric.",
+      "Document proof payloads now include an Autokey Cipher transform before AES-256-GCM encryption; SHA-256, RSA-PSS, and AES-GCM remain the security controls.",
       "Public verification pages render scannable QR codes from qrcode-generator.",
       "Print-ready certificate pages are available at /verify/{verificationCode}/print.",
       "Tampered or legacy proof material returns proofVerified false with status proof_invalid instead of a 500.",
@@ -37,26 +38,12 @@
   },
   "progress": {
     "lastAchievements": [
-      "Redesigned landing, login, not-found, and verification result UI around the forensic light-table concept.",
-      "Implemented Admin Dashboard overview, template list, issuance list, and audit trail views.",
-      "Added forms for template and certificate issuance with strict zod validation and JSON parsing.",
-      "Fixed client-side Next.js App Router redirect caching issues on login using hard window.location.href navigation.",
-      "Updated .env and authentication.service to use SHA-256 password hashing instead of plain text.",
-      "Updated Roadmap to show Phase 5 and Phase 6 as COMPLETED (60% total progress).",
-      "Added cryptography assignment fit documentation mapping makalah, program, presentation, signer flow, verifier flow, and tamper demo evidence.",
-      "Started Phase 7 by adding QR code rendering on public verification pages.",
-      "Added QR SVG download endpoint and print-ready certificate artifact page.",
-      "Updated verification service to return a safe invalid-proof result when stored proof cannot validate.",
-      "Reworked the admin template form to collect academic certificate fields and generate layoutDefinition automatically.",
-      "Fixed local login with plaintext BOOTSTRAP_ADMIN_PASSWORD while preserving production hash enforcement.",
-      "Removed Public Claims JSON from issuance creation and made public claims derive from the selected academic template.",
-      "Completed Phase 7 with server-side PDF rendering, MinIO artifact storage, and certificate revocation.",
-      "Completed Phase 8 with Redis-backed rate limiting, CSRF protection, CSP/security headers, server-controlled issuance timestamps, recipient identifier field-level encryption, input trimming, and production key guards.",
-      "Started Phase 9 by adding institution list/create/update endpoints, platform_admin session role, institution_admin DB-backed login, institution-scoped dashboard reads, and an admin Institutions page.",
-      "Completed Phase 9 by adding role-based redirects, role-specific platform access control, operator listing, operator creation, and operator password reset flows.",
-      "Completed Phase 10 with production Docker optimization, production compose health checks, versioned migration baseline, production env documentation, monitoring/backup guidance, and docs/blackbox-testing.md.",
-      "Updated the homepage internal access panel so logged-in users see a dashboard shortcut while public verification stays available.",
-      "Resolved IDE TypeScript Buffer incompatibilities in crypto helpers by passing Uint8Array/KeyObject values to strict crypto APIs."
+      "Added a reversible Autokey Cipher layer to document proof payloads before AES-256-GCM encryption.",
+      "Kept verification backward-compatible with legacy non-Autokey encrypted payloads.",
+      "Added unit coverage for Autokey Cipher round-trip behavior and preserved proof tamper rejection tests.",
+      "Updated cryptography docs, ADR, API contract, flow overview, database notes, and project brief for Autokey Cipher.",
+      "Refreshed public and admin UI styling into a brighter sunlit forensic registry direction.",
+      "Preserved the printable certificate layout by locally pinning legacy certificate artifact color tokens."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
@@ -66,18 +53,15 @@
     ],
     "nextBestActions": [
       "Run docs/blackbox-testing.md against the production compose stack and capture screenshots for the final presentation.",
+      "Prepare presentation notes showing Autokey Cipher as an academic layer and AES/RSA/SHA-256 as security controls.",
       "Upgrade Next.js to a patched compatible version in a separate dependency update."
     ],
     "validationState": [
-      "npm run validate passed locally after adding the validate script.",
+      "npm run validate passed on 2026-05-11 after Autokey Cipher and bright UI refresh.",
+      "Document proof unit tests cover RSA-SHA256 happy path, Autokey Cipher round trip, tampered hash rejection, and tampered encrypted payload rejection.",
       "API smoke test passed for health, OpenAPI, login, certificate template creation, certificate issuance, and public verification.",
-      "Document proof unit tests cover RSA-SHA256 happy path plus tampered hash and tampered encrypted payload rejection.",
       "QR unit tests cover QR matrix and SVG generation.",
-      "Docker smoke passed for /verify/{code}, /verify/{code}/print, /api/verifications/{code}, and /api/verifications/{code}/qr using an existing local record.",
-      "Docker smoke passed for bootstrap login and academic template creation.",
-      "Docker end-to-end smoke passed for login, academic template creation, issuance without public claims JSON, PDF generation, MinIO object storage, revocation, and public verification status.",
-      "Docker Phase 8 smoke passed for login CSRF cookie issuance, missing-CSRF rejection, template creation, issuance without issuedAt, public verification, PDF generation, revocation, and encrypted recipient_identifier persistence.",
-      "Docker Phase 9 smoke passed for platform_admin login without institution dropdown, role-based / and /login redirects, institution creation with initial operator credentials, institution_admin login, platform route denial for institution_admin, scoped dashboard summary, scoped template creation, operator list, operator creation, and operator password reset.",
+      "Docker smoke passed for public verification, print, QR, PDF, template creation, issuance, revocation, encrypted recipient_identifier persistence, and role-scoped admin flows.",
       "Docker production image build passed with standalone Next.js output.",
       "Docker Compose production config validates with .env.production.example.",
       "Homepage smoke passed: signed-in users can still load / with 200 while /login redirects by role."
@@ -85,7 +69,7 @@
   },
   "designContinuity": {
     "visualLanguageContinuity": "opt-in-only",
-    "currentConceptualAnchor": "Forensic Light Table",
+    "currentConceptualAnchor": "Sunlit Forensic Registry Light Table",
     "forbiddenCarryover": [
       "prior-project-style-memory",
       "old-ui-visual-dna-without-user-approval",
@@ -98,5 +82,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-04-26T15:12:00+07:00"
+  "lastUpdatedAt": "2026-05-11T19:19:04+07:00"
 }

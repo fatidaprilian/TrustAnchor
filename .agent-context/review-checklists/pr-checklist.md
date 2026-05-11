@@ -5,6 +5,7 @@ Run this before declaring a task done. Apply only the sections relevant to the c
 ## 1. Repo Context
 
 - [ ] The agent read `AGENTS.md` and the smallest relevant rule set.
+- [ ] For non-trivial coding, review, planning, or governance work, the agent produced a Bootstrap Receipt with loaded files, selected rules, skipped rules, unreachable files, and validation plan before implementation output.
 - [ ] Existing project context came from real files, docs, package metadata, and changed code, not folder name alone.
 - [ ] Runtime, framework, library, topology, and design choices are explicit user constraints or agent recommendations from current evidence.
 - [ ] No offline default stack, blueprint, vendor, or visual style was treated as authoritative.
@@ -24,6 +25,7 @@ Run this before declaring a task done. Apply only the sections relevant to the c
 - [ ] No clever hacks in backend and shared core modules
 - [ ] No premature abstraction (base classes/util layers created only after repeated stable patterns)
 - [ ] Readability over brevity for maintainability
+- [ ] Complexity budget was applied: equivalent behavior uses fewer moving parts without losing validation, error handling, fallbacks, accessibility, tests, or security boundaries.
 - [ ] Controllers, route handlers, and transport adapters do not contain business policy, raw queries, or cross-resource orchestration.
 - [ ] Services or use cases own business flow, transaction boundaries, and mutation safety.
 - [ ] Repositories or adapters own persistence/external IO details without hiding business decisions.
@@ -59,6 +61,8 @@ Run this before declaring a task done. Apply only the sections relevant to the c
 - [ ] Scope applied: This applies to documentation, release notes, onboarding text, review summaries, and agent-facing explanations
 - [ ] Style scope review is advisory and does not block merge when API docs are synced in the same commit and contract details are correct
 - [ ] Required docs exist before implementation: project brief, architecture decision, flow overview, API/public contract when relevant, data model when relevant, and UI design contract when relevant.
+- [ ] For docs-only or docs-first requests, implementation code was not changed unless the user explicitly asked for it or approved an implementation plan.
+- [ ] Formal project docs use English by default unless the user requested another language or existing docs established one.
 - [ ] Docs cover feature plan, architecture rationale, public contracts, data model, UI/design, security assumptions, testing strategy, delivery flow, and next validation actions where relevant.
 - [ ] API, event, CLI, library, data, and UI contract changes update docs in the same scope.
 - [ ] Public surface changes fail review if documentation updates are missing or stale in the same scope
@@ -71,13 +75,19 @@ Run this before declaring a task done. Apply only the sections relevant to the c
 
 - [ ] UI work follows `docs/DESIGN.md` and `docs/design-intent.json`.
 - [ ] Visual direction is project-specific and not a template/default component-kit habit.
+- [ ] UI work includes a Motion/Palette Decision, and product categories were treated as heuristics rather than style presets.
 - [ ] Responsive behavior recomposes content and priority, not only shrinking desktop layout.
 - [ ] Accessibility hard requirements are preserved: keyboard access, focus visibility, contrast, target size, status feedback, and no color-only meaning.
 - [ ] Motion is treated as part of the design language for modern UI work, with reduced-motion and performance safeguards instead of defaulting to static screens.
+- [ ] Broad redesigns pass the old-design regression test: the result is not the previous composition with animation, depth, media, or interaction density removed.
+- [ ] UI work records an agent-chosen ambition level; broad screens and redesigns researched an expressive path first, and any downshift names a concrete blocker plus replacement interaction quality.
+- [ ] UI foundation choices are dynamic and product-fit; no shadcn, native-only, Tailwind-only, or component-kit default was selected by habit or avoided from dependency fear.
+- [ ] Design intent separates locked outcomes from flexible expression; candidate signature moves, exact token primitives, literal anchor artifacts, and component-kit skins were not treated as permanent requirements without evidence or user approval.
 
 ## 8. Dependencies And Runtime
 
 - [ ] New dependencies are justified by capability, maintenance health, bundle/runtime cost, and current official docs.
+- [ ] Dependency avoidance was not treated as a default virtue; lightweight maintained libraries were considered when they improve correctness, accessibility, UX, maintainability, or delivery speed.
 - [ ] Official setup flows are preferred when they produce better-supported current defaults.
 - [ ] Docker, framework, package, and ecosystem claims were checked live when they could be stale.
 - [ ] Token optimization and memory continuity defaults remain enabled unless the user explicitly opts out.

@@ -7,8 +7,8 @@ This prompt boots a repository with strict AI coding guidance context.
 When a new project is created or initialized, the agent must automatically:
 1. Read [AGENTS.md](../../AGENTS.md) to understand the canonical bootstrap chain and active entrypoints.
 2. Resolve the smallest relevant rule set from [.agent-context/rules/](../rules/) instead of scanning the whole directory by default.
-3. Review dynamic runtime signals from [.agent-context/state/onboarding-report.json](../state/onboarding-report.json), [.agent-context/state/stack-research-snapshot.json](../state/stack-research-snapshot.json), repository evidence, and task constraints.
-4. If Docker or Compose is in scope, load [docker-runtime.md](../rules/docker-runtime.md) and verify the latest official Docker guidance before authoring container assets.
+3. Review dynamic runtime signals from [.agent-context/state/onboarding-report.json](../state/onboarding-report.json), repository evidence, task constraints, and live official documentation when runtime or ecosystem facts matter.
+4. If Docker or Compose is in scope, load [docker-runtime.md](../rules/docker-runtime.md) and verify the latest official Docker guidance before authoring container assets. Materialize the selected development/production assets rather than stopping at prose.
 5. For unresolved framework or package setup, recommend the latest stable compatible dependency set and official framework setup flow from live official documentation before coding unless a documented compatibility constraint blocks it.
 
 ## Required Planning Mode
@@ -19,6 +19,15 @@ If the user describes a project or feature, the agent must:
 3. For existing projects, inspect real files first. Do not derive product name, description, runtime, architecture, or design direction from the folder name alone.
 4. Draft a high-level structure plan plus the docs/bootstrap artifacts that must exist before coding.
 5. Wait for user approval before scaffolding the project.
+
+## Documentation-First Requests
+
+If the user asks to create, complete, fix, or review project docs, documentation, dokumen, `docs/*`, architecture docs, flow docs, API docs, or "lengkapkan docs", treat the request as documentation-first.
+
+The agent must:
+1. Materialize or refine required project docs before implementation: `docs/project-brief.md`, `docs/architecture-decision-record.md`, `docs/flow-overview.md`, `docs/api-contract.md` when APIs, firmware endpoints, CLI commands, or web application flows exist, `docs/database-schema.md` when persistent data exists, and `docs/DESIGN.md` plus `docs/design-intent.json` for UI scope.
+2. Write formal project docs in English by default unless the user explicitly asks for another documentation language.
+3. Stop after docs when the user only asked for docs. Do not write application, firmware, or UI code until the user explicitly asks for implementation or approves the implementation plan.
 
 ## Direct Constraint Mode
 
@@ -33,7 +42,7 @@ If the user specifies a framework, runtime, or architecture constraint, the agen
    - Every module must follow [architecture.md](../rules/architecture.md).
    - Every dependency must be justified per [efficiency-vs-hype.md](../rules/efficiency-vs-hype.md).
    - Use official framework setup commands or canonical starter flows when they produce newer, better-supported dependency defaults than manual package assembly.
-   - If containerization is selected, Docker assets must follow [docker-runtime.md](../rules/docker-runtime.md) and the latest official Docker docs instead of stale blog-era patterns.
+   - If containerization is selected, Docker assets must follow [docker-runtime.md](../rules/docker-runtime.md) and the latest official Docker docs instead of stale blog-era patterns. Selected Docker lanes require files and runbooks, not docs-only acknowledgment.
 
 ## Runtime and Architecture Reference
 

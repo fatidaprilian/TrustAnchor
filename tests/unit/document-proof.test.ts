@@ -54,6 +54,19 @@ describe("document proof service", () => {
     expect(verificationResult.canonicalPayload.recipientName).toBe("Siti Rahmawati");
   });
 
+  test("should round trip canonical text through the Autokey Cipher layer", async () => {
+    const { decryptWithAutokeyCipher, encryptWithAutokeyCipher } = await import(
+      "@/modules/shared/security/document-proof.service"
+    );
+    const plaintext = "{\"certificateNumber\":\"TA-2026-0001\",\"recipientName\":\"Siti Rahmawati\"}";
+    const seed = "document-hash-seed-abc123";
+    const ciphertext = encryptWithAutokeyCipher(plaintext, seed);
+
+    expect(ciphertext).not.toBe(plaintext);
+    expect(ciphertext).toContain("2026-0001");
+    expect(decryptWithAutokeyCipher(ciphertext, seed)).toBe(plaintext);
+  });
+
   test("should reject proof when the stored hash no longer matches the signature", async () => {
     const { createDocumentProof, verifyStoredDocumentProof } = await import(
       "@/modules/shared/security/document-proof.service"

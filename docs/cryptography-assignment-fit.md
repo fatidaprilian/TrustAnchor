@@ -1,7 +1,7 @@
 # Cryptography Assignment Fit
 
 ## Verdict
-TrustAnchor fits the final cryptography assignment because it has a written system design, a working program, and a demonstrable signer-verifier flow for digital certificates.
+TrustAnchor fits the final cryptography assignment because it has a written system design, a working program, a demonstrable Autokey Cipher layer, and a signer-verifier flow for digital certificates.
 
 ## Required Output
 | Requirement | Project Evidence | Status |
@@ -13,21 +13,23 @@ TrustAnchor fits the final cryptography assignment because it has a written syst
 ## Signer Flow
 1. The issuance service builds a canonical certificate payload.
 2. The proof service calculates a SHA-256 message digest.
-3. The proof service signs the digest with an RSA private key using RSA-PSS SHA-256 (`PS256`).
-4. The proof service encrypts the canonical payload with AES-256-GCM and wraps the document key with the platform master key.
-5. The system stores the original public claims, document hash, digital signature, encrypted proof material, and an encrypted recipient identifier.
+3. The proof service transforms the canonical payload with Autokey Cipher using the digest as the seed phrase.
+4. The proof service signs the digest with an RSA private key using RSA-PSS SHA-256 (`PS256`).
+5. The proof service encrypts the Autokey-transformed payload with AES-256-GCM and wraps the document key with the platform master key.
+6. The system stores the original public claims, document hash, digital signature, encrypted proof material, and an encrypted recipient identifier.
 
 ## Verifier Flow
 1. The verifier opens `/verify/{verificationCode}` or scans the QR code.
 2. The verification service loads the issuance record.
 3. The proof service verifies the stored signature with the RSA public key.
 4. The proof service compares the signed digest with the stored SHA-256 document hash.
-5. The proof service decrypts the payload and recalculates SHA-256.
-6. If the hashes match, the certificate is authentic and unchanged. If the hash, signature, or encrypted payload changes, verification fails.
+5. The proof service decrypts the payload, reverses the Autokey Cipher layer when present, and recalculates SHA-256.
+6. If the hashes match, the certificate is authentic and unchanged. If the hash, signature, Autokey payload, or encrypted payload changes, verification fails.
 
 ## Security Properties
 | Property | How TrustAnchor Covers It |
 |---|---|
+| Classical cipher requirement | The canonical certificate payload is transformed through Autokey Cipher before AES-GCM encryption, and verification reverses the layer before hash comparison. |
 | Authentication | Admin session is required for issuance, and the RSA signature identifies proof created by the issuer key. |
 | Data integrity | SHA-256 digest comparison detects changed certificate content or proof material. |
 | Non-repudiation | The issuer private key signs the digest, while the public key verifies it without exposing the private key. |

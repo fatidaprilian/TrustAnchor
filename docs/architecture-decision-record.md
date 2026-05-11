@@ -32,11 +32,13 @@ TrustAnchor will start as a TypeScript modular monolith built with Next.js App R
 - External input is validated with Zod at every route boundary.
 - Session handling uses signed JSON Web Tokens (JWT) through `jose`.
 - Certificate payloads use a two-layer envelope encryption model:
-  - The canonical payload is encrypted with a random document key by `AES-256-GCM`.
+  - The canonical payload is first transformed with a reversible Autokey Cipher layer for the academic cipher requirement.
+  - The Autokey-transformed payload is encrypted with a random document key by `AES-256-GCM`.
   - The document key is encrypted again with a platform master key.
+- The Autokey Cipher layer is not treated as the primary security boundary. The SHA-256 digest, RSA-PSS signature, and AES-256-GCM authenticated encryption remain the security controls.
 - Digital signatures use RSA-PSS with SHA-256 (`PS256`) so the implementation maps cleanly to the course requirement for RSA signatures and SHA-256 message digests.
 - The signer hashes the canonical payload with SHA-256, signs the digest with the RSA private key, and stores the compact signature with the encrypted proof material.
-- The verifier uses the RSA public key to validate the stored signature, compares the signed digest with the stored digest, decrypts the payload, and recomputes SHA-256 to detect tampering.
+- The verifier uses the RSA public key to validate the stored signature, compares the signed digest with the stored digest, decrypts the payload, reverses the Autokey Cipher layer when present, and recomputes SHA-256 to detect tampering.
 - Admin mutation endpoints require a session cookie and matching CSRF header. Redis rate limiting protects login, admin mutations, public verification, and certificate asset endpoints.
 - Admin sessions carry `role`, `institutionId`, and `institutionName`; dashboard reads and certificate mutations use the session institution as the trust boundary.
 - Recipient identifiers are encrypted before persistence with a versioned AES-256-GCM field format.

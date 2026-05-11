@@ -132,10 +132,12 @@ export function VerificationResultCard({
           <article className="inspection-pass">
             <div className="pass-index">
               <code>03</code>
-              <span>Audit</span>
+              <span>Cipher</span>
             </div>
-            <h3>Verification was recorded</h3>
-            <p>Verification activity can be attached to the audit trail when policy requires it.</p>
+            <h3>Autokey layer reversed</h3>
+            <p>
+              The encrypted proof payload is decoded through the Autokey Cipher layer before the hash is recalculated.
+            </p>
           </article>
         </div>
       </aside>

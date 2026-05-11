@@ -19,9 +19,9 @@ const inspectionPasses = [
     title: "Normalize content"
   },
   {
-    body: "Hash, signature, and envelope encryption make later tampering visible to the verifier.",
+    body: "Autokey Cipher, hash, signature, and envelope encryption make later tampering visible to the verifier.",
     code: "03",
-    label: "Proof layer",
+    label: "Cipher layer",
     title: "Seal evidence"
   },
   {
@@ -33,10 +33,10 @@ const inspectionPasses = [
 ] as const;
 
 const evidenceMarks = [
+  "Autokey Cipher payload layer",
   "RSA-SHA256 proof signature",
   "AES-GCM encrypted payload",
-  "Public verification code",
-  "Append-heavy audit log"
+  "Public verification code"
 ] as const;
 
 const audienceSurfaces = [
@@ -84,8 +84,8 @@ export function HomeShowcase(): JSX.Element {
               Put a certificate under proof.
             </h1>
             <p className="lead-copy">
-              TrustAnchor helps institutions issue anti-counterfeit digital certificates with signatures, envelope
-              encryption, audit logs, and public verification that can be checked in seconds.
+              TrustAnchor helps institutions issue anti-counterfeit digital certificates with Autokey Cipher,
+              signatures, envelope encryption, audit logs, and public verification that can be checked in seconds.
             </p>
           </div>
 

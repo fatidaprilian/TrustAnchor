@@ -27,7 +27,7 @@ TrustAnchor is a web application for education institutions and government agenc
 - OpenAPI 3.1 contract for all HTTP endpoints.
 
 ## Academic Cryptography Fit
-- Makalah scope: explain SHA-256 hashing, RSA digital signature generation, AES-256-GCM envelope encryption, audit logging, and verification outcomes.
+- Makalah scope: explain Autokey Cipher payload transformation, SHA-256 hashing, RSA digital signature generation, AES-256-GCM envelope encryption, audit logging, and verification outcomes.
 - Program scope: demonstrate issuing a certificate, verifying the original record, and rejecting proof when the stored hash, signature, or encrypted payload is changed.
 - Presentation scope: show signer and verifier flow, including the private key used for signing and the public key used for verification.
 - Security properties covered: authentication of the issuing institution, data integrity through hash comparison, and non-repudiation through RSA signatures.

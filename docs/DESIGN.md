@@ -1,7 +1,7 @@
 # TrustAnchor Design Contract
 
 ## 1. Design Intent and Product Personality
-TrustAnchor should now feel like a forensic document light table: precise, physical, and evidence-led. The interface should make users feel they are placing a certificate under controlled light, checking layers, and reading only the public proof needed to trust the record.
+TrustAnchor should now feel like a sunlit forensic registry light table: precise, physical, evidence-led, and bright enough for an education/civic setting. The interface should make users feel they are placing a certificate under controlled daylight, checking layers, and reading only the public proof needed to trust the record.
 
 This is a zero-based redesign. Existing UI code is used for route behavior, copy needs, form contracts, and accessibility evidence only. The old observatory metaphor, orbit graphics, signal rings, balanced grid rhythm, and prior palette are discarded.
 
@@ -10,7 +10,7 @@ Product personality:
 - Institutional
 - Tactile
 - Exacting
-- Quietly high-tech
+- Brightly assured
 
 ## 2. Audience and Use-Context Signals
 Primary audiences:
@@ -30,11 +30,11 @@ Confirmed inputs:
 - `/login` is the controlled admin entry
 - `/verify/[verificationCode]` presents the public verification result
 - `/verify/[verificationCode]/print` presents the print-ready certificate artifact
-- TrustAnchor centers on digital signatures, double encryption, audit logging, and instant verification
+- TrustAnchor centers on digital signatures, Autokey Cipher payload transformation, double encryption, audit logging, and instant verification
 
 ## 3. Visual Direction and Distinctive Moves
 ### Chosen Conceptual Anchor
-Forensic Light Table
+Sunlit Forensic Registry Light Table
 
 Source domain:
 - Forensic document examination benches
@@ -43,18 +43,18 @@ Source domain:
 - Microprint and registration mark systems
 
 Specific reference point:
-- A document examiner's illuminated light table with translucent vellum overlays, registration rulers, edge clamps, and UV-reactive security fibers.
+- A registrar's daylight inspection table with translucent vellum overlays, color-coded evidence tabs, registration rulers, edge clamps, and UV-reactive security fibers.
 
 Rationale:
 TrustAnchor is about proving that a document has not been counterfeited. A forensic light table fits that work better than generic security dashboards because it gives the UI a physical inspection language: layered sheets, alignment marks, public-safe redaction, and proof bands.
 
 Distinctive moves:
-- Landing page starts as an angled inspection bench with a verification slip in the strongest light
+- Landing page starts as a bright inspection bench with a verification slip in the strongest daylight
 - Certificate proof is shown as layered paper, not equal cards
 - Microprint rails and registration ticks frame important values
-- Login becomes an operator access drawer beside the inspection surface
+- Login becomes an operator access drawer beside the inspection surface without using a dark control-room shell
 - Verification results read like a stamped public evidence sheet
-- Print-ready certificate artifacts read like formal evidence sheets placed on the same light table
+- Print-ready certificate artifacts keep their existing formal print layout and are not part of this visual refresh
 
 ### Visual Reset Strategy
 Old visual DNA being discarded:
@@ -65,18 +65,19 @@ Old visual DNA being discarded:
 - Telemetry lane language
 
 New direction:
-- Warm lab paper, graphite ink, cyan inspection light, ultraviolet violet, ember seal, and verified green
+- Porcelain paper, sky inspection light, mint verification, marigold audit tabs, coral caution, graphite ink, and small ultraviolet accents
 - Layered evidence sheets with slight rotation and clipped corners
 - Fine registration grids, ruler marks, microprint rails, and clamp-like headers
-- CSS-only light sweep and paper lift motion with reduced-motion fallback
+- CSS-only daylight sweep, paper lift, and color-tab feedback with reduced-motion fallback
 
 ## 4. Color, Typography, Spacing, and Density Decisions
 Color behavior:
-- Lab paper and graphite create a document-first reading surface
-- Cyan blue represents inspection light and primary action
-- Ultraviolet violet highlights encrypted or hidden proof layers
-- Ember marks audit and seal moments
-- Green marks verified public status
+- Porcelain and graphite create a document-first reading surface
+- Sky blue represents inspection light and primary action
+- Mint marks verified public status
+- Marigold marks audit, rubric, and seal moments
+- Coral marks caution and invalid proof states
+- Ultraviolet remains a small accent for encrypted or hidden proof layers
 
 Typography:
 - Display text uses a condensed technical voice for inspection headings
@@ -125,18 +126,18 @@ Forbidden:
 ## 7. Motion, Interaction, and Feedback Rules
 Motion is inspection behavior:
 - Evidence sheets lift a few pixels on hover
-- Light bands sweep slowly across specimen surfaces
+- Daylight bands sweep slowly across specimen surfaces
 - Buttons compress like physical controls
 - Inputs brighten as if moved under stronger light
-- Result status stamps settle into place
+- Result status stamps and color tabs settle into place
 - All non-essential motion stops under `prefers-reduced-motion`
 
 No new animation dependency is required for this slice. CSS transforms, opacity, and pseudo-elements are enough for the current interaction depth.
 
 ## 8. Component Language, States, and Morphology
 Core morphology:
-- Low-radius evidence sheets
-- Clamped headers and ruler rails
+- Low-radius bright evidence sheets
+- Clamped headers, color tabs, and ruler rails
 - Layered paper overlaps
 - Monospaced proof labels
 - Strong focus outlines that read like inspection marks
@@ -155,6 +156,7 @@ Used sources:
 - Existing UI as behavior evidence only
 
 QR rendering uses the project dependency `qrcode-generator`; no new animation, icon, canvas, or UI primitive library is added.
+This refresh affects app pages and admin shells only; the printable certificate layout remains unchanged.
 
 ## 10. Accessibility Non-Negotiables
 - WCAG 2.2 AA is the floor
@@ -168,7 +170,7 @@ QR rendering uses the project dependency `qrcode-generator`; no new animation, i
 ## 11. Anti-Patterns to Avoid
 - Observatory signal rings from the previous concept
 - Generic SaaS dashboard chrome
-- Purple-only gradient shells
+- Purple-only or dark control-room gradient shells
 - Equal-weight card grids
 - Decorative motion that hides form work
 - Proof strings styled like marketing copy

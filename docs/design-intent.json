@@ -12,11 +12,11 @@
     ],
     "confirmedContext": [
       "Used by education institutions and government agencies",
-      "Combines digital signatures, double encryption, audit logging, and instant verification",
+      "Combines digital signatures, Autokey Cipher payload transformation, double encryption, audit logging, and instant verification",
       "Runs on Next.js App Router with TypeScript"
     ],
     "assumptionsToValidate": [
-      "The forensic inspection metaphor feels credible for education and public-sector users",
+      "The bright forensic registry metaphor feels credible for education and public-sector users",
       "Public verification may safely show the documented public fields",
       "Bootstrap login opens a platform-admin session, while institution operators sign in with institution-owned credentials"
     ]
@@ -39,20 +39,20 @@
       "telemetry lane language"
     ],
     "newDirection": [
-      "forensic document light table anchor",
-      "warm lab paper, graphite, cyan inspection light, ultraviolet violet, ember seal, and verified green palette",
+      "sunlit forensic registry light table anchor",
+      "porcelain paper, sky inspection light, mint verification, marigold audit tabs, coral caution, graphite ink, and small ultraviolet accents",
       "layered evidence sheets with slight rotation and clipped corners",
       "fine registration grids, ruler marks, microprint rails, and clamp-like headers",
-      "CSS-only light sweep and paper lift motion with reduced-motion fallback"
+      "CSS-only daylight sweep, paper lift, and color-tab feedback with reduced-motion fallback"
     ]
   },
-  "designPhilosophy": "TrustAnchor should feel like a controlled document inspection bench where public proof is placed under light, aligned, checked, and stamped without exposing private internals.",
+  "designPhilosophy": "TrustAnchor should feel like a bright controlled document inspection bench where public proof is placed under daylight, aligned, checked, and stamped without exposing private internals.",
   "brandAdjectives": [
     "forensic",
     "institutional",
     "tactile",
     "exacting",
-    "quietly high-tech"
+    "brightly assured"
   ],
   "antiAdjectives": [
     "generic",
@@ -62,20 +62,20 @@
     "observatory-like"
   ],
   "conceptualAnchor": {
-    "name": "Forensic Light Table",
+    "name": "Sunlit Forensic Registry Light Table",
     "agentResearchMode": "repo-evidence-plus-product-context",
     "sourceDomain": "forensic-document-examination-oblique-light-inspection-uv-security-ink-review",
-    "specificReferencePoint": "A document examiner's illuminated light table with translucent vellum overlays, registration rulers, edge clamps, and UV-reactive security fibers.",
-    "rationale": "TrustAnchor is about proving that a certificate has not been counterfeited, so layered inspection language fits the product better than generic security dashboards.",
-    "signatureMotion": "A slow oblique inspection-light sweep crosses specimen surfaces while evidence sheets lift 3px on interaction and status stamps settle into place.",
+    "specificReferencePoint": "A registrar's daylight inspection table with translucent vellum overlays, color-coded evidence tabs, registration rulers, edge clamps, and UV-reactive security fibers.",
+    "rationale": "TrustAnchor is about proving that a certificate has not been counterfeited, so a bright layered inspection language fits the education and civic product better than generic security dashboards.",
+    "signatureMotion": "A slow daylight sweep crosses specimen surfaces while evidence sheets lift 3px on interaction and status stamps plus color tabs settle into place.",
     "typographicDecision": "Condensed technical display headings contrast with readable civic body copy and monospaced microprint proof values.",
     "derivedTokenLogic": {
       "typography": "Condensed inspection headings, civic sans body copy, compact uppercase evidence labels, and monospaced proof values",
       "spacing": "10px inspection rhythm with layered sheets, rails, and controlled overlap",
       "density": "Medium-high evidence density with verification-first mobile priority",
-      "colorBehavior": "Lab paper and graphite for evidence, cyan for inspection light, ultraviolet for hidden proof, ember for audit seals, and green for verified status",
-      "morphology": "Low-radius evidence sheets, clamped headers, ruler rails, clipped corners, and microprint blocks",
-      "motion": "Oblique light sweeps, paper lift, control compression, and status stamp settlement using CSS transforms and opacity",
+      "colorBehavior": "Porcelain and graphite for evidence, sky blue for inspection light, mint for verified status, marigold for audit/rubric tabs, coral for caution, and ultraviolet for hidden proof accents",
+      "morphology": "Low-radius bright evidence sheets, clamped headers, color tabs, ruler rails, clipped corners, and microprint blocks",
+      "motion": "Daylight sweeps, paper lift, color-tab feedback, control compression, and status stamp settlement using CSS transforms and opacity",
       "responsiveComposition": "Mobile focused evidence stack, tablet two-band layout, desktop layered inspection bench"
     },
     "visualRiskBudget": "Expressive layering is allowed, but proof values, form fields, and status text must never be obscured.",
@@ -88,11 +88,11 @@
     ]
   },
   "derivedTokenLogic": {
-    "anchorReference": "Forensic document light table with vellum overlays, registration rulers, edge clamps, and UV-reactive fibers",
-    "colorDerivationSource": "Colors come from lab paper, graphite ink, cyan inspection light, ultraviolet hidden layers, ember seals, and verified green stamps.",
+    "anchorReference": "Sunlit forensic registry light table with vellum overlays, color-coded tabs, registration rulers, edge clamps, and UV-reactive fibers",
+    "colorDerivationSource": "Colors come from porcelain paper, graphite ink, sky inspection light, mint verification stamps, marigold audit tabs, coral caution marks, and ultraviolet hidden layers.",
     "spacingDerivationSource": "Spacing follows a 10px inspection-bench rhythm with rails, margins, overlays, and readable evidence labels.",
     "typographyDerivationSource": "Typography separates technical inspection headings, plain institutional body copy, and monospaced microprint proof values.",
-    "motionDerivationSource": "Motion imitates oblique light sweeps, paper lift, button compression, and status stamp settlement.",
+    "motionDerivationSource": "Motion imitates daylight sweeps, paper lift, button compression, color-tab feedback, and status stamp settlement.",
     "validationRule": "Every visual token must explain how it supports document inspection rather than generic dashboard presentation."
   },
   "libraryResearchStatus": "local-package-verified",
@@ -117,7 +117,7 @@
     }
   ],
   "visualDirection": {
-    "name": "Forensic evidence bench",
+    "name": "Sunlit evidence registry bench",
     "distinctiveMoves": [
       "Landing page uses layered document sheets as the primary visual asset",
       "Verification console is positioned like a lit evidence slip",
@@ -159,7 +159,7 @@
   "motionSystem": {
     "allowMeaningfulMotion": true,
     "dependencyDecision": "No new animation dependency for this slice",
-    "approach": "CSS-only transforms, opacity, pseudo-element light sweeps, paper lift, and status stamp settlement",
+    "approach": "CSS-only transforms, opacity, pseudo-element daylight sweeps, paper lift, color-tab feedback, and status stamp settlement",
     "respectReducedMotion": true,
     "preferTransformAndOpacity": true,
     "avoidDecorativeMotionForItsOwnSake": true
@@ -176,7 +176,7 @@
     ],
     "identityRules": [
       "Primary actions read as illuminated controls",
-      "Evidence surfaces use clipped sheet corners and registration rails",
+      "Evidence surfaces use clipped sheet corners, color tabs, and registration rails",
       "Proof blocks use monospaced alignment and stronger containment than narrative blocks",
       "Status chips include readable text and may not rely on color alone"
     ]
@@ -189,8 +189,8 @@
     "requiresStatusTextBeyondColor": true
   },
   "reviewRubric": {
-    "distinctiveness": "The page should read as TrustAnchor's forensic evidence bench, not a generic SaaS shell.",
-    "contractFidelity": "Layered sheets, proof rails, typography, color, and responsive order must derive from the light-table anchor.",
+    "distinctiveness": "The page should read as TrustAnchor's sunlit forensic evidence bench, not a generic SaaS shell.",
+    "contractFidelity": "Layered sheets, proof rails, color tabs, typography, color, and responsive order must derive from the sunlit registry light-table anchor.",
     "hierarchy": "Verification must be the most obvious first action.",
     "responsiveRecomposition": "Mobile, tablet, and desktop must change grouping and priority.",
     "motionDiscipline": "Motion must support inspection or state feedback and stop under reduced motion.",
@@ -199,10 +199,10 @@
   "forbiddenPatterns": [
     "observatory signal rings from the previous concept",
     "generic startup dashboard chrome",
-    "purple-only gradient hero shells",
+    "purple-only or dark control-room gradient hero shells",
     "equal-weight card grids",
     "decorative animation that hides the verification task",
     "proof strings styled like marketing copy"
   ],
-  "nextValidationAction": "Validate the forensic light-table redesign with API smoke, typecheck, lint, responsive inspection, reduced-motion behavior, and the project PR checklist."
+  "nextValidationAction": "Validate the bright forensic registry redesign with API smoke, typecheck, lint, responsive inspection, reduced-motion behavior, and the project PR checklist."
 }
