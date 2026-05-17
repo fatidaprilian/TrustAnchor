@@ -43,12 +43,12 @@ export function InternalAccessPanel(): JSX.Element {
 
   if (isLoading) {
     return (
-      <div className="bench-copy evidence-sheet reveal-surface">
-        <span className="sheet-clamp">Internal access</span>
+      <div className="register-copy register-surface reveal-surface">
+        <span className="register-tab">Internal access</span>
         <div className="section-stack">
           <span className="section-kicker">Operator check</span>
           <h2 className="section-title">Reading current session.</h2>
-          <p className="body-copy">The public verification bench stays available while the issuing desk checks access.</p>
+          <p className="body-copy">The public serial register stays available while internal access is checked.</p>
         </div>
       </div>
     );
@@ -58,8 +58,8 @@ export function InternalAccessPanel(): JSX.Element {
     const roleHomePath = getRoleHomePath(sessionUser.role);
 
     return (
-      <div className="bench-copy evidence-sheet reveal-surface">
-        <span className="sheet-clamp">Signed-in desk</span>
+      <div className="register-copy register-surface reveal-surface">
+        <span className="register-tab">Signed-in register</span>
         <div className="section-stack">
           <span className="section-kicker">{getRoleLabel(sessionUser.role)}</span>
           <h2 className="section-title">Continue your internal workspace.</h2>
@@ -98,11 +98,11 @@ export function InternalAccessPanel(): JSX.Element {
   }
 
   return (
-    <div className="bench-copy evidence-sheet reveal-surface">
-      <span className="sheet-clamp">Internal access</span>
+    <div className="register-copy register-surface reveal-surface">
+      <span className="register-tab">Internal access</span>
       <div className="section-stack">
         <span className="section-kicker">One login, two internal roles</span>
-        <h2 className="section-title">Use the issuing desk only if you manage certificate records.</h2>
+        <h2 className="section-title">Use the issuing register only if you manage certificate records.</h2>
         <p className="body-copy">
           Platform admins manage institutions and operators. Institution admins create templates, issue certificates,
           revoke records, and inspect audit logs for their own institution.

@@ -93,14 +93,14 @@ export function AdminTemplatesList(): JSX.Element {
           <span>Loading template register...</span>
         </div>
       ) : templates.length === 0 ? (
-        <div className="admin-empty-state evidence-sheet evidence-sheet-strong">
-          <span className="sheet-clamp">No templates</span>
+        <div className="admin-empty-state register-surface register-surface-strong">
+          <span className="register-tab">No templates</span>
           <p className="body-copy">No certificate templates have been registered yet. Use the API to create your first template.</p>
         </div>
       ) : (
         <>
-          <section className="admin-data-section evidence-sheet reveal-surface" aria-label="Template records">
-            <span className="sheet-clamp">Template records</span>
+          <section className="admin-data-section register-surface reveal-surface" aria-label="Template records">
+            <span className="register-tab">Template records</span>
             <div className="admin-evidence-table">
               <div className="admin-table-header-row admin-table-5col">
                 <span>Template name</span>

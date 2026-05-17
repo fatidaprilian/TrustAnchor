@@ -60,9 +60,9 @@ export function AdminShell({ children }: AdminShellProps): JSX.Element {
 
   return (
     <div className="admin-shell">
-      <aside className="admin-sidebar evidence-sheet evidence-sheet-dark" aria-label="Admin navigation">
+      <aside className="admin-sidebar register-surface register-surface-dark" aria-label="Admin navigation">
         <div className="admin-sidebar-header">
-          <TrustAnchorWordmark detail="Evidence bench" tone="light" />
+          <TrustAnchorWordmark detail="Issuer register" tone="light" />
         </div>
 
         <nav className="admin-nav" aria-label="Dashboard navigation">
@@ -101,7 +101,7 @@ export function AdminShell({ children }: AdminShellProps): JSX.Element {
             {isLoggingOut ? "Ending session..." : "End session"}
           </button>
           <Link className="admin-nav-home-link" href="/">
-            Public verification bench
+            Public serial lookup
           </Link>
         </div>
       </aside>

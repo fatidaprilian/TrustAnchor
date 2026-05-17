@@ -123,8 +123,8 @@ export function AdminIssuanceForm(): JSX.Element {
         </div>
       </header>
 
-      <form className="access-frame evidence-sheet reveal-surface" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "600px", margin: "0" }}>
-        <span className="sheet-clamp">Issuance details</span>
+      <form className="access-frame register-surface reveal-surface" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "600px", margin: "0" }}>
+        <span className="register-tab">Issuance details</span>
         
         <label className="field-block" htmlFor="templateId">
           <span className="field-label">Template</span>

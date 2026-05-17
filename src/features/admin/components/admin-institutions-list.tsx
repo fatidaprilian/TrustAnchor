@@ -221,8 +221,8 @@ export function AdminInstitutionsList(): JSX.Element {
         </div>
       </header>
 
-      <form className="access-frame evidence-sheet reveal-surface" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "620px", margin: "0 0 1.5rem" }}>
-        <span className="sheet-clamp">New institution</span>
+      <form className="access-frame register-surface reveal-surface" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "620px", margin: "0 0 1.5rem" }}>
+        <span className="register-tab">New institution</span>
         <label className="field-block" htmlFor="code">
           <span className="field-label">Institution Code</span>
           <input {...register("code")} aria-invalid={errors.code ? "true" : "false"} className="field-input" id="code" placeholder="e.g. UNIV-DEMO" type="text" />
@@ -272,8 +272,8 @@ export function AdminInstitutionsList(): JSX.Element {
           <span>Loading institutions...</span>
         </div>
       ) : (
-        <section className="admin-data-section evidence-sheet reveal-surface" aria-label="Institution records">
-          <span className="sheet-clamp">Institution records</span>
+        <section className="admin-data-section register-surface reveal-surface" aria-label="Institution records">
+          <span className="register-tab">Institution records</span>
           <div className="admin-evidence-table">
             <div className="admin-table-header-row admin-table-5col">
               <span>Name</span>
@@ -302,8 +302,8 @@ export function AdminInstitutionsList(): JSX.Element {
       )}
 
       {selectedInstitution ? (
-        <section className="admin-data-section evidence-sheet reveal-surface" aria-label="Institution operators" style={{ marginTop: "1.5rem" }}>
-          <span className="sheet-clamp">Operator accounts</span>
+        <section className="admin-data-section register-surface reveal-surface" aria-label="Institution operators" style={{ marginTop: "1.5rem" }}>
+          <span className="register-tab">Operator accounts</span>
           <div className="admin-recent-header">
             <h2 className="panel-title">{selectedInstitution.name}</h2>
             <code>{selectedInstitution.code}</code>

@@ -78,7 +78,7 @@ export function AdminAuditLogList(): JSX.Element {
     <div className="admin-page">
       <header className="admin-page-header">
         <div className="section-stack">
-          <span className="section-kicker">Evidence chain</span>
+          <span className="section-kicker">Register chain</span>
           <h1 className="admin-page-title">Audit Trail</h1>
           <p className="body-copy">
             Immutable record of every administrative action. Template creation, certificate issuance, and
@@ -95,14 +95,14 @@ export function AdminAuditLogList(): JSX.Element {
           <span>Loading audit trail...</span>
         </div>
       ) : logs.length === 0 ? (
-        <div className="admin-empty-state evidence-sheet evidence-sheet-strong">
-          <span className="sheet-clamp">No events</span>
+        <div className="admin-empty-state register-surface register-surface-strong">
+          <span className="register-tab">No events</span>
           <p className="body-copy">No audit events have been recorded yet.</p>
         </div>
       ) : (
         <>
-          <section className="admin-data-section evidence-sheet reveal-surface" aria-label="Audit log entries">
-            <span className="sheet-clamp">Audit evidence</span>
+          <section className="admin-data-section register-surface reveal-surface" aria-label="Audit log entries">
+            <span className="register-tab">Audit register</span>
             <div className="admin-audit-timeline">
               {logs.map((log) => (
                 <div className="admin-audit-timeline-entry" key={log.id}>

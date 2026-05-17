@@ -60,6 +60,7 @@ After changing `package.json` or `package-lock.json`, rebuild the production ima
 - `npm run test` - run test suite
 
 ## Project Docs
+- [Documentation Index](docs/doc-index.md)
 - [Project Brief](docs/project-brief.md)
 - [Architecture Decision Record](docs/architecture-decision-record.md)
 - [Flow Overview](docs/flow-overview.md)

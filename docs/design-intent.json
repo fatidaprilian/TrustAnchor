@@ -1,6 +1,6 @@
 {
   "mode": "project-specific",
-  "status": "zero-based-redesign-for-new-concept",
+  "status": "active",
   "project": {
     "name": "TrustAnchor",
     "domain": "Anti-counterfeit certificate issuance and verification web application",
@@ -12,119 +12,510 @@
     ],
     "confirmedContext": [
       "Used by education institutions and government agencies",
-      "Combines digital signatures, Autokey Cipher payload transformation, double encryption, audit logging, and instant verification",
-      "Runs on Next.js App Router with TypeScript"
+      "Combines digital signatures, Autokey Cipher payload transformation, double encryption, audit logging, QR lookup, and instant verification",
+      "Runs on Next.js App Router with TypeScript",
+      "Public verification exposes safe public certificate fields and proof status"
     ],
     "assumptionsToValidate": [
-      "The bright forensic registry metaphor feels credible for education and public-sector users",
-      "Public verification may safely show the documented public fields",
-      "Bootstrap login opens a platform-admin session, while institution operators sign in with institution-owned credentials"
+      "The intaglio register direction feels credible for education and public-sector users",
+      "A single warm security accent provides enough status distinction with text and shape support",
+      "The locked hero composition should remain a serial register plate unless a later user-approved redesign changes it"
     ]
   },
   "repoEvidence": {
     "designEvidenceSummary": {
-      "currentFrontendShape": "Small App Router UI with home, login, verification result, and not-found pages",
+      "currentFrontendShape": "Next.js App Router UI with public home, login, verification result, print artifact, and admin pages",
       "existingUiUsedAsVisualReference": false,
       "existingUiUsedAsBehaviorReference": true,
-      "newDependencyRequired": true
+      "newDependencyRequired": false,
+      "evidenceFiles": [
+        "docs/project-brief.md",
+        "docs/flow-overview.md",
+        "docs/api-contract.md",
+        "src/app/layout.tsx",
+        "src/app/globals.css"
+      ]
     }
   },
   "visualResetStrategy": {
     "mode": "zero-based-redesign",
     "discardedVisualDna": [
+      "sunlit forensic registry light table metaphor",
+      "porcelain, sky, mint, marigold, coral, and ultraviolet palette",
+      "daylight sweep, paper lift, color-tab feedback, and status stamp settlement",
       "civic signal observatory metaphor",
-      "orbit rings and scanner circles",
-      "porcelain and midnight observatory palette",
-      "equal-height instrument panels",
-      "telemetry lane language"
+      "orbit rings, scanner circles, and telemetry lane language",
+      "generic SaaS admin shell and equal card grid rhythm"
     ],
     "newDirection": [
-      "sunlit forensic registry light table anchor",
-      "porcelain paper, sky inspection light, mint verification, marigold audit tabs, coral caution, graphite ink, and small ultraviolet accents",
-      "layered evidence sheets with slight rotation and clipped corners",
-      "fine registration grids, ruler marks, microprint rails, and clamp-like headers",
-      "CSS-only daylight sweep, paper lift, and color-tab feedback with reduced-motion fallback"
+      "banknote intaglio plate proof and serial-number register anchor",
+      "engraved monochrome palette with graphite ink, ivory paper, and one warm spot security accent",
+      "serial-compare flip motion for verification state changes",
+      "engraved type contrast with heavy condensed display and OCR-style proof values",
+      "compact micro-ledger rail composition instead of card grids or admin chrome"
     ]
   },
-  "designPhilosophy": "TrustAnchor should feel like a bright controlled document inspection bench where public proof is placed under daylight, aligned, checked, and stamped without exposing private internals.",
+  "designPhilosophy": "TrustAnchor should make authenticity feel like a serial proof comparison against an institutional register, not a generic certificate dashboard.",
   "brandAdjectives": [
-    "forensic",
+    "engraved",
+    "exact",
     "institutional",
-    "tactile",
-    "exacting",
-    "brightly assured"
+    "tamper-evident",
+    "quietly authoritative"
   ],
   "antiAdjectives": [
     "generic",
     "dashboard-first",
     "decorative-only",
-    "luxury-coded",
-    "observatory-like"
+    "startup-gradient",
+    "light-table-continuity"
   ],
+  "motionPaletteDecision": "Use a banknote intaglio proof register anchor with graphite ink, ivory paper, one warm security accent, serial-compare flip motion, and engraved/OCR type contrast.",
+  "designFlexibilityPolicy": {
+    "locked": [
+      "user goals",
+      "Next.js App Router runtime",
+      "WCAG 2.2 AA accessibility floor",
+      "zero-based redesign from the prior visual direction",
+      "banknote intaglio plate proof and serial-number register anchor",
+      "engraved monochrome plus one warm security accent direction",
+      "serial-compare flip motion",
+      "compact micro-ledger rail composition",
+      "token continuity classifications approved by the user"
+    ],
+    "flexibleUntilValidated": [
+      "exact color primitives",
+      "exact font files or system stacks",
+      "exact hero copy",
+      "literal linework density",
+      "component-level radius and shadow values",
+      "motion implementation details"
+    ],
+    "continuityPolicy": "Prior visual direction is blocked unless the user explicitly approves revival. Exact primitives remain flexible until implementation and accessibility validation."
+  },
   "conceptualAnchor": {
-    "name": "Sunlit Forensic Registry Light Table",
-    "agentResearchMode": "repo-evidence-plus-product-context",
-    "sourceDomain": "forensic-document-examination-oblique-light-inspection-uv-security-ink-review",
-    "specificReferencePoint": "A registrar's daylight inspection table with translucent vellum overlays, color-coded evidence tabs, registration rulers, edge clamps, and UV-reactive security fibers.",
-    "rationale": "TrustAnchor is about proving that a certificate has not been counterfeited, so a bright layered inspection language fits the education and civic product better than generic security dashboards.",
-    "signatureMotion": "A slow daylight sweep crosses specimen surfaces while evidence sheets lift 3px on interaction and status stamps plus color tabs settle into place.",
-    "typographicDecision": "Condensed technical display headings contrast with readable civic body copy and monospaced microprint proof values.",
+    "name": "Banknote Intaglio Plate Proof and Serial-Number Register",
+    "agentResearchMode": "research-design-approved-by-user",
+    "anchorReference": "Banknote intaglio plate proof and serial-number register",
+    "sourceDomain": "security-printing-intaglio-plate-proof-serial-register-microprint-anti-counterfeit-review",
+    "specificReferencePoint": "A banknote plate proof sheet paired with a serial-number register, where engraved line weight, paper tone, overprint marks, serial rows, and proof comparison make authenticity legible.",
+    "rationale": "TrustAnchor verifies whether a certificate record is authentic and unchanged, so serial proof comparison and register logic fit the product better than generic credential dashboards.",
+    "signatureMotion": "Serial-compare flip motion reveals verified, revoked, or invalid proof state changes while reduced motion swaps to instant state replacement.",
+    "typographicDecision": "Heavy condensed engraved display roles contrast with readable institutional body copy and OCR-style monospace proof values using tabular numbers and slashed zero where available.",
     "derivedTokenLogic": {
-      "typography": "Condensed inspection headings, civic sans body copy, compact uppercase evidence labels, and monospaced proof values",
-      "spacing": "10px inspection rhythm with layered sheets, rails, and controlled overlap",
-      "density": "Medium-high evidence density with verification-first mobile priority",
-      "colorBehavior": "Porcelain and graphite for evidence, sky blue for inspection light, mint for verified status, marigold for audit/rubric tabs, coral for caution, and ultraviolet for hidden proof accents",
-      "morphology": "Low-radius bright evidence sheets, clamped headers, color tabs, ruler rails, clipped corners, and microprint blocks",
-      "motion": "Daylight sweeps, paper lift, color-tab feedback, control compression, and status stamp settlement using CSS transforms and opacity",
-      "responsiveComposition": "Mobile focused evidence stack, tablet two-band layout, desktop layered inspection bench"
+      "typography": "Newly introduced engraved display contrast plus OCR-style proof values; not continuity from the blocked condensed/sans/mono trio.",
+      "spacing": "Anchor-derived compact micro-ledger rail rhythm.",
+      "density": "Medium-high register density with public verification first on mobile.",
+      "colorBehavior": "Anchor-derived graphite ink, neutral low-chroma ivory paper, and one warm intaglio spot color for security emphasis while avoiding cream-heavy or sepia dominance.",
+      "morphology": "Low-radius register rails, engraved line separators, aligned serial fields, proof rows, and struck entries for revoked or invalid states.",
+      "motion": "Anchor-derived serial-compare flip and manifest handoff behavior.",
+      "responsiveComposition": "Mobile single serial register, tablet paired verification and proof register, desktop compact ledger rails."
     },
-    "visualRiskBudget": "Expressive layering is allowed, but proof values, form fields, and status text must never be obscured.",
-    "motionRiskBudget": "CSS-only transform and opacity motion for this slice. Stop non-essential animation under reduced motion.",
-    "cohesionChecks": [
-      "Does the first scan feel like a certificate placed under inspection light?",
-      "Are proof values visually distinct from narrative copy?",
-      "Do layout overlaps disappear on narrow screens?",
-      "Does mobile promote verification before supporting narrative?"
-    ]
+    "categoryCodes": {
+      "candidateEntries": [
+        "credential SaaS default typography and gradient hero",
+        "public-sector verifier navy/orange portal",
+        "security proof console condensed-plus-mono default",
+        "admin KPI-card and table-first chrome"
+      ],
+      "dimensionSplit": {
+        "typographyClusters": [
+          {
+            "code": "credential SaaS default: Plus Jakarta Sans, Inter, or Manrope display paired with JetBrains Mono or Geist Mono proof snippets, large rounded hero type, and tiny uppercase metadata",
+            "reason": "Observed credential products commonly use modern rounded sans typography with monospace hashes to signal technical trust.",
+            "rejectionNote": "I will not ship this; it makes TrustAnchor read as interchangeable credential SaaS."
+          },
+          {
+            "code": "public-sector verifier default: Poppins plus Source Sans Pro or IBM Plex Sans, plain institutional headings, and minimal proof-code differentiation",
+            "reason": "Public verification portals often choose plain civic sans stacks that prioritize neutrality over proof identity.",
+            "rejectionNote": "I will not ship this; it flattens the product into a portal."
+          },
+          {
+            "code": "security proof console default: condensed technical headings plus civic sans body plus monospace proof values",
+            "reason": "Security-flavored UIs often combine condensed labels, sans copy, and mono hashes for instant technical credibility.",
+            "rejectionNote": "I will not ship this as derivation; the existing TrustAnchor trio belongs to this autopilot cluster and remains blocked."
+          }
+        ],
+        "paletteClusters": [
+          {
+            "code": "navy, white, cyan, and orange institutional verifier palette with government-portal contrast",
+            "reason": "Certificate verification portals often use navy authority with blue/orange action accents.",
+            "rejectionNote": "I will not ship this; it repeats public-sector portal defaults."
+          },
+          {
+            "code": "slate, violet, emerald, and white SaaS trust gradient palette",
+            "reason": "Credential SaaS sites often mix violet startup energy with emerald verification cues.",
+            "rejectionNote": "I will not ship this; it is too close to startup trust marketing."
+          },
+          {
+            "code": "porcelain, sky inspection light, mint verification, marigold audit, coral caution, and ultraviolet hidden-layer palette",
+            "reason": "This is the previous TrustAnchor light-table palette.",
+            "rejectionNote": "I will not ship this; it is explicitly blocklisted history."
+          }
+        ],
+        "layoutClusters": [
+          {
+            "code": "hero with verification card beside marketing claims and a feature grid below",
+            "reason": "Credential products often place a sample verifier beside value proposition copy.",
+            "rejectionNote": "I will not ship this; it is marketing shell rhythm."
+          },
+          {
+            "code": "left sidebar, top utility bar, KPI card row, and table-first admin dashboard",
+            "reason": "Admin products often default to this layout because it is easy to scaffold.",
+            "rejectionNote": "I will not ship this as the visual identity; TrustAnchor needs register rails instead."
+          },
+          {
+            "code": "centered dropzone or certificate upload panel with recognized institution logo strip",
+            "reason": "Certificate verification portals often foreground upload or file-drop patterns.",
+            "rejectionNote": "I will not ship this; TrustAnchor verifies code and QR-backed records, not a generic upload portal."
+          }
+        ],
+        "motionClusters": [
+          {
+            "code": "fade-up page reveal, hover scale, and shimmer button motion",
+            "reason": "Modern SaaS pages often use these low-risk animations.",
+            "rejectionNote": "I will not ship this as the signature; it says nothing about proof comparison."
+          },
+          {
+            "code": "scanner rings, orbit motion, and telemetry pulses",
+            "reason": "Security dashboards often use scanning metaphors to imply detection.",
+            "rejectionNote": "I will not ship this; it revives blocked observatory and scanner language."
+          },
+          {
+            "code": "daylight sweep, paper lift, color-tab feedback, and stamp settlement",
+            "reason": "This is the previous TrustAnchor light-table motion signature.",
+            "rejectionNote": "I will not ship this; it is explicitly blocklisted history."
+          }
+        ],
+        "imageryClusters": [
+          {
+            "code": "shield, check, badge, QR, and certificate mockup icon collage",
+            "reason": "Trust and credential apps often assemble these symbols as fast recognition.",
+            "rejectionNote": "I will not ship this as decoration; imagery must serve register or serial proof work."
+          },
+          {
+            "code": "abstract aurora, glass card, and blockchain network background",
+            "reason": "Cryptographic credential products often borrow Web3 atmospherics.",
+            "rejectionNote": "I will not ship this; TrustAnchor should feel like a proof register, not a Web3 landing page."
+          },
+          {
+            "code": "institution logo strip as authority proof",
+            "reason": "Education credential products often use partner logos to build trust.",
+            "rejectionNote": "I will not ship this until real approved institution assets exist."
+          }
+        ]
+      }
+    },
+    "morphologicalExploration": {
+      "dimensions": [
+        "hierarchy",
+        "density",
+        "typeRoleContrast",
+        "motionLanguage",
+        "stateVocabulary",
+        "materialLogic"
+      ],
+      "matrix": [
+        {
+          "dimension": "hierarchy",
+          "values": [
+            "chain-of-custody first",
+            "serial proof first",
+            "issuer authority first",
+            "exception first",
+            "recipient claim first"
+          ]
+        },
+        {
+          "dimension": "density",
+          "values": [
+            "micro-ledger rail",
+            "compact manifest",
+            "folio spread",
+            "split public and admin",
+            "batch register"
+          ]
+        },
+        {
+          "dimension": "typeRoleContrast",
+          "values": [
+            "archival serif plus OCR digits",
+            "humanist sans plus slab numerals",
+            "legal captions plus mono checksum",
+            "passport MRZ plus stamp labels",
+            "ledger serif plus tabular sans"
+          ]
+        },
+        {
+          "dimension": "motionLanguage",
+          "values": [
+            "seal press",
+            "checksum compare flip",
+            "manifest handoff",
+            "revocation strike-through",
+            "accession card slide"
+          ]
+        },
+        {
+          "dimension": "stateVocabulary",
+          "values": [
+            "sealed, opened, tampered",
+            "matched, mismatch",
+            "registered, contested, revoked",
+            "admitted, held, denied",
+            "accessioned, withdrawn"
+          ]
+        },
+        {
+          "dimension": "materialLogic",
+          "values": [
+            "tamper tape",
+            "intaglio security print",
+            "passport stamp ink",
+            "archival catalog slips",
+            "cargo seal manifest"
+          ]
+        }
+      ],
+      "selectedCombination": {
+        "combinationLabel": "serial-register-proof",
+        "values": [
+          "serial proof first",
+          "micro-ledger rail",
+          "archival serif plus OCR digits",
+          "checksum compare flip",
+          "registered, contested, revoked",
+          "intaglio security print"
+        ]
+      },
+      "uncomfortableCombination": {
+        "combinationLabel": "recipient-claim-folio",
+        "discomfortReason": "It risks feeling like a slow archive instead of a verification tool.",
+        "productLogicJustification": "Certificate provenance can be understood as accession into a permanent record. A slower folio rhythm could work for audit review, but it is not the chosen public verification direction."
+      }
+    },
+    "anchorCandidates": {
+      "selectedAnchorReference": "Banknote intaglio plate proof and serial-number register",
+      "candidates": [
+        {
+          "anchorReference": "Banknote intaglio plate proof and serial-number register",
+          "conceptualFamily": "security printing artifact",
+          "jobFit": "Certificates need anti-counterfeit proof, and serial comparison maps directly to verification codes and hashes.",
+          "hierarchyImplication": "Serial proof and security features lead the page.",
+          "densityImplication": "High micro-ledger density is acceptable when proof values remain readable.",
+          "typeImplication": "Heavy engraved display roles contrast with OCR-style tabular proof values.",
+          "stateLanguage": "issued, matched, overprint, counterfeit, withdrawn",
+          "motionImplication": "Serial compare flip reveals state changes.",
+          "whatItRulesOut": "Soft SaaS cards, light-table sweeps, and generic badge visuals.",
+          "renameTest": {
+            "testCategories": [
+              "hospital triage app",
+              "recipe app",
+              "fleet maintenance console"
+            ],
+            "results": [
+              "incoherent",
+              "incoherent",
+              "incoherent"
+            ],
+            "verdict": "STRONG PASS"
+          },
+          "categoryCodeOverlap": [
+            {
+              "code": "security proof console typography risk",
+              "reason": "Proof values still use a monospace role, so the design must avoid the old condensed/sans/mono trio and declare typography newly introduced."
+            }
+          ]
+        },
+        {
+          "anchorReference": "Tamper-evident evidence bag custody seal",
+          "conceptualFamily": "custody chain",
+          "jobFit": "TrustAnchor stores proof material and audit history as a sealed custody trail.",
+          "hierarchyImplication": "Sealed packet, handler, timestamp, and break condition drive hierarchy.",
+          "densityImplication": "Medium manifest density with strong seal strips.",
+          "typeImplication": "Humanist claims, stencil-like seal numerals, and tabular audit rows.",
+          "stateLanguage": "sealed, opened, broken, resealed, logged",
+          "motionImplication": "Seal band locks and revocation tears through the seal.",
+          "whatItRulesOut": "Certificate preview decoration.",
+          "renameTest": {
+            "testCategories": [
+              "streaming app",
+              "plant care app",
+              "restaurant booking"
+            ],
+            "results": [
+              "incoherent",
+              "incoherent",
+              "incoherent"
+            ],
+            "verdict": "STRONG PASS"
+          },
+          "categoryCodeOverlap": [
+            {
+              "code": "status badge/checkmark risk",
+              "reason": "Seal state must replace generic verified badges."
+            }
+          ]
+        },
+        {
+          "anchorReference": "Passport visa page with MRZ and entry stamps",
+          "conceptualFamily": "identity document artifact",
+          "jobFit": "Public verification resembles admitting or denying a document claim.",
+          "hierarchyImplication": "Identity claim, issuer stamp, validity window, and MRZ proof form the hierarchy.",
+          "densityImplication": "High but compartmentalized.",
+          "typeImplication": "Official document type, OCR-B-like MRZ, and stamp labels.",
+          "stateLanguage": "admitted, denied, expired, revoked, secondary review",
+          "motionImplication": "Page turn into stamp strike.",
+          "whatItRulesOut": "Dashboard-first admin shell.",
+          "renameTest": {
+            "testCategories": [
+              "project management app",
+              "ecommerce store",
+              "music lesson app"
+            ],
+            "results": [
+              "incoherent",
+              "incoherent",
+              "incoherent"
+            ],
+            "verdict": "STRONG PASS"
+          },
+          "categoryCodeOverlap": [
+            {
+              "code": "certificate and QR preview risk",
+              "reason": "It could become generic document cosplay if not tied to proof state."
+            }
+          ]
+        },
+        {
+          "anchorReference": "Archival accession ledger and catalog card system",
+          "conceptualFamily": "archival registry",
+          "jobFit": "Issuance is an immutable accession into institutional record.",
+          "hierarchyImplication": "Accession number, collection, provenance note, and withdrawal status lead.",
+          "densityImplication": "Medium-high rows with card slots.",
+          "typeImplication": "Editorial serif headings, tabular sans metadata, and mono hashes only where needed.",
+          "stateLanguage": "accessioned, cross-referenced, restricted, withdrawn, disputed",
+          "motionImplication": "Catalog card slides into register and revocation stamps across an index line.",
+          "whatItRulesOut": "Futuristic security aesthetics.",
+          "renameTest": {
+            "testCategories": [
+              "social fitness app",
+              "home energy monitor",
+              "travel booking"
+            ],
+            "results": [
+              "incoherent",
+              "incoherent",
+              "incoherent"
+            ],
+            "verdict": "STRONG PASS"
+          },
+          "categoryCodeOverlap": [
+            {
+              "code": "public-sector portal typography risk",
+              "reason": "It needs stronger type contrast than a plain civic portal."
+            }
+          ]
+        },
+        {
+          "anchorReference": "ISO cargo container high-security seal manifest",
+          "conceptualFamily": "logistics custody",
+          "jobFit": "Each certificate is a sealed shipment of claims whose seal number must match the manifest.",
+          "hierarchyImplication": "Seal number, manifest, route, and receiving verifier lead.",
+          "densityImplication": "Compact operational manifest.",
+          "typeImplication": "Industrial sans, large seal numerals, and compact tabular event rows.",
+          "stateLanguage": "sealed, in transit, received, seal mismatch, released, quarantined",
+          "motionImplication": "Manifest handoff, seal-number latch, and mismatch quarantine slide.",
+          "whatItRulesOut": "Academic certificate prettiness and generic trust badges.",
+          "renameTest": {
+            "testCategories": [
+              "meditation app",
+              "fashion catalog",
+              "academic journal"
+            ],
+            "results": [
+              "incoherent",
+              "incoherent",
+              "incoherent"
+            ],
+            "verdict": "STRONG PASS"
+          },
+          "categoryCodeOverlap": [
+            {
+              "code": "admin table default risk",
+              "reason": "Manifest rhythm must replace KPI/table chrome."
+            }
+          ]
+        }
+      ]
+    },
+    "visualRiskBudget": "Engraved density is allowed only when proof values, forms, and state text remain readable.",
+    "motionRiskBudget": "Serial flip and manifest handoff are allowed for state transitions. Reduced motion must replace them with instant state changes."
   },
   "derivedTokenLogic": {
-    "anchorReference": "Sunlit forensic registry light table with vellum overlays, color-coded tabs, registration rulers, edge clamps, and UV-reactive fibers",
-    "colorDerivationSource": "Colors come from porcelain paper, graphite ink, sky inspection light, mint verification stamps, marigold audit tabs, coral caution marks, and ultraviolet hidden layers.",
-    "spacingDerivationSource": "Spacing follows a 10px inspection-bench rhythm with rails, margins, overlays, and readable evidence labels.",
-    "typographyDerivationSource": "Typography separates technical inspection headings, plain institutional body copy, and monospaced microprint proof values.",
-    "motionDerivationSource": "Motion imitates daylight sweeps, paper lift, button compression, color-tab feedback, and status stamp settlement.",
-    "validationRule": "Every visual token must explain how it supports document inspection rather than generic dashboard presentation."
+    "anchorReference": "Banknote intaglio plate proof and serial-number register",
+    "tokenContinuityClassification": {
+      "typography": "newly-introduced",
+      "palette": "anchor-derived",
+      "motion": "anchor-derived",
+      "spacing": "anchor-derived"
+    },
+    "colorDerivationSource": "Palette derives from intaglio plate ink and paper: graphite ink, neutral low-chroma ivory stock, neutral shadows and focus treatment, and one warm spot color for security accent. The paper cue must not become cream-heavy or sepia-dominant.",
+    "spacingDerivationSource": "Spacing derives from compact serial registers and micro-ledger rails, with tight row rhythm and enough clearance for proof strings.",
+    "typographyDerivationSource": "Typography is newly introduced: engraved display contrast and OCR-style proof values are fresh choices, not continuity from the blocked prior font trio and not a literal physical derivation. Implementation fallback chains must exclude Arial Narrow, Bahnschrift, DIN Condensed, Segoe UI, Noto Sans, SFMono-Regular, and Consolas.",
+    "motionDerivationSource": "Motion derives from serial comparison and manifest handoff: verification flips between compared serial states, and proof detail moves into the register after lookup.",
+    "colorSpace": "OKLCH preferred for new CSS primitives when browser support and current project patterns allow it.",
+    "spatialBaseUnit": "Compact 6px or 8px micro-ledger base, to be selected during implementation after readability testing.",
+    "typeScaleMethod": "Role-based scale with heavy condensed display, readable body, compact labels, and OCR-style monospace proof values.",
+    "motionBudget": "150-300ms for serial flips and control feedback, 300-500ms for manifest handoff, transform/opacity first, reduced-motion fallback required.",
+    "validationRule": "Every visual token must support serial proof comparison, register reading, or anti-counterfeit state clarity."
   },
-  "libraryResearchStatus": "local-package-verified",
+  "libraryResearchStatus": "local-package-verified-no-new-ui-dependency",
   "libraryDecisions": [
     {
       "name": "qrcode-generator",
       "purpose": "Render scannable verification QR matrices as SVG without a binary runtime dependency",
       "sourceUrl": "local package.json",
-      "fetchedDate": "2026-04-26",
+      "fetchedDate": "2026-05-17",
       "stableCompatibleVersion": "2.0.4",
       "risk": "The Docker node_modules volume must be refreshed after package changes",
       "fallbackIfUnavailable": "Keep verification code text visible and defer QR rendering until dependency install succeeds"
     },
     {
-      "name": "No new animation, icon, canvas, or UI primitive library",
-      "purpose": "Keep certificate print output within the existing Next.js, React, CSS, and form stack",
+      "name": "No new animation, icon, canvas, or UI primitive library for this documentation step",
+      "purpose": "The approved bootstrap direction can be planned before implementation dependency research",
       "sourceUrl": "local package.json",
-      "fetchedDate": "2026-04-26",
+      "fetchedDate": "2026-05-17",
       "stableCompatibleVersion": "Existing project dependencies",
-      "risk": "CSS must stay organized because no component library is hiding complexity",
-      "fallbackIfUnavailable": "Native CSS and existing React components"
+      "risk": "Future implementation must research official docs before adding UI or motion packages",
+      "fallbackIfUnavailable": "Native CSS transforms, opacity, and existing React components"
     }
   ],
   "visualDirection": {
-    "name": "Sunlit evidence registry bench",
+    "name": "Engraved serial proof register",
     "distinctiveMoves": [
-      "Landing page uses layered document sheets as the primary visual asset",
-      "Verification console is positioned like a lit evidence slip",
-      "Trust chain appears as numbered inspection passes instead of equal cards",
-      "Verification result becomes a stamped public evidence sheet",
-      "Print-ready certificate artifact becomes a formal evidence sheet with hash strip and QR verification link"
-    ]
+      "Public verification centers a serial compare register instead of a marketing card",
+      "Verification result changes use serial-compare flip motion",
+      "Proof strings read as OCR-style register values with tabular numbers and slashed zero where available",
+      "Admin lists become compact micro-ledger rails rather than KPI cards plus generic tables",
+      "Invalid and revoked states use mismatch, overprint, or struck-register language"
+    ],
+    "heroComposition": "Serial register plate: a public lookup panel paired with an abstract plate-proof register showing presented serial, registry serial, microprint lines, and a compact proof rail.",
+    "assetRoles": {
+      "primary": "Code-native serial register plate used to explain proof comparison and anti-counterfeit registration.",
+      "secondary": [
+        "QR proof block",
+        "OCR-style serial values",
+        "micro-ledger rails",
+        "struck-register state marks"
+      ],
+      "forbidden": [
+        "literal money imagery",
+        "generic shield or check badge collage",
+        "decorative certificate mockup",
+        "background wallpaper"
+      ]
+    }
   },
   "tokenSystem": {
     "sourceOfTruth": "docs/design-intent.json",
@@ -141,68 +532,271 @@
       "css-variables"
     ]
   },
+  "colorTruth": {
+    "commitmentLevel": "direction-locked-primitives-flexible",
+    "baseBehavior": "engraved monochrome with one warm security accent",
+    "semanticRoles": [
+      "paper",
+      "ink",
+      "register",
+      "serial",
+      "proof",
+      "security-accent",
+      "verified",
+      "invalid",
+      "revoked",
+      "focus"
+    ],
+    "forbiddenCarryover": [
+      "porcelain-sky-mint-marigold-coral-ultraviolet palette",
+      "midnight observatory palette",
+      "purple-blue gradient hero",
+      "dark slate command shell"
+    ]
+  },
   "crossViewportAdaptation": {
     "adaptByRecomposition": true,
     "touchTargetMinPx": 44,
     "mutationRules": {
-      "mobile": "Verification slip appears first; document specimen and proof passes stack below it with no rotation or overlap.",
-      "tablet": "Verification and specimen form two stacked bands; secondary evidence sections may pair into two columns.",
-      "desktop": "Use a wide layered inspection bench with verification, specimen, and proof rail visible together."
+      "mobile": "Verification input and result summary appear first; serial rails collapse into a single register stack.",
+      "tablet": "Verification and proof register pair into two readable bands; admin filters move above ledger rows.",
+      "desktop": "Compact register columns and proof rails expose more context without defaulting to admin chrome."
     },
     "forbiddenPatterns": [
       "scale-only shrink",
-      "desktop overlap preserved on mobile",
-      "observatory orbit visuals",
-      "generic dashboard sidebars"
+      "card-grid identity",
+      "sidebar-first admin chrome as the primary visual system",
+      "desktop density that obscures proof strings"
     ]
   },
   "motionSystem": {
     "allowMeaningfulMotion": true,
-    "dependencyDecision": "No new animation dependency for this slice",
-    "approach": "CSS-only transforms, opacity, pseudo-element daylight sweeps, paper lift, color-tab feedback, and status stamp settlement",
+    "dependencyDecision": "No new UI dependency for this documentation step; future implementation dependency choices require official docs research.",
+    "approach": "Serial-compare flip, manifest handoff, struck-register invalidation, transform and opacity first",
     "respectReducedMotion": true,
     "preferTransformAndOpacity": true,
-    "avoidDecorativeMotionForItsOwnSake": true
+    "avoidDecorativeMotionForItsOwnSake": true,
+    "signatureMoves": [
+      "serial-compare flip motion for verify state change",
+      "manifest handoff motion for proof detail reveal"
+    ]
   },
   "componentMorphology": {
     "stateKeys": [
       "default",
       "hover",
-      "focus",
+      "focus-visible",
       "active",
       "disabled",
       "loading",
-      "error"
+      "empty",
+      "error",
+      "success",
+      "revoked",
+      "proof-invalid"
     ],
     "identityRules": [
-      "Primary actions read as illuminated controls",
-      "Evidence surfaces use clipped sheet corners, color tabs, and registration rails",
-      "Proof blocks use monospaced alignment and stronger containment than narrative blocks",
-      "Status chips include readable text and may not rely on color alone"
+      "Use micro-ledger rails for repeated proof and audit data",
+      "Use engraved line separators only when they organize reading",
+      "Use OCR-style proof values with tabular numbers and slashed zero where available",
+      "Use low-radius register controls instead of pill-heavy SaaS controls",
+      "Status marks must include readable text and may not rely on color alone"
     ]
   },
-  "accessibility": {
+  "accessibilityPolicy": {
     "hardFloor": "WCAG 2.2 AA",
     "minimumTargetSizePx": 44,
     "requiresVisibleFocus": true,
     "requiresReducedMotionFallback": true,
-    "requiresStatusTextBeyondColor": true
+    "requiresStatusTextBeyondColor": true,
+    "proofValueHandling": "Long hashes and verification codes must wrap, scroll, or truncate with access to the full value."
+  },
+  "aiSafeUiAudit": {
+    "genericityRisks": [
+      "SaaS admin dashboard chrome",
+      "card-grid feature layout",
+      "shield/check/badge icon collage",
+      "purple gradient trust hero",
+      "security scanner animation",
+      "reviving the light-table palette under new labels"
+    ],
+    "requiredProductSignals": [
+      "serial compare register",
+      "micro-ledger rail composition",
+      "engraved display and OCR proof type contrast",
+      "mismatch or struck-register state language"
+    ],
+    "renameTestRule": "If the UI can be renamed to a generic credential SaaS product without changing composition, palette, typography, and motion, revise before implementation is complete."
+  },
+  "productionContentPolicy": {
+    "noPlaceholderCopy": true,
+    "noDemoLabelsUnlessIntentionalProductState": true,
+    "noTerminalOnlyCoreFlow": true,
+    "publicVerificationMustRemainOperable": true
+  },
+  "designExecutionPolicy": {
+    "beforeUiImplementation": [
+      "Preserve the locked serial register plate hero composition and asset roles",
+      "Research official docs before adding any UI, motion, icon, canvas, or primitive dependency",
+      "Confirm exact type stack and fallbacks",
+      "Confirm contrast for graphite, ivory, and warm accent roles"
+    ],
+    "implementationBoundaries": [
+      "Preserve route behavior and API contracts",
+      "Do not alter cryptographic proof behavior as part of visual work",
+      "Keep proof values readable before adding density",
+      "Do not copy external reference visuals"
+    ]
+  },
+  "designExecutionHandoff": {
+    "nextStep": "Validate the implemented intaglio register direction across desktop and mobile.",
+    "primaryAnchor": "Banknote intaglio plate proof and serial-number register",
+    "approvedPaletteDirection": "engraved monochrome plus single warm security accent",
+    "approvedSignatureMoves": [
+      "serial-compare flip motion",
+      "engraved type contrast",
+      "compact micro-ledger rail composition"
+    ]
   },
   "reviewRubric": {
-    "distinctiveness": "The page should read as TrustAnchor's sunlit forensic evidence bench, not a generic SaaS shell.",
-    "contractFidelity": "Layered sheets, proof rails, color tabs, typography, color, and responsive order must derive from the sunlit registry light-table anchor.",
-    "hierarchy": "Verification must be the most obvious first action.",
+    "distinctiveness": "The UI must read as TrustAnchor's engraved serial proof register, not a generic credential dashboard.",
+    "contractFidelity": "Composition, type, palette, and motion must trace to serial comparison and intaglio register logic.",
+    "hierarchy": "Public verification must be the clearest first action.",
     "responsiveRecomposition": "Mobile, tablet, and desktop must change grouping and priority.",
-    "motionDiscipline": "Motion must support inspection or state feedback and stop under reduced motion.",
-    "accessibility": "Focus, contrast, target size, form errors, and status text must remain intact."
+    "motionDiscipline": "Motion must explain proof comparison or state transition and stop under reduced motion.",
+    "accessibility": "Focus, contrast, target size, form errors, status text, and proof-value readability must remain intact."
+  },
+  "contextHygiene": {
+    "validStyleContext": [
+      "current user-approved dossier",
+      "current repository evidence",
+      "current project docs",
+      "external references used only for mechanics and quality bars"
+    ],
+    "taintedContext": [
+      "old TrustAnchor light-table visuals",
+      "old civic signal observatory visuals",
+      "external website layouts, palettes, component skins, and brand posture",
+      "prior-chat visual memory not repeated in this task"
+    ]
   },
   "forbiddenPatterns": [
-    "observatory signal rings from the previous concept",
+    "sunlit forensic registry light table continuity",
+    "porcelain, sky, mint, marigold, coral, and ultraviolet palette",
+    "daylight sweep, paper lift, color-tab feedback, and stamp-settle motion",
+    "observatory signal rings and scanner circles",
     "generic startup dashboard chrome",
-    "purple-only or dark control-room gradient hero shells",
     "equal-weight card grids",
-    "decorative animation that hides the verification task",
-    "proof strings styled like marketing copy"
+    "purple-only or dark control-room gradient hero shells",
+    "proof strings styled like marketing copy",
+    "decorative linework or microprint wallpaper without product function"
   ],
-  "nextValidationAction": "Validate the bright forensic registry redesign with API smoke, typecheck, lint, responsive inspection, reduced-motion behavior, and the project PR checklist."
+  "researchDossier": {
+    "metadata": {
+      "researchVerifiedAt": "2026-05-17",
+      "freshnessWindowDays": 90,
+      "freshnessRule": "Research dossier is stale when researchVerifiedAt is null or older than freshnessWindowDays. User-explicit redesign requests bypass freshness and force fresh research regardless of age.",
+      "antiRepeatLedger": {
+        "blocklistFromHistory": true,
+        "ledgerScope": "signature-level-descriptors-only",
+        "ledgerMaxEntriesPerCategory": 3,
+        "previousAnchors": [
+          {
+            "summary": "Sunlit Forensic Registry Light Table",
+            "source": "migrated-from-existing-design-intent",
+            "blockedBecause": "previously-shipped-anchor"
+          },
+          {
+            "summary": "Civic Signal Observatory",
+            "source": "migrated-from-existing-design-docs",
+            "blockedBecause": "previously-discarded-anchor"
+          }
+        ],
+        "previousPalettes": [
+          {
+            "summary": "Porcelain paper, graphite ink, sky inspection light, mint verification stamps, marigold audit tabs, coral caution marks, and ultraviolet hidden layers.",
+            "source": "migrated-from-existing-design-intent",
+            "blockedBecause": "previously-shipped-palette-behavior"
+          },
+          {
+            "summary": "Porcelain and midnight observatory palette.",
+            "source": "migrated-from-existing-design-docs",
+            "blockedBecause": "previously-discarded-palette"
+          }
+        ],
+        "previousMotionSignatures": [
+          {
+            "summary": "Daylight sweep, paper lift, color-tab feedback, and status stamp settlement.",
+            "source": "migrated-from-existing-design-intent",
+            "blockedBecause": "previously-shipped-motion-signature"
+          },
+          {
+            "summary": "Orbit rings, scanner circles, and telemetry lane motion.",
+            "source": "migrated-from-existing-design-docs",
+            "blockedBecause": "previously-discarded-motion-signature"
+          }
+        ],
+        "previousTypographyChoices": [
+          {
+            "summary": "Condensed inspection headings, civic sans body copy, compact uppercase labels, and monospaced microprint proof values.",
+            "source": "migrated-from-existing-design-intent",
+            "blockedBecause": "previously-shipped-type-role-system"
+          }
+        ]
+      },
+      "userExplicitRedesignBypassesFreshness": true,
+      "statusAwareValidation": {
+        "seedStatuses": [
+          "seed-needs-design-synthesis",
+          "seed-generated-during-init",
+          "seed-generated-during-upgrade"
+        ],
+        "seedSkipsDossierShape": true,
+        "activeRequiresFreshOrExplicitRedesign": true
+      }
+    },
+    "productReading": {
+      "productTypeAndCoreVerb": "TrustAnchor is an anti-counterfeit certificate issuance and verification web application; the core verb is seal and verify public proof.",
+      "highestStakesMoments": "The highest-stakes moments are public verification by code or QR, institution issuance or revocation, and audit review.",
+      "dominantDataShapes": "The dominant screen data shapes are documents, hashes, QR links, audit ledgers, admin lists, and forms.",
+      "latencyProfile": "The latency profile is soft real-time for verification and batch or admin-paced for issuance and audit review.",
+      "visibleFailureModes": "The UI must visibly absorb not found, revoked, stale, proof invalid, permission, rate-limit, loading, partial, and validation error states.",
+      "contextOfUse": "The context is mixed: glance-and-go for public verification and sustained focus for admin issuance and audit tasks.",
+      "knownConstraints": "Known constraints are Next.js App Router, WCAG 2.2 AA, Docker delivery, public-safe fields only, CSRF protection, Redis rate limiting, and no secret exposure."
+    },
+    "referenceIntake": [
+      {
+        "sourceUrl": "https://www.opencerts.io/",
+        "borrowed": "Direct certificate verification and view/check/verify task clarity.",
+        "notBorrowed": "Navy-orange palette, Poppins and Source Sans Pro surface, dropzone composition, and partner-logo trust strip."
+      },
+      {
+        "sourceUrl": "https://www.rootproof.io/",
+        "borrowed": "Public URL and QR permanence plus proof-status framing.",
+        "notBorrowed": "Aurora gradient, Web3 atmosphere, Manrope/Inter/Geist Mono stack, and blockchain hero posture."
+      },
+      {
+        "sourceUrl": "https://truecerta.com/",
+        "borrowed": "Issue, verify, and share lifecycle with fast public confidence.",
+        "notBorrowed": "Purple and emerald SaaS gradients, rounded card stack, Plus Jakarta Sans and JetBrains Mono skin."
+      },
+      {
+        "sourceUrl": "https://www.ibm.com/products/verify/digital-credentials",
+        "borrowed": "Selective disclosure and privacy framing for credential proof.",
+        "notBorrowed": "IBM corporate page rhythm, palette, and component treatment."
+      },
+      {
+        "sourceUrl": "https://www.w3.org/TR/vc-data-model/",
+        "borrowed": "Issuer, holder, verifier, registry roles and verification-status caution.",
+        "notBorrowed": "Specification-document visual language."
+      },
+      {
+        "sourceUrl": "https://www.imsglobal.org/spec/ob/v3p0/",
+        "borrowed": "Achievement credential claim structure.",
+        "notBorrowed": "Badge marketplace aesthetics."
+      }
+    ],
+    "referenceIntakeStatus": "external-mechanics-only"
+  },
+  "nextValidationAction": "Validate the implemented serial register plate across desktop and mobile, then run npm run validate."
 }

@@ -8,13 +8,13 @@
   },
   "project": {
     "name": "trustanchor",
-    "currentFocus": "Autokey Cipher proof layer and bright UI refresh are implemented; next action is black-box testing and presentation screenshots.",
+    "currentFocus": "The approved UI redesign is being implemented as a banknote intaglio plate proof and serial-number register direction; next action is final validation and local dev-server review.",
     "durableFacts": [
       "Docker development image installs Node dependencies with npm ci during build, not at container startup.",
       "The web service host port is configurable through WEB_PORT with default 3000.",
       "Bootstrap admin authentication is environment-backed through BOOTSTRAP_ADMIN_USERNAME and BOOTSTRAP_ADMIN_PASSWORD.",
       "BOOTSTRAP_ADMIN_PASSWORD may be plaintext in development/test and must be SHA-256 hex in production.",
-      "The active UI concept is a sunlit forensic registry light table with bright evidence sheets, color tabs, registration rails, and CSS-only daylight motion.",
+      "The active UI concept is a banknote intaglio plate proof and serial-number register with engraved monochrome palette, one warm security accent, serial-compare flip motion, engraved type contrast, and compact micro-ledger rails.",
       "Admin routes are protected by Next.js middleware using JWT session tokens stored in cookies.",
       "Document proof signing uses RSA-PSS SHA-256 (PS256) to align with the cryptography assignment rubric.",
       "Document proof payloads now include an Autokey Cipher transform before AES-256-GCM encryption; SHA-256, RSA-PSS, and AES-GCM remain the security controls.",
@@ -43,7 +43,14 @@
       "Added unit coverage for Autokey Cipher round-trip behavior and preserved proof tamper rejection tests.",
       "Updated cryptography docs, ADR, API contract, flow overview, database notes, and project brief for Autokey Cipher.",
       "Refreshed public and admin UI styling into a brighter sunlit forensic registry direction.",
-      "Preserved the printable certificate layout by locally pinning legacy certificate artifact color tokens."
+      "Preserved the printable certificate layout by locally pinning legacy certificate artifact color tokens.",
+      "Replaced the UI design contract with the approved banknote intaglio plate proof and serial-number register direction.",
+      "Added docs/doc-index.md as the compact documentation routing map required when docs/ exists.",
+      "Locked the hero composition as a serial register plate and implemented public, login, verification result, and admin surfaces toward the intaglio micro-ledger direction.",
+      "Hardened responsive behavior for the serial register hero, micro-ledger strip, proof status block, and admin ledger tables.",
+      "Fixed clipped homepage hero text by making the lookup-panel headline container-aware.",
+      "Removed the blank stacked-layout gap by letting the serial register plate stage size to content below 1180px.",
+      "Corrected UI token drift by reducing paper chroma, neutralizing shadows and linework, and removing blocked typography fallbacks from CSS."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
@@ -52,6 +59,7 @@
       ".next cache is owned by nobody/nogroup, so lint must use --no-cache unless cache permissions are fixed."
     ],
     "nextBestActions": [
+      "Review the intaglio proof register redesign in the browser across desktop and mobile.",
       "Run docs/blackbox-testing.md against the production compose stack and capture screenshots for the final presentation.",
       "Prepare presentation notes showing Autokey Cipher as an academic layer and AES/RSA/SHA-256 as security controls.",
       "Upgrade Next.js to a patched compatible version in a separate dependency update."
@@ -64,16 +72,24 @@
       "Docker smoke passed for public verification, print, QR, PDF, template creation, issuance, revocation, encrypted recipient_identifier persistence, and role-scoped admin flows.",
       "Docker production image build passed with standalone Next.js output.",
       "Docker Compose production config validates with .env.production.example.",
-      "Homepage smoke passed: signed-in users can still load / with 200 while /login redirects by role."
+      "Homepage smoke passed: signed-in users can still load / with 200 while /login redirects by role.",
+      "npm run validate passed on 2026-05-17 after the intaglio proof register design contract update.",
+      "npm run validate passed on 2026-05-17 after implementing the intaglio proof register UI surfaces.",
+      "npm run validate passed on 2026-05-17 after responsive hardening.",
+      "npm run validate passed on 2026-05-17 after fixing clipped homepage hero text.",
+      "npm run validate passed on 2026-05-17 after the stacked plate gap fix.",
+      "npm run validate passed on 2026-05-17 after palette and typography anti-repeat corrections."
     ]
   },
   "designContinuity": {
     "visualLanguageContinuity": "opt-in-only",
-    "currentConceptualAnchor": "Sunlit Forensic Registry Light Table",
+    "currentConceptualAnchor": "Banknote Intaglio Plate Proof and Serial-Number Register",
     "forbiddenCarryover": [
       "prior-project-style-memory",
       "old-ui-visual-dna-without-user-approval",
-      "generic-dashboard-defaults"
+      "generic-dashboard-defaults",
+      "sunlit-forensic-registry-light-table-continuity",
+      "civic-signal-observatory-continuity"
     ]
   },
   "privacy": {
@@ -82,5 +98,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-05-11T19:19:04+07:00"
+  "lastUpdatedAt": "2026-05-17T17:23:50+07:00"
 }

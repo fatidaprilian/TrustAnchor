@@ -119,14 +119,14 @@ export function AdminIssuancesList(): JSX.Element {
           <span>Loading issuance ledger...</span>
         </div>
       ) : issuances.length === 0 ? (
-        <div className="admin-empty-state evidence-sheet evidence-sheet-strong">
-          <span className="sheet-clamp">No issuances</span>
+        <div className="admin-empty-state register-surface register-surface-strong">
+          <span className="register-tab">No issuances</span>
           <p className="body-copy">No certificates have been issued yet. Create a template first, then issue certificates through the API.</p>
         </div>
       ) : (
         <>
-          <section className="admin-data-section evidence-sheet reveal-surface" aria-label="Issuance records">
-            <span className="sheet-clamp">Issuance records</span>
+          <section className="admin-data-section register-surface reveal-surface" aria-label="Issuance records">
+            <span className="register-tab">Issuance records</span>
             <div className="admin-evidence-table">
               <div className="admin-table-header-row admin-table-6col">
                 <span>Recipient</span>

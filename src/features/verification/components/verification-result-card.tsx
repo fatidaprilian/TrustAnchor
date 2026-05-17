@@ -21,17 +21,17 @@ export function VerificationResultCard({
   const encodedVerificationCode = encodeURIComponent(verificationResult.verificationCode);
   const resultTitle = verificationResult.proofVerified
     ? isValidRecord
-      ? "Certificate proof matched the stored record."
-      : "The record was found, but is not active."
+      ? "Serial proof matched the stored register."
+      : "The serial exists, but is not active."
     : "Proof mismatch detected.";
   const resultSummary = verificationResult.proofVerified
-    ? "This public sheet shows safe claims from the certificate record while private encrypted proof material remains server-side."
+    ? "This public register shows safe claims from the certificate record while private encrypted proof material remains server-side."
     : "The record exists, but its stored signature, hash, or encrypted payload did not validate.";
 
   return (
-    <section className="result-bench" aria-labelledby="verification-result-heading">
-      <div className="result-sheet evidence-sheet evidence-sheet-strong reveal-surface">
-        <span className="sheet-clamp">{isValidRecord ? "Public evidence sheet" : "Record inspection sheet"}</span>
+    <section className="result-register" aria-labelledby="verification-result-heading">
+      <div className="result-sheet register-surface register-surface-strong reveal-surface">
+        <span className="register-tab">{isValidRecord ? "Public serial register" : "Record compare register"}</span>
         <div className="result-header">
           <div className="section-stack">
             <span className="section-kicker">Verification result</span>
@@ -41,8 +41,9 @@ export function VerificationResultCard({
             <p className="body-copy">{resultSummary}</p>
           </div>
 
-          <div className={`stamp ${isValidRecord ? "stamp-verified" : "stamp-danger"}`} aria-label="Verification status">
-            {isValidRecord ? "Verified" : verificationResult.status}
+          <div className={`serial-status ${isValidRecord ? "serial-status-verified" : "serial-status-danger"}`} aria-label="Verification status">
+            <span>{isValidRecord ? "Matched" : "Mismatch"}</span>
+            <code>{verificationResult.status}</code>
           </div>
         </div>
 
@@ -74,8 +75,8 @@ export function VerificationResultCard({
         </div>
       </div>
 
-      <aside className="proof-drawer evidence-sheet reveal-surface" aria-label="Proof reference">
-        <span className="sheet-clamp">Proof reference</span>
+      <aside className="proof-drawer register-surface reveal-surface" aria-label="Proof reference">
+        <span className="register-tab">Proof reference</span>
         <div className="proof-grid">
           <div className="proof-block">
             <span className="ledger-label">Verification code</span>
@@ -104,8 +105,8 @@ export function VerificationResultCard({
           </a>
         </div>
 
-        <div className="inspection-grid inspection-grid-compact" aria-label="Verification checks">
-          <article className="inspection-pass">
+        <div className="register-grid register-grid-compact" aria-label="Verification checks">
+          <article className="register-pass">
             <div className="pass-index">
               <code>01</code>
               <span>Signature</span>
@@ -117,7 +118,7 @@ export function VerificationResultCard({
                 : "The stored digital signature or signed hash no longer matches this record."}
             </p>
           </article>
-          <article className="inspection-pass">
+          <article className="register-pass">
             <div className="pass-index">
               <code>02</code>
               <span>Hash</span>
@@ -129,7 +130,7 @@ export function VerificationResultCard({
                 : "The canonical payload hash could not be confirmed against the stored proof."}
             </p>
           </article>
-          <article className="inspection-pass">
+          <article className="register-pass">
             <div className="pass-index">
               <code>03</code>
               <span>Cipher</span>

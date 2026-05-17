@@ -5,20 +5,20 @@ export default function LoginPage(): JSX.Element {
   return (
     <main className="page-shell page-shell-login">
       <section className="login-grid">
-        <div className="login-brief evidence-sheet evidence-sheet-dark reveal-surface">
-          <span className="sheet-clamp">Restricted bench</span>
-          <TrustAnchorWordmark detail="Controlled issuing desk" tone="light" />
+        <div className="login-brief register-surface register-surface-dark reveal-surface">
+          <span className="register-tab">Restricted register</span>
+          <TrustAnchorWordmark detail="Controlled issuing register" tone="light" />
 
           <div className="section-stack">
             <span className="section-kicker section-kicker-light">Admin access</span>
-            <h1 className="hero-title hero-title-login">Open the evidence bench before issuing a record.</h1>
+            <h1 className="hero-title hero-title-login">Open the issuing register before sealing a record.</h1>
             <p className="lead-copy lead-copy-light">
               Sign in to manage templates, issue certificates, and keep every public verification report tied to a
               traceable operator action.
             </p>
           </div>
 
-          <div className="drawer-specimen" aria-hidden="true">
+          <div className="access-plate" aria-hidden="true">
             <span />
             <strong>ACCESS</strong>
             <code>operator://bootstrap-admin</code>

@@ -30,7 +30,7 @@ export default async function PrintCertificatePage({
     return (
       <main className="page-shell page-shell-verify page-shell-print">
         <section className="masthead masthead-compact no-print">
-          <TrustAnchorWordmark detail="Print-ready evidence artifact" />
+          <TrustAnchorWordmark detail="Print-ready proof artifact" />
           <div className="masthead-actions">
             <Link className="text-link" href={`/verify/${encodeURIComponent(verificationResult.verificationCode)}`}>
               Back to verification

@@ -1,190 +1,215 @@
 # TrustAnchor Design Contract
 
 ## 1. Design Intent and Product Personality
-TrustAnchor should now feel like a sunlit forensic registry light table: precise, physical, evidence-led, and bright enough for an education/civic setting. The interface should make users feel they are placing a certificate under controlled daylight, checking layers, and reading only the public proof needed to trust the record.
+TrustAnchor should feel like a banknote intaglio plate proof and serial-number register. The product work is to seal a credential, preserve its proof trail, and let a verifier compare the presented code against a trusted register.
 
-This is a zero-based redesign. Existing UI code is used for route behavior, copy needs, form contracts, and accessibility evidence only. The old observatory metaphor, orbit graphics, signal rings, balanced grid rhythm, and prior palette are discarded.
+This is a zero-based redesign. Existing UI code remains useful for behavior, routes, content, accessibility, and data contracts only. The prior sunlit forensic registry light table and older civic signal observatory direction are blocked as visual continuity.
 
 Product personality:
-- Forensic
+- Engraved
+- Exact
 - Institutional
-- Tactile
-- Exacting
-- Brightly assured
+- Tamper-evident
+- Quietly authoritative
 
 ## 2. Audience and Use-Context Signals
 Primary audiences:
-- Institution administrators issuing certificate records
-- Authorized officers checking records during service or review
-- Public recipients proving that a certificate is genuine
+- Institution administrators who issue certificate records and manage templates.
+- Authorized officers who check documents during review or service delivery.
+- Public recipients who need to prove that a certificate is genuine.
 
 Use-context signals:
-- Verification remains the first decisive action on mobile
-- Proof strings, hashes, and verification codes must read like evidence labels
-- Admin login should feel like controlled access to an evidence bench
-- Public result pages should feel like a document inspection sheet, not a dashboard
+- The first public action is verifying a code or QR-linked record.
+- Admin users need compact ledgers for templates, issuances, revocation, and audit events.
+- Proof values must read like serial numbers and register entries, not marketing copy.
+- Invalid, revoked, and tampered states must be visible without relying on color alone.
 
 Confirmed inputs:
-- The app is a Next.js App Router application
-- `/` is the public verification entry and product overview
-- `/login` is the controlled admin entry
-- `/verify/[verificationCode]` presents the public verification result
-- `/verify/[verificationCode]/print` presents the print-ready certificate artifact
-- TrustAnchor centers on digital signatures, Autokey Cipher payload transformation, double encryption, audit logging, and instant verification
+- The app uses Next.js App Router with TypeScript.
+- `/` is the public verification entry and product overview.
+- `/login` is the controlled admin entry.
+- `/verify/[verificationCode]` presents the public verification result.
+- `/verify/[verificationCode]/print` presents the print-ready certificate artifact.
+- TrustAnchor centers on digital signatures, Autokey Cipher payload transformation, double encryption, audit logging, QR lookup, and instant verification.
 
 ## 3. Visual Direction and Distinctive Moves
 ### Chosen Conceptual Anchor
-Sunlit Forensic Registry Light Table
+Banknote intaglio plate proof and serial-number register.
 
 Source domain:
-- Forensic document examination benches
-- Oblique light inspection
-- UV security ink review
-- Microprint and registration mark systems
+- Security printing.
+- Intaglio plate proofs.
+- Banknote serial registers.
+- Microprint and anti-counterfeit proof review.
 
 Specific reference point:
-- A registrar's daylight inspection table with translucent vellum overlays, color-coded evidence tabs, registration rulers, edge clamps, and UV-reactive security fibers.
+- A banknote plate proof sheet paired with a serial-number register, where engraved line weight, paper tone, overprint marks, serial rows, and proof comparison make authenticity legible.
 
 Rationale:
-TrustAnchor is about proving that a document has not been counterfeited. A forensic light table fits that work better than generic security dashboards because it gives the UI a physical inspection language: layered sheets, alignment marks, public-safe redaction, and proof bands.
+TrustAnchor verifies whether a certificate record is authentic and unchanged. A banknote proof register gives the UI a stronger anti-counterfeit grammar than generic credential dashboards: serial comparison, register rows, engraved role contrast, and controlled exception states.
 
 Distinctive moves:
-- Landing page starts as a bright inspection bench with a verification slip in the strongest daylight
-- Certificate proof is shown as layered paper, not equal cards
-- Microprint rails and registration ticks frame important values
-- Login becomes an operator access drawer beside the inspection surface without using a dark control-room shell
-- Verification results read like a stamped public evidence sheet
-- Print-ready certificate artifacts keep their existing formal print layout and are not part of this visual refresh
+- Public verification uses a serial register compare surface instead of a card grid.
+- Verification state changes use serial-compare flip motion.
+- Proof values use OCR-style monospace with tabular numbers and slashed zero.
+- Display headings use a heavy condensed engraved voice with sharp role contrast.
+- Admin surfaces use compact micro-ledger rails instead of sidebar-first admin chrome.
+- Revoked or invalid proof states behave like mismatched overprint or struck register entries.
 
-### Visual Reset Strategy
-Old visual DNA being discarded:
-- Civic signal observatory metaphor
-- Orbit rings and scanner circles
-- Porcelain and midnight observatory palette
-- Equal-height instrument panels
-- Telemetry lane language
-
-New direction:
-- Porcelain paper, sky inspection light, mint verification, marigold audit tabs, coral caution, graphite ink, and small ultraviolet accents
-- Layered evidence sheets with slight rotation and clipped corners
-- Fine registration grids, ruler marks, microprint rails, and clamp-like headers
-- CSS-only daylight sweep, paper lift, and color-tab feedback with reduced-motion fallback
+Asset roles:
+- Hero composition is locked as a serial register plate: a public lookup panel paired with an abstract plate-proof register showing presented serial, registry serial, microprint lines, and a compact proof rail.
+- Primary visual asset is code-native and functional: it explains serial comparison, proof registration, and anti-counterfeit linework without depicting a real banknote or currency.
+- Secondary asset roles are QR proof, serial values, micro-ledger rails, and struck-register state marks.
+- Assets must not become wallpaper, generic trust badges, decorative certificate mockups, or literal money imagery.
 
 ## 4. Color, Typography, Spacing, and Density Decisions
 Color behavior:
-- Porcelain and graphite create a document-first reading surface
-- Sky blue represents inspection light and primary action
-- Mint marks verified public status
-- Marigold marks audit, rubric, and seal moments
-- Coral marks caution and invalid proof states
-- Ultraviolet remains a small accent for encrypted or hidden proof layers
+- Use engraved monochrome as the base: graphite ink over neutral low-chroma ivory paper.
+- Keep paper tokens below visible cream dominance; page background must read as precision security paper, not sepia archive.
+- Use one warm spot color derived from intaglio reference material for serial alerts or seal emphasis, balanced by neutral shadows and non-brown focus treatment.
+- Do not keep the previous porcelain, sky, mint, marigold, coral, ultraviolet palette.
+- Do not introduce purple startup gradients, dark slate command shells, or aurora Web3 colors.
 
 Typography:
-- Display text uses a condensed technical voice for inspection headings
-- Body text uses a readable civic sans stack
-- Metadata labels stay compact and uppercase
-- Proof values use monospaced type and microprint containment
+- Typography classification is `newly-introduced`.
+- Display roles use a heavy condensed engraved voice.
+- Body copy stays readable and institutional.
+- Proof values use OCR-style monospace with `tabular-nums` and slashed-zero behavior where available.
+- The old `Bahnschrift`/`DIN Condensed` display, `Aptos`/`Segoe UI` body, and `IBM Plex Mono` proof trio is blocked as historical direction.
+- Implementation fallback chains must not include `Arial Narrow`, `Bahnschrift`, `DIN Condensed`, `Segoe UI`, `Noto Sans`, `SFMono-Regular`, or `Consolas`.
 
 Spacing and density:
-- Use a 10px inspection rhythm rather than the previous 8px observatory rhythm
-- Desktop compositions should overlap and layer surfaces like papers on a bench
-- Mobile collapses into one clean inspection stack with verification first
-- Dense proof metadata is acceptable only when hierarchy and wrapping stay clear
+- Spacing derives from compact micro-ledger rhythm.
+- Dense metadata is allowed when serial comparison remains clear.
+- Desktop may expose parallel register columns and proof rails.
+- Mobile must collapse to a single verification register with the decisive action first.
 
 ## 5. Token Architecture and Alias Strategy
 Token layers:
-- Primitive tokens hold raw colors, radius, shadows, spacing, and motion durations
-- Semantic tokens express bench, sheet, ink, grid, action, verified, audit, danger, and ultraviolet roles
-- Component tokens consume semantic roles for evidence sheets, clamps, proof rails, forms, and buttons
+- Primitive tokens hold raw color, type scale, radius, border, shadow, spacing, and motion values.
+- Semantic tokens express paper, ink, register, serial, accent, proof, verified, revoked, invalid, focus, and audit roles.
+- Component tokens consume semantic roles for register rails, serial fields, proof rows, forms, buttons, tables, and status marks.
 
 Rules:
-- Components consume semantic tokens instead of raw values
-- Focus, hover, loading, error, and success states must work across public and admin surfaces
-- Motion values must include reduced-motion fallbacks
+- Components consume semantic tokens instead of raw primitives.
+- Exact primitive values remain flexible until implementation and accessibility checks lock them.
+- WCAG 2.2 AA contrast is mandatory.
+- Motion tokens must include reduced-motion fallbacks.
 
 ## 6. Responsive Recomposition Plan
 Mobile:
-- Verification form appears first as a focused evidence slip
-- Layered document visual becomes a compact stacked sheet below the form
-- Trust steps collapse into a numbered inspection sequence
+- Promote the verification input and result summary first.
+- Collapse micro-ledger rails into a single serial stack.
+- Hide secondary proof explanation behind progressive disclosure when needed.
 
 Tablet:
-- Verification and document preview form two stacked bands
-- Audience sections become two-column only when content stays readable
+- Pair verification input with the most important proof register.
+- Move admin ledger filters above rows instead of compressing a desktop table.
 
 Desktop:
-- Use a wide inspection bench: verification slip, document specimen, and proof rail visible together
-- Allow controlled overlap and rotation to create a physical surface
-- Keep the primary verification action visually dominant
+- Use compact register columns and serial rails to show context without becoming a generic dashboard.
+- Keep public verification visibly different from internal issuance and audit surfaces.
 
 Forbidden:
-- Scale-only shrink
-- Preserving desktop overlap on narrow screens
-- Reusing the observatory orbit or signal-ring visual system
-- Generic dashboard sidebars or card grids
+- Scale-only shrink.
+- Card-grid feature walls.
+- Sidebar-first admin chrome as the primary identity.
+- Desktop overlaps or dense rails that make proof values unreadable.
 
 ## 7. Motion, Interaction, and Feedback Rules
-Motion is inspection behavior:
-- Evidence sheets lift a few pixels on hover
-- Daylight bands sweep slowly across specimen surfaces
-- Buttons compress like physical controls
-- Inputs brighten as if moved under stronger light
-- Result status stamps and color tabs settle into place
-- All non-essential motion stops under `prefers-reduced-motion`
+Motion is proof comparison behavior:
+- Use serial-compare flip motion for verification state changes.
+- Use manifest handoff motion when proof details move from lookup to result.
+- Use register-row strike or overprint behavior for revoked, invalid, or tampered states.
+- Keep high-frequency motion on transform and opacity.
+- Stop non-essential motion under `prefers-reduced-motion`.
 
-No new animation dependency is required for this slice. CSS transforms, opacity, and pseudo-elements are enough for the current interaction depth.
+Interaction rules:
+- Focus states must be visible and read like a register selection mark.
+- Loading states must reserve the same shape as final register rows.
+- Error states must include text and not rely on warm accent color alone.
+- Public verification must remain keyboard usable.
 
 ## 8. Component Language, States, and Morphology
 Core morphology:
-- Low-radius bright evidence sheets
-- Clamped headers, color tabs, and ruler rails
-- Layered paper overlaps
-- Monospaced proof labels
-- Strong focus outlines that read like inspection marks
+- Tight register rails.
+- Engraved linework and fine borders used as functional separators.
+- Serial-number fields with strong alignment.
+- Low-radius forms and proof blocks.
+- Compact status marks that include readable text.
 
 State behavior:
-- Hover increases light and lift
-- Focus uses a cyan outline with offset
-- Active states compress slightly
-- Disabled states stay legible
-- Errors use message text and color together
+- Default: quiet graphite and ivory register surface.
+- Hover: controlled ink-weight or row-emphasis change.
+- Focus-visible: strong outline plus offset.
+- Active: slight press or flip commitment.
+- Loading: skeleton serial rows matching real content.
+- Success: verified serial match with warm accent used sparingly.
+- Error: mismatch or tamper language with explicit message text.
+- Revoked: struck register entry with readable revoked copy.
 
 ## 9. Source Boundaries and Context Hygiene
 Used sources:
-- Current repository routes and UI behavior
-- Project brief, architecture decision record, API contract, database schema, and flow overview
-- Existing UI as behavior evidence only
+- Current repository routes, components, and API behavior.
+- `docs/project-brief.md`, `docs/flow-overview.md`, and `docs/api-contract.md`.
+- Existing UI only as behavior evidence.
+- External references as mechanics and quality bars only: OpenCerts, Rootproof, TrueCerta, IBM Digital Credentials, W3C Verifiable Credentials Data Model 2.0, and 1EdTech Open Badges 3.0.
 
-QR rendering uses the project dependency `qrcode-generator`; no new animation, icon, canvas, or UI primitive library is added.
-This refresh affects app pages and admin shells only; the printable certificate layout remains unchanged.
+Boundaries:
+- Do not copy external layout rhythm, palette, component skin, visual metaphor, or brand posture.
+- Do not revive the sunlit forensic registry light table unless the user explicitly approves continuity later.
+- Do not revive the civic signal observatory direction.
 
 ## 10. Accessibility Non-Negotiables
-- WCAG 2.2 AA is the floor
-- Focus must be visible on links, buttons, and inputs
-- Interactive targets must be at least 44px high
-- Status must include readable text, not color alone
-- Form errors must be local and visible
-- Public verification and login must remain keyboard usable
-- Reduced motion must stop non-essential animation
+- WCAG 2.2 AA is the floor.
+- Interactive targets must be at least 44px high when touch is expected.
+- Focus must be visible on links, buttons, inputs, and disclosure controls.
+- Status must include readable text beyond color.
+- Form errors must be local and visible.
+- Reduced motion must stop non-essential animation.
+- Proof strings must wrap, scroll, or truncate only with clear access to the full value.
 
 ## 11. Anti-Patterns to Avoid
-- Observatory signal rings from the previous concept
-- Generic SaaS dashboard chrome
-- Purple-only or dark control-room gradient shells
-- Equal-weight card grids
-- Decorative motion that hides form work
-- Proof strings styled like marketing copy
+- Generic SaaS admin chrome.
+- Equal-weight card grids.
+- Purple startup gradients.
+- Dark slate command shells.
+- Aurora or Web3 proof atmospheres.
+- Shield/check/badge icon wallpaper.
+- Decorative certificate mockups.
+- Daylight sweeps, paper lifts, color-tab feedback, or stamp-settle motion from the blocked light-table direction.
+- The old condensed/sans/mono font trio.
 
 ## 12. Implementation Notes for Future UI Tasks
-- Preserve route behavior and API contracts while changing composition freely
-- Add future admin and certificate artifact pages as evidence workflows, not generic dashboards
-- Keep proof metadata readable before adding more ornament
-- Introduce a UI or motion dependency only after live official docs are checked and a clear interaction need exists
+- Start future UI work from `docs/design-intent.json`.
+- Treat the selected anchor as a behavior source, not a literal banknote skin.
+- Keep the serial register plate functional; future assets must explain proof comparison, QR lookup, or register state.
+- Add a new UI, motion, icon, or primitive dependency only after official documentation is checked and the design role is recorded.
+- Validate with `npm run validate`, responsive inspection, keyboard flow, reduced-motion behavior, and contrast checks before claiming a UI implementation is complete.
 
-## Assumptions To Validate
-- The forensic inspection metaphor feels credible for education and public-sector users
-- Public verification may safely show recipient name, certificate number, institution, template, and hash
-- Bootstrap admin login is platform-only; institution operators use institution-owned accounts
+## Research Dossier Summary
+Approved Section 5 anchor:
+- Primary anchor: Banknote intaglio plate proof and serial-number register.
+- Palette direction: engraved monochrome plus one warm security accent.
+- Signature moves: serial-compare flip motion, engraved type contrast, and compact micro-ledger rail composition.
 
-## Next Validation Action
-Run the black-box test plan and capture production UI screenshots for the final presentation.
+Token continuity classification:
+- Typography: `newly-introduced`.
+- Palette: `anchor-derived`.
+- Motion: `anchor-derived`.
+- Spacing: `anchor-derived`.
+
+Anti-repeat blocklist:
+- Previous anchors: Sunlit Forensic Registry Light Table; Civic Signal Observatory.
+- Previous palette: porcelain paper, graphite ink, sky inspection light, mint verification, marigold audit tabs, coral caution, ultraviolet hidden layers; midnight observatory palette.
+- Previous motion: daylight sweep, paper lift, color-tab feedback, status stamp settlement, orbit rings, scanner circles, telemetry lane motion.
+- Previous typography: condensed inspection headings, civic sans body copy, compact uppercase labels, monospaced microprint proof values.
+
+Category-code rejection:
+- Credential SaaS typography and gradient hero patterns are rejected.
+- Public-sector verifier navy/orange portal patterns are rejected.
+- Security proof console condensed-plus-mono defaults are rejected unless explicitly classified as continuity, which this redesign does not do.
+- Admin KPI-card and table-first chrome is rejected as the product identity.
+
+Next validation action:
+- Validate the implemented serial register plate across desktop and mobile, then run `npm run validate`.

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { AdminShell } from "@/features/admin/components/admin-shell";
 
 export const metadata: Metadata = {
-  description: "Manage certificate templates, issue records, and review audit trails from the TrustAnchor evidence bench.",
+  description: "Manage certificate templates, issue records, and review audit trails from the TrustAnchor issuer register.",
   title: "Admin Dashboard | TrustAnchor"
 };
 

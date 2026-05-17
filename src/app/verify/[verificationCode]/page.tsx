@@ -28,7 +28,7 @@ export default async function VerificationPage({
     return (
       <main className="page-shell page-shell-verify">
         <section className="masthead masthead-compact">
-          <TrustAnchorWordmark detail="Public evidence sheet" />
+          <TrustAnchorWordmark detail="Public serial register" />
           <div className="masthead-actions">
             <span className="status-pill status-pill-verified">Record matched</span>
             <Link className="text-link" href="/">

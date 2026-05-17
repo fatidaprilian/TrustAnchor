@@ -74,7 +74,7 @@ export function AdminDashboard(): JSX.Element {
     return (
       <div className="admin-page-loading">
         <div className="admin-loading-pulse" />
-        <span>Loading evidence bench...</span>
+        <span>Loading issuer register...</span>
       </div>
     );
   }
@@ -94,7 +94,7 @@ export function AdminDashboard(): JSX.Element {
       <header className="admin-page-header">
         <div className="section-stack" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div>
-            <span className="section-kicker">Evidence bench overview</span>
+            <span className="section-kicker">Issuer register overview</span>
             <h1 className="admin-page-title">Dashboard</h1>
             <p className="body-copy">
               {summary.institutionName} workspace. Manage templates, review issuance records, and trace
@@ -113,8 +113,8 @@ export function AdminDashboard(): JSX.Element {
       </header>
 
       <section className="admin-stat-grid" aria-label="Key metrics">
-        <article className="admin-stat-card evidence-sheet evidence-sheet-strong reveal-surface">
-          <span className="sheet-clamp">Templates</span>
+        <article className="admin-stat-card register-surface register-surface-strong reveal-surface">
+          <span className="register-tab">Templates</span>
           <div className="admin-stat-value">{summary.templateCount}</div>
           <span className="admin-stat-label">Certificate templates registered</span>
           <Link className="text-link admin-stat-action" href="/admin/templates">
@@ -122,8 +122,8 @@ export function AdminDashboard(): JSX.Element {
           </Link>
         </article>
 
-        <article className="admin-stat-card evidence-sheet evidence-sheet-strong reveal-surface">
-          <span className="sheet-clamp">Issuances</span>
+        <article className="admin-stat-card register-surface register-surface-strong reveal-surface">
+          <span className="register-tab">Issuances</span>
           <div className="admin-stat-value">{summary.issuanceCount}</div>
           <span className="admin-stat-label">Certificates issued</span>
           <Link className="text-link admin-stat-action" href="/admin/issuances">
@@ -131,10 +131,10 @@ export function AdminDashboard(): JSX.Element {
           </Link>
         </article>
 
-        <article className="admin-stat-card evidence-sheet evidence-sheet-strong reveal-surface">
-          <span className="sheet-clamp">Audit trail</span>
+        <article className="admin-stat-card register-surface register-surface-strong reveal-surface">
+          <span className="register-tab">Audit trail</span>
           <div className="admin-stat-value">{summary.auditLogCount}</div>
-          <span className="admin-stat-label">Recorded evidence actions</span>
+          <span className="admin-stat-label">Recorded register actions</span>
           <Link className="text-link admin-stat-action" href="/admin/audit-log">
             View full audit trail
           </Link>
@@ -142,8 +142,8 @@ export function AdminDashboard(): JSX.Element {
       </section>
 
       <div className="admin-recent-grid">
-        <section className="admin-recent-panel evidence-sheet reveal-surface" aria-label="Recent issuances">
-          <span className="sheet-clamp">Recent issuances</span>
+        <section className="admin-recent-panel register-surface reveal-surface" aria-label="Recent issuances">
+          <span className="register-tab">Recent issuances</span>
           <div className="admin-recent-header">
             <h2 className="panel-title">Latest certificates</h2>
             <Link className="text-link" href="/admin/issuances">View all</Link>
@@ -175,8 +175,8 @@ export function AdminDashboard(): JSX.Element {
           )}
         </section>
 
-        <section className="admin-recent-panel evidence-sheet reveal-surface" aria-label="Recent audit events">
-          <span className="sheet-clamp">Audit events</span>
+        <section className="admin-recent-panel register-surface reveal-surface" aria-label="Recent audit events">
+          <span className="register-tab">Audit events</span>
           <div className="admin-recent-header">
             <h2 className="panel-title">Latest actions</h2>
             <Link className="text-link" href="/admin/audit-log">View all</Link>

@@ -71,11 +71,11 @@ export function LoginForm(): JSX.Element {
   }
 
   return (
-    <form className="access-frame evidence-sheet reveal-surface" onSubmit={handleSubmit(onSubmit)}>
-      <span className="sheet-clamp">Credential drawer</span>
+    <form className="access-frame register-surface reveal-surface" onSubmit={handleSubmit(onSubmit)}>
+      <span className="register-tab">Credential register</span>
       <div className="section-stack">
         <span className="section-kicker">Operator check</span>
-        <h2 className="section-title">Unlock the issuing bench.</h2>
+        <h2 className="section-title">Unlock the issuing register.</h2>
         <p className="body-copy">
           Use the local bootstrap administrator account before templates and issuance records enter the public
           verification flow.
@@ -116,7 +116,7 @@ export function LoginForm(): JSX.Element {
       </div>
 
       <button className="button button-primary button-block" disabled={isSubmitting} type="submit">
-        {isSubmitting ? "Checking access..." : "Open issuing bench"}
+        {isSubmitting ? "Checking access..." : "Open issuing register"}
       </button>
     </form>
   );

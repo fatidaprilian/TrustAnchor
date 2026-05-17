@@ -1,6 +1,6 @@
 {
-  "cliVersion": "3.0.44",
-  "generatedAt": "2026-05-11T12:01:04.523Z",
+  "cliVersion": "4.0.2",
+  "generatedAt": "2026-05-17T09:36:46.552Z",
   "operationMode": "upgrade",
   "selectedProfile": "balanced",
   "projectScope": {
@@ -24,7 +24,7 @@
   "selectedBlueprint": null,
   "selectedAdditionalBlueprints": [],
   "ruleLoadingPolicy": {
-    "canonicalSource": ".instructions.md",
+    "canonicalSource": "AGENTS.md",
     "stackLoadingMode": "lazy",
     "domainRuleLoadingMode": "lazy",
     "loadedOnDemand": true,
@@ -33,7 +33,7 @@
     "agentDecisionRequired": true
   },
   "ciGuardrailsEnabled": true,
-  "setupDurationMs": 246,
+  "setupDurationMs": 266,
   "runtimeEnvironment": {
     "selected": "windows",
     "selectedLabel": "Windows",
@@ -154,7 +154,7 @@
     "detectedAdditionalBlueprints": [],
     "confidenceLabel": "high",
     "confidenceScore": 0.97,
-    "confidenceGap": 0.97,
+    "confidenceGap": 0.15,
     "detectionReasoning": "Top signal Typescript won with confidence 0.97 from markers: package.json, tsconfig.json, Next.js config.",
     "rankedCandidates": [
       {
@@ -165,6 +165,13 @@
           "tsconfig.json",
           "Next.js config"
         ]
+      },
+      {
+        "stackFileName": "typescript.md",
+        "confidenceScore": 0.82,
+        "evidence": [
+          ".next-dev: package.json"
+        ]
       }
     ],
     "evidence": [
@@ -173,27 +180,17 @@
       "Next.js config"
     ],
     "detectionTransparency": {
-      "declaredAt": "2026-05-11T12:01:04.385Z",
+      "declaredAt": "2026-05-17T09:36:46.415Z",
       "declarationType": "existing-project",
       "declarationShown": true,
-      "detectionSummary": "This folder looks like Typescript with high confidence based on package.json, tsconfig.json, Next.js config. Confidence gap: 0.97.",
+      "detectionSummary": "This folder looks like Typescript with high confidence based on package.json, tsconfig.json, Next.js config. Confidence gap: 0.15.",
       "activeRulesSummary": {
-        "canonicalSource": ".instructions.md",
-        "compiledRulebook": ".agent-instructions.md",
-        "legacyThinAdapters": [
-          ".cursorrules",
-          ".windsurfrules",
-          ".clauderc"
-        ],
+        "canonicalSource": "AGENTS.md",
+        "compiledRulebook": null,
+        "legacyThinAdapters": [],
         "generatedBridgeAdapters": [
-          "AGENTS.md",
           "CLAUDE.md",
-          "GEMINI.md",
-          ".cursor/rules/agentic-senior-core.mdc",
-          ".windsurf/rules/agentic-senior-core.md",
-          ".github/copilot-instructions.md",
-          ".github/instructions/agentic-senior-core.instructions.md",
-          ".gemini/instructions.md"
+          "GEMINI.md"
         ],
         "stackLoadingMode": "lazy",
         "domainRuleLoadingMode": "lazy",
@@ -241,7 +238,7 @@
       ],
       "frontendEvidenceMetrics": {
         "scannedFileCount": 84,
-        "hardcodedColorCount": 166,
+        "hardcodedColorCount": 157,
         "propDrillingCandidateCount": 0,
         "mediaQueryCount": 8,
         "tailwindBreakpointUsageCount": 0,
@@ -261,8 +258,8 @@
         ],
         "scannedFileCount": 84,
         "cssVariables": {
-          "definitionCount": 32,
-          "referenceCount": 110,
+          "definitionCount": 37,
+          "referenceCount": 137,
           "sampleNames": [
             "paper-010",
             "paper-050",
@@ -278,37 +275,37 @@
             "danger-560"
           ],
           "categoryCounts": {
-            "color": 10,
+            "color": 12,
             "spacing": 0,
             "radius": 3,
             "shadow": 3,
             "typography": 3,
             "motion": 0,
-            "other": 13
+            "other": 16
           }
         },
         "colors": {
-          "hardcodedCount": 166,
+          "hardcodedCount": 157,
           "kindCounts": {
             "hex": 5,
-            "rgb": 149,
+            "rgb": 136,
             "hsl": 0,
-            "oklch": 12,
+            "oklch": 16,
             "other": 0
           },
           "sampleValues": [
-            "oklch(0.985 0.012 88)",
-            "oklch(0.955 0.019 89)",
-            "oklch(0.895 0.024 86)",
-            "oklch(0.17 0.022 250)",
-            "oklch(0.29 0.026 248)",
-            "oklch(0.46 0.028 245)",
-            "oklch(0.68 0.15 218)",
-            "oklch(0.54 0.16 228)",
-            "oklch(0.58 0.18 300)",
-            "oklch(0.66 0.17 45)",
-            "oklch(0.66 0.15 152)",
-            "oklch(0.57 0.18 28)"
+            "oklch(0.995 0.006 95)",
+            "oklch(0.978 0.018 100)",
+            "oklch(0.925 0.035 98)",
+            "oklch(0.18 0.024 246)",
+            "oklch(0.31 0.031 246)",
+            "oklch(0.48 0.032 244)",
+            "oklch(0.73 0.14 218)",
+            "oklch(0.58 0.15 225)",
+            "oklch(0.62 0.17 298)",
+            "oklch(0.78 0.16 78)",
+            "oklch(0.71 0.15 154)",
+            "oklch(0.64 0.18 28)"
           ]
         },
         "spacing": {
@@ -317,7 +314,7 @@
             "100vh",
             "120vh",
             "-10vh",
-            "22vw",
+            "24vw",
             "1440px",
             "30px",
             "1240px",
@@ -595,7 +592,7 @@
           }
         },
         "tokenBypassSignals": {
-          "hardcodedColorCount": 166,
+          "hardcodedColorCount": 157,
           "rawSpacingCount": 231,
           "rawRadiusCount": 8,
           "rawShadowCount": 9,
