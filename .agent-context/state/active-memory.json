@@ -50,7 +50,8 @@
       "Hardened responsive behavior for the serial register hero, micro-ledger strip, proof status block, and admin ledger tables.",
       "Fixed clipped homepage hero text by making the lookup-panel headline container-aware.",
       "Removed the blank stacked-layout gap by letting the serial register plate stage size to content below 1180px.",
-      "Corrected UI token drift by reducing paper chroma, neutralizing shadows and linework, and removing blocked typography fallbacks from CSS."
+      "Corrected UI token drift by reducing paper chroma, neutralizing shadows and linework, and removing blocked typography fallbacks from CSS.",
+      "Fixed admin sidebar contrast by giving dark register navigation its own high-contrast text, panel, border, and hover tokens."
     ],
     "pendingIssues": [
       "Next.js 14.2.5 and npm audit reported security advisories during Docker build.",
@@ -78,7 +79,8 @@
       "npm run validate passed on 2026-05-17 after responsive hardening.",
       "npm run validate passed on 2026-05-17 after fixing clipped homepage hero text.",
       "npm run validate passed on 2026-05-17 after the stacked plate gap fix.",
-      "npm run validate passed on 2026-05-17 after palette and typography anti-repeat corrections."
+      "npm run validate passed on 2026-05-17 after palette and typography anti-repeat corrections.",
+      "npm run validate passed on 2026-05-17 after the admin sidebar contrast fix."
     ]
   },
   "designContinuity": {
@@ -98,5 +100,5 @@
     "redactSensitiveTextBeforeWriting": true
   },
   "generatedAt": "2026-04-25T12:46:41.069Z",
-  "lastUpdatedAt": "2026-05-17T17:23:50+07:00"
+  "lastUpdatedAt": "2026-05-17T17:33:53+07:00"
 }
